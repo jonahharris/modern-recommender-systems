@@ -15,8 +15,13 @@ class ItemKNNRetrieval:
         self._compute_item_similarity()
     
     def _compute_item_similarity(self):
-        self.item_similarity = cosine_similarity(self.user_item_matrix.T)
+        self.item_similarity = cosine_similarity(
+            self.user_item_matrix.T,
+            dense_output=False  #A
+        )
         print(f"item_similarity shape: {self.item_similarity.shape}")
+
+#A Keep result sparse to save memory — dense would require ~26 GB for ml-25m
         
     def _prepare_data(self):
         user_ids = self.ratings['userId'].unique()
@@ -40,7 +45,7 @@ class ItemKNNRetrieval:
             return []
     
         movie_idx = self.movie_to_idx[movie_id]
-        similarities = self.item_similarity[movie_idx]
+        similarities = self.item_similarity[movie_idx].toarray()[0]  #A
         
         top_indices = np.argsort(similarities)[-(k+1):-1][::-1]
         
