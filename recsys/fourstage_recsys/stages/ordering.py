@@ -1,14 +1,13 @@
 
 from abc import ABC, abstractmethod
-from typing import List, Any
+from typing import List
 
-from pathlib import Path
 from recsys.fourstage_recsys.recsys_context import RecommendationContext
 from recsys.fourstage_recsys.item_context import ScoredItem
 
 class Ordering(ABC):
   @abstractmethod
-  def rank(
+  def order(
     self, 
     filtered_items: List[ScoredItem],
     context: RecommendationContext
