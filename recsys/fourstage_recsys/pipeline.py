@@ -22,7 +22,7 @@ class FourStageRecommender:
             retrieve → filter → score → order.
         """
         
-        candidates = self.retrieval.retrieve_similar_items(context.seed_item, k=100) #A
+        candidates = self.retrieval.retrieve_similar_items(context.seed_items, k=100) #A
         candidates = self.filter.filter(candidates, context) #B
         candidates = self.scorer.score(candidates, context) #C
         ordered = self.ordering.order(candidates, context) #D
