@@ -40,14 +40,20 @@ class ItemKNNRetrieval:
         ) #C
         print(f"user_item_matrix shape: {self.user_item_matrix.shape}")
     
-    def retrieve_similar_items(self, movie_id, k=100) -> list[dict]: #A
-        if movie_id not in self.movie_to_idx:
+    def retrieve_similar_items(self, seed_ids: list[str], k=100) -> list[dict]: #A
+        if not seed_ids:
             return []
-    
-        movie_idx = self.movie_to_idx[movie_id]
-        similarities = self.item_similarity[movie_idx].toarray()[0]  #A
-        
-        top_indices = np.argsort(similarities)[-(k+1):-1][::-1]
+
+        valid_ids = [sid for sid in seed_ids if sid in self.movie_to_idx]
+        if not valid_ids:
+            return []
+
+        seed_indices = list({self.movie_to_idx[sid] for sid in valid_ids})
+        similarities = np.asarray(self.item_similarity[seed_indices].mean(axis=0)).flatten()
+        top_indices = [
+            idx for idx in np.argsort(similarities)[::-1]
+            if idx not in seed_indices
+        ][:k]
         
         candidates = []
         for idx in top_indices:
