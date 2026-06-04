@@ -17,15 +17,23 @@ class FourStageRecommender:
         self.scorer = scorer
         self.ordering = ordering
  
-    def recommend(self, context: RecommendationContext):
+    def recommend(self, context: RecommendationContext, debug=False):
         """Run the four-stage pipeline: 
             retrieve → filter → score → order.
         """
         
         candidates = self.retrieval.retrieve_similar_items(context.seed_items, k=100) #A
+        if debug:
+            print(f"Retrieved {len(candidates)} candidates")
         candidates = self.filter.filter(candidates, context) #B
+        if debug:
+            print(f"Filtered down to {len(candidates)} candidates")
         candidates = self.scorer.score(candidates, context) #C
-        ordered = self.ordering.order(candidates, context) #D
+        if debug:
+            print(f"Scored {len(candidates)} candidates")
+        ordered = self.ordering.order(candidates, context, debug=debug) #D
+        if debug:
+            print(f"Ordered {len(ordered)} candidates")
         
         return ordered[:context.k]
  

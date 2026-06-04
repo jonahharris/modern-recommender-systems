@@ -10,6 +10,7 @@ class Ordering(ABC):
   def order(
     self, 
     filtered_items: List[ScoredItem],
-    context: RecommendationContext
+    context: RecommendationContext,
+    debug=False
   ) -> List[ScoredItem]:
     pass

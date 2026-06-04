@@ -10,14 +10,15 @@ class PopularityScoring(Scorer):
         max_count = movie_counts.max() #B
 
         self.popularity_scores = {
-            int(mid): float(count / max_count)
+            mid: float(count / max_count)
             for mid, count in movie_counts.items()
         }
     
     def score_popularity(self, movie_id, context: RecommendationContext=None):
         return self.popularity_scores.get(movie_id, 0.0)
     
-    def score(self, candidates: List[ScoredItem], context: RecommendationContext=None):
+    def score(self, candidates: List[ScoredItem], 
+              context: RecommendationContext=None) -> List[ScoredItem]:
         for item in candidates:
-            item['popularity'] = self.score_popularity(item['movie_id'], context)
+            item.scores['popularity'] = self.score_popularity(item.item_id, context)
         return candidates

@@ -1,9 +1,13 @@
 
+from typing import List
+
 import numpy as np
 import pandas as pd
 
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
+
+from recsys.fourstage_recsys.item_context import ScoredItem
 
 class TFIDFContentRetrieval:
     def __init__(self, movies, content_vectors):
@@ -38,7 +42,7 @@ class TFIDFContentRetrieval:
 
 
         pass
-    def retrieve_similar_by_content(self, movie_id, k=100):
+    def retrieve_similar_by_content(self, movie_id, k=100) -> List[ScoredItem]:
         if movie_id not in self.movie_id_to_idx:
             return []
     
@@ -51,9 +55,9 @@ class TFIDFContentRetrieval:
     
         candidates = []
         for idx in top_indices:
-            candidates.append({
-                'movie_id': int(self.idx_to_movie_id[idx]),
-                'content_similarity': float(similarities[idx])
-            })
+            candidates.append(ScoredItem(
+                item_id=int(self.idx_to_movie_id[idx]),
+                scores={"content_similarity": float(similarities[idx])}
+            ))
     
         return candidates
