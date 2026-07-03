@@ -213,3 +213,126 @@ def load_movielens_ratings(data_dir='./data', auto_download=True):
         print(f"No ratings file found at {ratings_path}")
         return pd.DataFrame()
 
+
+def load_tmdb_movie_descriptions(
+    links,
+    api_key=None,
+    data_dir='./data',
+    cache_filename='movielens_descriptions.csv',
+    force_refresh=False,
+    request_delay=0.05,
+):
+    """
+    Load movie descriptions from TMDB, using a CSV cache when available.
+
+    Args:
+        links: DataFrame with at least columns [movieId, tmdbId] (e.g. from
+            ``load_movielens_links``).
+        api_key: TMDB API key. Required only when fetching new descriptions.
+        data_dir: Directory where the cache CSV lives.
+        cache_filename: Name of the cache CSV inside ``data_dir``.
+        force_refresh: If True, ignore the cache and re-fetch from TMDB.
+        request_delay: Seconds to sleep between TMDB requests.
+
+    Returns:
+        dict mapping ``movieId`` (int) to a dict with keys
+        ``{'title', 'overview', 'genres'}``.
+    """
+    data_path = Path(data_dir)
+    data_path.mkdir(parents=True, exist_ok=True)
+    cache_path = data_path / cache_filename
+
+    descriptions = {}
+
+    if cache_path.exists() and not force_refresh:
+        try:
+            cached_df = pd.read_csv(cache_path)
+            for _, row in cached_df.iterrows():
+                movie_id = int(row['movieId'])
+                descriptions[movie_id] = {
+                    'title': row['title'] if pd.notna(row.get('title')) else '',
+                    'overview': row['overview'] if pd.notna(row.get('overview')) else '',
+                    'genres': row['genres'] if pd.notna(row.get('genres')) else '',
+                }
+            print(f"Loaded {len(descriptions)} cached descriptions from {cache_path}")
+        except Exception as e:
+            print(f"Error loading description cache: {e}")
+            descriptions = {}
+
+    if links is None or len(links) == 0:
+        return descriptions
+
+    wanted_ids = set(int(m) for m in links['movieId'].dropna().tolist())
+    missing_ids = wanted_ids - set(descriptions.keys())
+
+    if not missing_ids:
+        return descriptions
+
+    if not api_key:
+        print(
+            f"{len(missing_ids)} descriptions missing but no TMDB API key "
+            "provided; returning cached descriptions only."
+        )
+        return descriptions
+
+    import time
+
+    tmdb_lookup = (
+        links.dropna(subset=['tmdbId'])
+        .assign(movieId=lambda df: df['movieId'].astype(int))
+        .set_index('movieId')['tmdbId']
+        .to_dict()
+    )
+
+    base_url = 'https://api.themoviedb.org/3/movie/{tmdb_id}'
+    print(f"Fetching {len(missing_ids)} descriptions from TMDB...")
+
+    fetched = 0
+    for i, movie_id in enumerate(sorted(missing_ids), start=1):
+        tmdb_id = int(tmdb_lookup.get(movie_id))
+        if tmdb_id is None or pd.isna(tmdb_id):
+            continue
+        try:
+            resp = requests.get(
+                base_url.format(tmdb_id=int(tmdb_id)),
+                params={'api_key': api_key},
+                timeout=10,
+            )
+            if resp.status_code == 200:
+                data = resp.json()
+                descriptions[movie_id] = {
+                    'title': data.get('title', '') or '',
+                    'overview': data.get('overview', '') or '',
+                    'genres': '|'.join(
+                        g.get('name', '') for g in data.get('genres', [])
+                    ),
+                }
+                fetched += 1
+            elif resp.status_code == 404:
+                continue
+            else:
+                print(
+                    f"TMDB request failed (status={resp.status_code}) "
+                    f"for movieId={movie_id}, tmdbId={tmdb_id}"
+                )
+            time.sleep(request_delay)
+        except Exception as e:
+            print(f"Error fetching tmdbId={tmdb_id}: {e}")
+            continue
+
+        if fetched and fetched % 500 == 0:
+            _save_tmdb_descriptions_cache(descriptions, cache_path)
+            print(f"  ... saved intermediate cache ({len(descriptions)} entries)")
+
+    _save_tmdb_descriptions_cache(descriptions, cache_path)
+    print(f"Saved {len(descriptions)} descriptions to {cache_path}")
+    return descriptions
+
+
+def _save_tmdb_descriptions_cache(descriptions, cache_path):
+    """Persist a movieId -> description dict to CSV."""
+    if not descriptions:
+        return
+    df = pd.DataFrame.from_dict(descriptions, orient='index')
+    df.reset_index(names='movieId', inplace=True)
+    df.to_csv(cache_path, index=False)
