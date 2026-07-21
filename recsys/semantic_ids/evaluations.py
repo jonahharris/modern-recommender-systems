@@ -86,11 +86,11 @@ def test_semantic_coherence(df):
     print(f"{status} {title1:30s} vs {title2:30s}: "
     f"{matches}/{len(id1)} levels match (expected: {expected})")
     
-    # Summary
-    passed_count = sum(r['passed'] for r in results)
-    print(f"\nPassed: {passed_count}/{len(results)} tests")
-    
-    return results
+  # Summary
+  passed_count = sum(r['passed'] for r in results)
+  print(f"\nPassed: {passed_count}/{len(results)} tests")
+
+  return results
 
 #A Count how many levels of the semantic ID match
 #B Convert to 0-1 similarity score

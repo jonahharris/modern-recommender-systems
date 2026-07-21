@@ -15,8 +15,8 @@ class DatabaseRetrieval(Retrieval):
     self.engine = create_engine(connection_string)
   
   def retrieve(self, context: RecommendationContext) -> List[ScoredItem]:
-    if context.item_id:
-      return self._retrieve_similar_items(context.item_id)
+    if context.seed_items:
+      return self._retrieve_similar_items(context.seed_items[0])
     elif context.user_id:
       return self._retrieve_for_user(context.user_id)
     else:
@@ -32,7 +32,7 @@ class DatabaseRetrieval(Retrieval):
     """
     with self.engine.connect() as conn:
       result = conn.execute(query, (item_id,))
-      return [ScoredItem(item_id=row[0], score={"similarity": row[1]}) for row in result]
+      return [ScoredItem(item_id=row[0], scores={"similarity": row[1]}) for row in result]
   
   def _retrieve_for_user(self, user_id: str) -> List[ScoredItem]:
     query = """
@@ -44,7 +44,7 @@ class DatabaseRetrieval(Retrieval):
     """
     with self.engine.connect() as conn:
       result = conn.execute(query, (user_id,))
-      return [ScoredItem(item_id=row[0], score={"score": row[1]}) for row in result]
+      return [ScoredItem(item_id=row[0], scores={"score": row[1]}) for row in result]
   
   def _retrieve_popular(self) -> List[ScoredItem]:
     query = """
@@ -55,5 +55,5 @@ class DatabaseRetrieval(Retrieval):
     """
     with self.engine.connect() as conn:
       result = conn.execute(query)
-      return [ScoredItem(item_id=row[0], score={"popularity_score": row[1]}) for row in result]
+      return [ScoredItem(item_id=row[0], scores={"popularity_score": row[1]}) for row in result]
 #A Connect to database #B Route to appropriate query based on context #C Query for items similar to seed item #D Query for user's personalized candidates #E Query for popular items (fallback)

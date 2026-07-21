@@ -28,14 +28,14 @@ class VectorRetrieval(Retrieval):
       k=100
     )
     
-    return [ScoredItem(item_id=str(self.item_ids[idx]), score={"distance": distances[0][i]}) for i, idx in enumerate(indices[0])]
+    return [ScoredItem(item_id=str(self.item_ids[idx]), scores={"distance": float(distances[0][i])}) for i, idx in enumerate(indices[0])]
   
   def _get_query_vector(
     self, 
     context: RecommendationContext
   ) -> Optional[np.ndarray]:
-    if context.item_id:
-      item_idx = np.where(self.item_ids == context.item_id)[0]
+    if context.seed_items:
+      item_idx = np.where(self.item_ids == context.seed_items[0])[0]
       if len(item_idx) > 0:
         return self.embeddings[item_idx[0]]
     

@@ -3,8 +3,9 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 class SampledSoftmaxLoss(nn.Module):
-    def __init__(self, num_samples=10000):
+    def __init__(self, embedding, num_samples=10000):
         super().__init__()
+        self.embedding = embedding
         self.num_samples = num_samples
         
     def forward(self, hidden_states, target_ids, full_vocab_size):
@@ -33,6 +34,8 @@ class SampledSoftmaxLoss(nn.Module):
         sampled_weights = self.embedding.weight[sampled_ids]
         logits = torch.matmul(hidden_states, sampled_weights.T)
         
+        # Targets occupy the first len(target_ids) rows of the sampled set
+        target_positions = torch.arange(len(target_ids))
         # Standard cross-entropy on reduced vocabulary
         return F.cross_entropy(logits, target_positions)
 

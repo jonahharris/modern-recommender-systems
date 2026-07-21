@@ -74,7 +74,8 @@ if __name__ == "__main__":
             "The Great Adventure",
             "Mystery of the Old House",
             "Secrets of the Forest",
-            "Legends of the Sea"
+            "Legends of the Sea",
+            "Tales of the High Seas"
         ],
         'description': [
             "An epic tale of adventure and discovery.",
@@ -101,4 +102,4 @@ if __name__ == "__main__":
     # Load simple dataset
     simple_titles_df = pd.DataFrame(simple_data)
     # Run debug version
-    df_enriched, pipeline = run_pipeline_debug(simple_titles_df)
+    df_enriched, pipeline, data_tensor = run_pipeline_debug(simple_titles_df)

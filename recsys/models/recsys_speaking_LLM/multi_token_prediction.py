@@ -1,3 +1,8 @@
+import numpy as np
+import torch
+import torch.nn.functional as F
+
+
 class MultiTokenPredictor:
     def __init__(self, model, cache_horizon_hours=24, beta=0.5):
         self.model = model
@@ -41,18 +46,12 @@ class MultiTokenPredictor:
         )
         return loss
 
-# Usage during training
-trainer = MultiTokenPredictor(model, cache_horizon_hours=24)
 
-for batch in training_data:
-    # Get next 24 hours of user activity
-    future_items = get_future_events(batch['user_id'], hours=24)
-    labels, weights = trainer.create_training_labels(
-        batch['history'], 
-        future_items
-    )
-    
-    logits = model(batch['history'])
-    loss = trainer.compute_loss(logits, labels, weights)
-    loss.backward()
-```
+if __name__ == "__main__":  # illustrative usage; requires a real model + data pipeline
+    trainer = MultiTokenPredictor(model, cache_horizon_hours=24)
+    for batch in training_data:
+        future_items = get_future_events(batch['user_id'], hours=24)
+        labels, weights = trainer.create_training_labels(batch['history'], future_items)
+        logits = model(batch['history'])
+        loss = trainer.compute_loss(logits, labels, weights)
+        loss.backward()

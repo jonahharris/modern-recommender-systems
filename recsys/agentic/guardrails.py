@@ -14,9 +14,14 @@ from typing import List, Dict, Set, Optional
 class GroundingValidator:
   """Validate that agent recommendations exist in the catalog."""
 
+  @staticmethod
+  def _strip_year(title):
+    return re.sub(r"\s*\(\d{4}\)\s*$", "", title).strip()
+
   def __init__(self, catalog_df, title_column="title"):
     self.titles = set(
-      catalog_df[title_column].str.lower().str.strip()
+      self._strip_year(t)
+      for t in catalog_df[title_column].str.lower().str.strip()
     )
 
   def validate(self, response, candidates=None):
@@ -33,7 +38,7 @@ class GroundingValidator:
     candidate_titles = set()
     if candidates:
       candidate_titles = {
-        c["title"].lower().strip() for c in candidates
+        self._strip_year(c["title"].lower().strip()) for c in candidates
       }
 
     grounded = []
@@ -41,7 +46,7 @@ class GroundingValidator:
     ungrounded = []
 
     for title in mentioned:
-      title_lower = title.lower().strip()
+      title_lower = self._strip_year(title.lower().strip())
       if title_lower not in self.titles:               #A
         hallucinated.append(title)
       elif candidates and title_lower not in candidate_titles:

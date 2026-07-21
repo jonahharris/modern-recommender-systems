@@ -10,13 +10,14 @@ class HistoryFiltering(Filtering): #A
     def __init__(self, ratings):
         self.ratings = ratings
 
-    def get_user_history(self, user_id, k=None) -> set[int]: #A
-        user_rows = self.ratings[self.ratings["userId"] == user_id]
+    def get_user_history(self, user_id, k=None) -> set[str]: #A
+        user_rows = self.ratings[self.ratings["userId"].astype(str) == str(user_id)]
         user_rows = user_rows.sort_values("timestamp")
-        movie_ids = user_rows["movieId"].tolist()
+        movie_ids = [str(mid) for mid in user_rows["movieId"].tolist()]
         return set(movie_ids) if k is None else set(movie_ids[-k:])
 
-    def filter(self, candidates: List[ScoredItem], user_id) -> List[ScoredItem]: #B
+    def filter(self, candidates: List[ScoredItem], context) -> List[ScoredItem]: #B
+        user_id = getattr(context, "user_id", context) #B accept a RecommendationContext or a raw user id
         user_history = self.get_user_history(user_id)
         
         filtered = [

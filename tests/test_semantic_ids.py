@@ -3,6 +3,7 @@ Tests for semantic IDs implementation.
 """
 
 import pytest
+import warnings
 import torch
 import inspect
 import os
@@ -161,14 +162,10 @@ class TestCacheDetection:
         cache_dir = os.path.join(semantic_ids_dir, '__pycache__')
         
         if os.path.exists(cache_dir):
-            if HAS_PYTEST:
-                pytest.warn(
-                    f"__pycache__ directory exists at {cache_dir}. "
-                    "Consider deleting it if experiencing issues with code updates."
-                )
-            else:
-                print(f"⚠️  Warning: __pycache__ exists at {cache_dir}")
-                print("   Consider deleting it if experiencing issues with code updates.")
+            warnings.warn(
+                f"__pycache__ directory exists at {cache_dir}. "
+                "Consider deleting it if experiencing issues with code updates."
+            )
 
 
 def run_standalone_tests():

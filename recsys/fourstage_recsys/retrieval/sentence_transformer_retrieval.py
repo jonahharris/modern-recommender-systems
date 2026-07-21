@@ -7,7 +7,7 @@ from typing import List, Dict, Optional
 from sentence_transformers import SentenceTransformer
 from sklearn.metrics.pairwise import cosine_similarity
 from recsys.fourstage_recsys.retrieval.retrieval import Retrieval
-from recsys.fourstage_recsys.recsys_context import RecommenderContext
+from recsys.fourstage_recsys.recsys_context import RecommendationContext
 
 class SentenceTransformerRetrieval(Retrieval):
   """
@@ -114,7 +114,7 @@ class SentenceTransformerRetrieval(Retrieval):
     size_mb = self.cache_path.stat().st_size / 1024 / 1024
     print(f"Saved cache ({size_mb:.1f} MB)")
   
-  def retrieve(self, context: RecommenderContext) -> List[Dict]:
+  def retrieve(self, context: RecommendationContext) -> List[Dict]:
     """
       Retrieve candidates based on seed items.
     """

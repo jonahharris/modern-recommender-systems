@@ -29,11 +29,11 @@ class ItemKNNRetrieval:
         user_ids = ratings['userId'].unique()
         movie_ids = ratings['movieId'].unique()
         self.user_to_idx = {uid: idx for idx, uid in enumerate(user_ids)} #A
-        self.movie_to_idx = {mid: idx for idx, mid in enumerate(movie_ids)} #A
+        self.movie_to_idx = {str(mid): idx for idx, mid in enumerate(movie_ids)} #A
         self.idx_to_movie = {idx: mid for mid, idx in self.movie_to_idx.items()} #A
 
         rows = [self.user_to_idx[uid] for uid in ratings['userId']] #B
-        cols = [self.movie_to_idx[mid] for mid in ratings['movieId']] #B
+        cols = [self.movie_to_idx[str(mid)] for mid in ratings['movieId']] #B
         data = [1] * len(ratings) #B
 
         user_item_matrix = csr_matrix(
@@ -43,12 +43,12 @@ class ItemKNNRetrieval:
         print(f"user_item_matrix shape: {user_item_matrix.shape}")
         return user_item_matrix
     
-    def retrieve_similar_items(self, seed_ids: list[str], k=100) -> list[dict]: #A
+    def retrieve_similar_items(self, seed_ids: list[str], k=100) -> list[ScoredItem]: #A
         if not seed_ids:
             print("No seed items provided.")
             return []
 
-        valid_ids = [sid for sid in seed_ids if sid in self.movie_to_idx]
+        valid_ids = [str(sid) for sid in seed_ids if str(sid) in self.movie_to_idx]
         if not valid_ids:
             print("No valid seed items found.")
             return []
