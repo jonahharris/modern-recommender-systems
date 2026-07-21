@@ -1,0 +1,86 @@
+[
+  {
+    "number": "1.1",
+    "title": "A dictionary representing a catalog",
+    "file": "listing_1_1_a_dictionary_representing_a_catalog.py",
+    "source_lines": [117, 128],
+    "compiles": true,
+    "provides": ["catalogue"],
+    "category": "standalone",
+    "executable": true,
+    "expected": "pass",
+    "notes": "Plain dict literal binding `catalogue`. Runs standalone. Note the spelling `catalogue` here vs `catalog` used inside Listings 1.2 and 1.6 (book bug tracked in FINDINGS)."
+  },
+  {
+    "number": "1.2",
+    "title": "A uniform recommender",
+    "file": "listing_1_2_a_uniform_recommender.py",
+    "source_lines": [146, 156],
+    "compiles": true,
+    "provides": ["uniform_recommender"],
+    "category": "needs-prior",
+    "executable": true,
+    "expected": "pass",
+    "notes": "Only defines the function, so executing the listing passes. LATENT BOOK BUGS surfaced by calling it: (1) body does `return [catalog[key] ...]` but the dict is `catalogue` -> NameError('catalog') on every call (verified); (2) uses `np.random.choice` but the chapter never imports numpy (works here only because the harness seeds `np`). The chapter-1 notebook fixes both (uses `catalogue`, imports numpy)."
+  },
+  {
+    "number": "1.3",
+    "title": "Comic tags for content-based recommendations",
+    "file": "listing_1_3_comic_tags_for_content_based_recommendations.py",
+    "source_lines": [182, 193],
+    "compiles": true,
+    "provides": ["comic_tags"],
+    "category": "standalone",
+    "executable": true,
+    "expected": "pass",
+    "notes": "Plain dict literal binding `comic_tags`. Runs standalone."
+  },
+  {
+    "number": "1.4",
+    "title": "Calculating similarity between comics",
+    "file": "listing_1_4_calculating_similarity_between_comics.py",
+    "source_lines": [199, 208],
+    "compiles": true,
+    "provides": ["content_similarity"],
+    "category": "needs-prior",
+    "executable": true,
+    "expected": "pass",
+    "notes": "Defines `content_similarity`; resolves `comic_tags` (L1.3) at call time. Jaccard is CORRECT: verified sim(1,2)=1/9=0.111 and sim(1,3)=2/8=0.25, matching the book's prose."
+  },
+  {
+    "number": "1.5",
+    "title": "Content-based recommender",
+    "file": "listing_1_5_content_based_recommender.py",
+    "source_lines": [216, 230],
+    "compiles": true,
+    "provides": ["content_based_recommender"],
+    "category": "needs-prior",
+    "executable": true,
+    "expected": "pass",
+    "notes": "Defines `content_based_recommender`; needs `comic_tags` (L1.3), `content_similarity` (L1.4), `catalogue` (L1.1) at call time. Code is correct and uses `catalogue` (unlike 1.2/1.6). BUT the book's STATED output is wrong: prose (and the notebook's `# Output:` comment) claim content_based_recommender(1,k=3)=['The Smurfs','Thorgal','Spirou and Fantasio']; actual deterministic output is ['The Smurfs','Spirou and Fantasio','Corto Maltese'] (Thorgal=0.111 ranks below the 0.125 group). Tracked in FINDINGS."
+  },
+  {
+    "number": "1.6",
+    "title": "User-to-item Collaborative filtering",
+    "file": "listing_1_6_user_to_item_collaborative_filtering.py",
+    "source_lines": [280, 302],
+    "compiles": true,
+    "provides": ["find_similar_users", "get_recommendations"],
+    "category": "needs-prior",
+    "executable": true,
+    "expected": "pass",
+    "notes": "Only defines the two functions, so executing the listing passes. `find_similar_users` is correct. LATENT BOOK BUG in `get_recommendations`: `return [catalog[id] ...]` uses undefined `catalog` (dict is `catalogue`) -> NameError('catalog') on call (verified). Same catalog/catalogue mismatch as 1.2. Notebook uses `catalogue`."
+  },
+  {
+    "number": "1.7",
+    "title": "Item-based Collaborative filtering",
+    "file": "listing_1_7_item_based_collaborative_filtering.py",
+    "source_lines": [322, 330],
+    "compiles": true,
+    "provides": ["find_similar_items"],
+    "category": "standalone",
+    "executable": true,
+    "expected": "pass",
+    "notes": "Only defines the function, so executing the listing passes. LATENT BOOK BUG: `item_sim = np.dot(matrix.T[item_id], matrix.T)` multiplies a (n_users,) vector against a (n_items, n_users) matrix -> ValueError 'shapes not aligned' whenever n_users != n_items (verified). Second operand should be `matrix`, not `matrix.T`; the notebook (cell 28) uses `np.dot(matrix.T[item_id], matrix)`. Also uses `np` never imported by the chapter."
+  }
+]

@@ -1,0 +1,43 @@
+# Figure — Listing 5.15: Retrieval-specific evaluation
+# Source: chapters/ch05.md lines 906-938
+# Chapter: 5
+# Category: TBD
+# Verbatim from book (only trailing #A annotation markers stripped).
+# Annotations:
+#   #A Retrieve candidates for this user
+#   #B Track all items ever retrieved across users
+#   #C Retrieval recall: fraction of relevant items in the candidate pool
+#   #D Coverage: fraction of catalog items retrieved for at least one user
+def evaluate_retrieval(
+  retrieval,
+  test_users: list,
+  relevance_sets: dict[int, set[int]],
+  k: int = 100,
+) -> dict:
+  recalls = []
+  all_retrieved = set()
+
+  for user_id in test_users:
+    relevant = relevance_sets.get(user_id, set())
+    if not relevant:
+      continue
+
+    # Use a random relevant item as seed (I2I retrieval)
+    seed = next(iter(relevant))
+    candidates = retrieval.retrieve_similar_items(seed, k=k)
+
+    candidate_set = set(candidates)
+    all_retrieved.update(candidate_set)
+
+    hits = len(candidate_set & relevant)
+    recalls.append(hits / len(relevant))
+
+  coverage = len(all_retrieved) / len(
+    retrieval.id_to_item
+  )
+
+  return {
+    "retrieval_recall@k": np.mean(recalls),
+    "catalogue_coverage": coverage,
+    "num_users_evaluated": len(recalls),
+  }
