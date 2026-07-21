@@ -1,8 +1,8 @@
-# Figure — Listing 7.10: Generating a time-of-day context token
+# Figure - Listing 7.10: Generating a time-of-day context token
 # Source: chapters/ch09.md lines 349-360
 # Chapter: 9
-# Category: TBD
-# Verbatim from book (only trailing #A annotation markers stripped).
+# Category: standalone  (executable=True, expected=pass)
+# Verbatim from the book; code lines keep their inline #A/#B callout markers.
 from datetime import datetime
 
 def get_time_token(timestamp):

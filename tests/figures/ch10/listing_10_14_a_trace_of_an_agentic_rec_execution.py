@@ -1,8 +1,8 @@
-# Figure — Listing 10.14: A trace of an agentic rec execution
+# Figure - Listing 10.14: A trace of an agentic rec execution
 # Source: chapters/ch10.md lines 609-621
 # Chapter: 10
-# Category: TBD
-# Verbatim from book (only trailing #A annotation markers stripped).
+# Category: output  (executable=False, expected=skip)
+# Verbatim from the book; code lines keep their inline #A/#B callout markers.
 [thought]  The user wants sci-fi movies from the 1990s similar
            to Dune. I'll search for movies similar to Dune first,
            then filter by genre and decade.

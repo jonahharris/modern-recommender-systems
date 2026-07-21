@@ -3,9 +3,14 @@
     "number": "7.1",
     "title": "Discriminative scoring: iterate and rank",
     "file": "listing_7_1_discriminative_scoring_iterate_and_rank.py",
-    "source_lines": [36, 43],
+    "source_lines": [
+      36,
+      43
+    ],
     "compiles": false,
-    "provides": ["item_scores"],
+    "provides": [
+      "item_scores"
+    ],
     "category": "pseudocode",
     "executable": false,
     "expected": "skip",
@@ -15,9 +20,15 @@
     "number": "7.2",
     "title": "Generative recommendation: prompt and generate",
     "file": "listing_7_2_generative_recommendation_prompt_and_generate.py",
-    "source_lines": [51, 56],
+    "source_lines": [
+      51,
+      56
+    ],
     "compiles": false,
-    "provides": ["prompt", "recommendations"],
+    "provides": [
+      "prompt",
+      "recommendations"
+    ],
     "category": "pseudocode",
     "executable": false,
     "expected": "skip",
@@ -27,9 +38,14 @@
     "number": "7.3",
     "title": "Hybrid recommendation: retrieve then rerank",
     "file": "listing_7_3_hybrid_recommendation_retrieve_then_rerank.py",
-    "source_lines": [108, 113],
+    "source_lines": [
+      108,
+      113
+    ],
     "compiles": true,
-    "provides": ["recommend_hybrid"],
+    "provides": [
+      "recommend_hybrid"
+    ],
     "category": "pseudocode",
     "executable": false,
     "expected": "skip",
@@ -39,9 +55,14 @@
     "number": "7.4",
     "title": "Converting an item's semantic ID to prefixed tokens",
     "file": "listing_7_4_converting_an_item_s_semantic_id_to_prefixed_tokens.py",
-    "source_lines": [153, 165],
+    "source_lines": [
+      153,
+      165
+    ],
     "compiles": true,
-    "provides": ["get_item_tokens"],
+    "provides": [
+      "get_item_tokens"
+    ],
     "category": "standalone",
     "executable": true,
     "expected": "pass",
@@ -51,9 +72,14 @@
     "number": "7.5",
     "title": "Converting user histories to semantic ID sequences",
     "file": "listing_7_5_converting_user_histories_to_semantic_id_sequences.py",
-    "source_lines": [173, 201],
+    "source_lines": [
+      173,
+      201
+    ],
     "compiles": true,
-    "provides": ["BaseFormatter"],
+    "provides": [
+      "BaseFormatter"
+    ],
     "category": "standalone",
     "executable": true,
     "expected": "pass",
@@ -63,9 +89,14 @@
     "number": "7.6",
     "title": "Collecting new tokens for the model vocabulary",
     "file": "listing_7_6_collecting_new_tokens_for_the_model_vocabulary.py",
-    "source_lines": [209, 214],
+    "source_lines": [
+      209,
+      214
+    ],
     "compiles": true,
-    "provides": ["find_new_tokens"],
+    "provides": [
+      "find_new_tokens"
+    ],
     "category": "standalone",
     "executable": true,
     "expected": "pass",
@@ -75,9 +106,16 @@
     "number": "7.7",
     "title": "Load model and extend vocabulary",
     "file": "listing_7_7_load_model_and_extend_vocabulary.py",
-    "source_lines": [236, 241],
+    "source_lines": [
+      236,
+      241
+    ],
     "compiles": true,
-    "provides": ["model", "model_name", "tokenizer"],
+    "provides": [
+      "model",
+      "model_name",
+      "tokenizer"
+    ],
     "category": "needs-training",
     "executable": false,
     "expected": "skip",
@@ -87,9 +125,17 @@
     "number": "7.8",
     "title": "Configure the training pipeline",
     "file": "listing_7_8_configure_the_training_pipeline.py",
-    "source_lines": [259, 298],
+    "source_lines": [
+      259,
+      298
+    ],
     "compiles": true,
-    "provides": ["SemanticIDDataset", "data_collator", "train_dataset", "training_args"],
+    "provides": [
+      "SemanticIDDataset",
+      "data_collator",
+      "train_dataset",
+      "training_args"
+    ],
     "category": "needs-package",
     "executable": false,
     "expected": "skip",
@@ -99,9 +145,14 @@
     "number": "7.9",
     "title": "Fine-tune the model",
     "file": "listing_7_9_fine_tune_the_model.py",
-    "source_lines": [326, 333],
+    "source_lines": [
+      326,
+      333
+    ],
     "compiles": true,
-    "provides": ["trainer"],
+    "provides": [
+      "trainer"
+    ],
     "category": "needs-training",
     "executable": false,
     "expected": "skip",
@@ -111,9 +162,15 @@
     "number": "7.10",
     "title": "Generating a time-of-day context token",
     "file": "listing_7_10_generating_a_time_of_day_context_token.py",
-    "source_lines": [349, 360],
+    "source_lines": [
+      349,
+      360
+    ],
     "compiles": true,
-    "provides": ["datetime", "get_time_token"],
+    "provides": [
+      "datetime",
+      "get_time_token"
+    ],
     "category": "standalone",
     "executable": true,
     "expected": "pass",
@@ -123,9 +180,14 @@
     "number": "7.11",
     "title": "Example user profile data",
     "file": "listing_7_11_example_user_profile_data.py",
-    "source_lines": [374, 378],
+    "source_lines": [
+      374,
+      378
+    ],
     "compiles": true,
-    "provides": ["rich_data"],
+    "provides": [
+      "rich_data"
+    ],
     "category": "standalone",
     "executable": true,
     "expected": "pass",
@@ -135,9 +197,14 @@
     "number": "7.12",
     "title": "Prepending user attributes to the sequence",
     "file": "listing_7_12_prepending_user_attributes_to_the_sequence.py",
-    "source_lines": [384, 413],
+    "source_lines": [
+      384,
+      413
+    ],
     "compiles": true,
-    "provides": ["ContextualFormatter"],
+    "provides": [
+      "ContextualFormatter"
+    ],
     "category": "needs-prior",
     "executable": true,
     "expected": "pass",
@@ -147,9 +214,12 @@
     "number": "7.13",
     "title": "Example formatted sequences",
     "file": "listing_7_13_example_formatted_sequences.py",
-    "source_lines": [433, 434],
+    "source_lines": [
+      433,
+      434
+    ],
     "compiles": false,
-    "provides": ["<syntax error: invalid syntax @ line 1>"],
+    "provides": [],
     "category": "output",
     "executable": false,
     "expected": "skip",
@@ -159,9 +229,14 @@
     "number": "7.14",
     "title": "Adding explicit feedback to prompts in the Formatter",
     "file": "listing_7_14_adding_explicit_feedback_to_prompts_in_the_formatter.py",
-    "source_lines": [458, 472],
+    "source_lines": [
+      458,
+      472
+    ],
     "compiles": true,
-    "provides": ["FeedbackFormatter"],
+    "provides": [
+      "FeedbackFormatter"
+    ],
     "category": "needs-prior",
     "executable": true,
     "expected": "pass",
@@ -171,9 +246,18 @@
     "number": "7.15",
     "title": "Combined generative and contrastive loss",
     "file": "listing_7_15_combined_generative_and_contrastive_loss.py",
-    "source_lines": [524, 553],
+    "source_lines": [
+      524,
+      553
+    ],
     "compiles": true,
-    "provides": ["F", "compute_combined_loss", "contrastive_loss_fn", "nn", "torch"],
+    "provides": [
+      "F",
+      "compute_combined_loss",
+      "contrastive_loss_fn",
+      "nn",
+      "torch"
+    ],
     "category": "needs-package",
     "executable": false,
     "expected": "skip",
@@ -183,9 +267,14 @@
     "number": "7.16",
     "title": "Generating semantic ID recommendations",
     "file": "listing_7_16_generating_semantic_id_recommendations.py",
-    "source_lines": [617, 652],
+    "source_lines": [
+      617,
+      652
+    ],
     "compiles": true,
-    "provides": ["generate_recommendations"],
+    "provides": [
+      "generate_recommendations"
+    ],
     "category": "needs-package",
     "executable": false,
     "expected": "skip",
@@ -195,9 +284,14 @@
     "number": "7.17",
     "title": "Mapping generated IDs back to catalog items",
     "file": "listing_7_17_mapping_generated_ids_back_to_catalog_items.py",
-    "source_lines": [680, 700],
+    "source_lines": [
+      680,
+      700
+    ],
     "compiles": true,
-    "provides": ["SemanticDecoder"],
+    "provides": [
+      "SemanticDecoder"
+    ],
     "category": "standalone",
     "executable": true,
     "expected": "pass",
@@ -207,9 +301,19 @@
     "number": "7.18",
     "title": "Generating and decoding recommendations for a user",
     "file": "listing_7_18_generating_and_decoding_recommendations_for_a_user.py",
-    "source_lines": [722, 741],
+    "source_lines": [
+      722,
+      741
+    ],
     "compiles": true,
-    "provides": ["decoder", "formatter", "id_to_title", "recs", "user", "user_inx"],
+    "provides": [
+      "decoder",
+      "formatter",
+      "id_to_title",
+      "recs",
+      "user",
+      "user_inx"
+    ],
     "category": "needs-training",
     "executable": false,
     "expected": "skip",
@@ -219,9 +323,14 @@
     "number": "7.19",
     "title": "GenerativeEvaluator: hit rate via leave-one-out",
     "file": "listing_7_19_generativeevaluator_hit_rate_via_leave_one_out.py",
-    "source_lines": [779, 834],
+    "source_lines": [
+      779,
+      834
+    ],
     "compiles": true,
-    "provides": ["GenerativeEvaluator"],
+    "provides": [
+      "GenerativeEvaluator"
+    ],
     "category": "needs-package",
     "executable": false,
     "expected": "skip",
@@ -231,9 +340,14 @@
     "number": "7.20",
     "title": "PerplexityEvaluator: scoring candidates by model surprise",
     "file": "listing_7_20_perplexityevaluator_scoring_candidates_by_model_surprise.py",
-    "source_lines": [856, 949],
+    "source_lines": [
+      856,
+      949
+    ],
     "compiles": true,
-    "provides": ["PerplexityEvaluator"],
+    "provides": [
+      "PerplexityEvaluator"
+    ],
     "category": "needs-package",
     "executable": false,
     "expected": "skip",
@@ -243,9 +357,16 @@
     "number": "7.21",
     "title": "DPO loss function",
     "file": "listing_7_21_dpo_loss_function.py",
-    "source_lines": [979, 998],
+    "source_lines": [
+      979,
+      998
+    ],
     "compiles": true,
-    "provides": ["DPOLoss", "F", "nn"],
+    "provides": [
+      "DPOLoss",
+      "F",
+      "nn"
+    ],
     "category": "needs-package",
     "executable": false,
     "expected": "skip",
@@ -255,9 +376,14 @@
     "number": "7.22",
     "title": "DPO training step (pseudocode)",
     "file": "listing_7_22_dpo_training_step_pseudocode.py",
-    "source_lines": [1036, 1053],
+    "source_lines": [
+      1036,
+      1053
+    ],
     "compiles": true,
-    "provides": ["train_dpo_step"],
+    "provides": [
+      "train_dpo_step"
+    ],
     "category": "pseudocode",
     "executable": false,
     "expected": "skip",
@@ -267,9 +393,14 @@
     "number": "7.23",
     "title": "ICL prompt for movie recommendations",
     "file": "listing_7_23_icl_prompt_for_movie_recommendations.py",
-    "source_lines": [1071, 1085],
+    "source_lines": [
+      1071,
+      1085
+    ],
     "compiles": true,
-    "provides": ["icl_prompt"],
+    "provides": [
+      "icl_prompt"
+    ],
     "category": "standalone",
     "executable": true,
     "expected": "pass",
@@ -279,9 +410,14 @@
     "number": "7.24",
     "title": "ICL reranking over a candidate set",
     "file": "listing_7_24_icl_reranking_over_a_candidate_set.py",
-    "source_lines": [1107, 1125],
+    "source_lines": [
+      1107,
+      1125
+    ],
     "compiles": true,
-    "provides": ["icl_rerank"],
+    "provides": [
+      "icl_rerank"
+    ],
     "category": "standalone",
     "executable": true,
     "expected": "pass",
@@ -291,9 +427,14 @@
     "number": "7.25",
     "title": "Pairing descriptions with semantic IDs",
     "file": "listing_7_25_pairing_descriptions_with_semantic_ids.py",
-    "source_lines": [1157, 1178],
+    "source_lines": [
+      1157,
+      1178
+    ],
     "compiles": true,
-    "provides": ["AnchoredFormatter"],
+    "provides": [
+      "AnchoredFormatter"
+    ],
     "category": "needs-prior",
     "executable": true,
     "expected": "pass",
@@ -303,9 +444,14 @@
     "number": "7.26",
     "title": "Sampled softmax loss (illustrative)",
     "file": "listing_7_26_sampled_softmax_loss_illustrative.py",
-    "source_lines": [1244, 1265],
+    "source_lines": [
+      1244,
+      1265
+    ],
     "compiles": true,
-    "provides": ["SampledSoftmaxLoss"],
+    "provides": [
+      "SampledSoftmaxLoss"
+    ],
     "category": "needs-package",
     "executable": false,
     "expected": "skip",

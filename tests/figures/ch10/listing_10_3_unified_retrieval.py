@@ -1,14 +1,10 @@
-# Figure — Listing 10.3: Unified retrieval
+# Figure - Listing 10.3: Unified retrieval
 # Source: chapters/ch10.md lines 169-199
 # Chapter: 10
-# Category: TBD
-# Verbatim from book (only trailing #A annotation markers stripped).
-# Annotations:
-#   #A Reuse the retriever classes from Chapter 3
-#   #B merge content for two sources
-#   #C Reciprocal rank fusion with k=60 (Cormack et al.)
-from recsys.retrieval import ContentRetriever
-from recsys.retrieval import CollaborativeRetriever
+# Category: api-drift  (executable=False, expected=skip)
+# Verbatim from the book; code lines keep their inline #A/#B callout markers.
+from recsys.retrieval import ContentRetriever  #A
+from recsys.retrieval import CollaborativeRetriever  #A
 
 class HybridRetriever:
   def __init__(self, content_retriever,
@@ -26,10 +22,10 @@ class HybridRetriever:
                          collab_results, k)
     return content_results[:k]
 
-  def _merge(self, content, collab, k):
+  def _merge(self, content, collab, k):  #B
     scores = {}
     for rank, item in enumerate(content):
-      scores[item["movie_id"]] = 1.0 / (rank + 60)
+      scores[item["movie_id"]] = 1.0 / (rank + 60)  #C
     for rank, item in enumerate(collab):
       mid = item["movie_id"]
       scores[mid] = scores.get(mid, 0) + 1.0 / (rank + 60)
@@ -38,3 +34,8 @@ class HybridRetriever:
     all_items = {i["movie_id"]: i
                  for i in content + collab}
     return [all_items[mid] for mid, _ in merged[:k]]
+
+# Callout annotations (from the book):
+#   #A Reuse the retriever classes from Chapter 3
+#   #B merge content for two sources
+#   #C Reciprocal rank fusion with k=60 (Cormack et al.)

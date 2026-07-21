@@ -1,8 +1,8 @@
-# Figure — Listing 7.23: ICL prompt for movie recommendations
+# Figure - Listing 7.23: ICL prompt for movie recommendations
 # Source: chapters/ch09.md lines 1071-1085
 # Chapter: 9
-# Category: TBD
-# Verbatim from book (only trailing #A annotation markers stripped).
+# Category: standalone  (executable=True, expected=pass)
+# Verbatim from the book; code lines keep their inline #A/#B callout markers.
 icl_prompt = """
 You are a movie recommender. Given a user's watch history,
 recommend the next movie they should watch.

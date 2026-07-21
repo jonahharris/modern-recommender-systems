@@ -1,8 +1,8 @@
-# Figure — Listing 10.12: Agent trace for a multi-step recommendation
+# Figure - Listing 10.12: Agent trace for a multi-step recommendation
 # Source: chapters/ch10.md lines 594-603
 # Chapter: 10
-# Category: TBD
-# Verbatim from book (only trailing #A annotation markers stripped).
+# Category: needs-package  (executable=False, expected=skip)
+# Verbatim from the book; code lines keep their inline #A/#B callout markers.
 agent = MovieRecommenderAgent(
     llm=llm,
     tools=tools

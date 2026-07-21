@@ -1,14 +1,11 @@
-# Figure — Listing 10.10: Agent tools for movie recommendation
+# Figure - Listing 10.10: Agent tools for movie recommendation
 # Source: chapters/ch10.md lines 414-442
 # Chapter: 10
-# Category: TBD
-# Verbatim from book (only trailing #A annotation markers stripped).
-# Annotations:
-#   #A Single retrieval tool (both content and collaborative filtering)
-#   #B Filtering remains separate since it operates on already-retrieved results
+# Category: needs-package  (executable=False, expected=skip)
+# Verbatim from the book; code lines keep their inline #A/#B callout markers.
 tools = [
   {
-    "name": "search_movies",
+    "name": "search_movies",  #A
     "description": "Search for movies by description "
       "or similarity. Optionally personalize results "
       "using collaborative filtering if a user_id is "
@@ -22,7 +19,7 @@ tools = [
     "function": retriever.search
   },
   {
-    "name": "filter_movies",
+    "name": "filter_movies",  #B
     "description": "Filter a list of movies by genre, "
       "year range, or minimum rating. Use after search "
       "to narrow results.",
@@ -35,3 +32,7 @@ tools = [
     "function": filter_by_metadata
   }
 ]
+
+# Callout annotations (from the book):
+#   #A Single retrieval tool (both content and collaborative filtering)
+#   #B Filtering remains separate since it operates on already-retrieved results

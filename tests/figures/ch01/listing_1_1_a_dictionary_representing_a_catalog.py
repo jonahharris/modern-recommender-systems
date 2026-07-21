@@ -1,8 +1,8 @@
-# Figure — Listing 1.1: A dictionary representing a catalog
+# Figure - Listing 1.1: A dictionary representing a catalog
 # Source: chapters/ch01.md lines 117-128
 # Chapter: 1
-# Category: TBD
-# Verbatim from book (only trailing #A annotation markers stripped).
+# Category: standalone  (executable=True, expected=pass)
+# Verbatim from the book; code lines keep their inline #A/#B callout markers.
 catalogue = {
    0: "Tintin",        # Hergé, Belgium
    1: "Asterix",       # Goscinny and Uderzo, France

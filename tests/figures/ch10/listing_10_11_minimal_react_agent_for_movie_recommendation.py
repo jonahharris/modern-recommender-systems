@@ -1,16 +1,8 @@
-# Figure — Listing 10.11: Minimal ReAct agent for movie recommendation
+# Figure - Listing 10.11: Minimal ReAct agent for movie recommendation
 # Source: chapters/ch10.md lines 455-568
 # Chapter: 10
-# Category: TBD
-# Verbatim from book (only trailing #A annotation markers stripped).
-# Annotations:
-#   #A Trace accumulates every step — thoughts, actions, observations, errors
-#   #B If the LLM has enough information, it produces a final answer and we extract it
-#   #C Every thought, action, and observation is logged to the trace
-#   #D Append both the action and its result to the conversation so the LLM can reason about them
-#   #E Safety valve — if the agent cannot converge within max\_steps, admit it
-#   #F Extract the reasoning between "Thought:" and "Action:"
-#   #G Parse the tool call — expects tool\_name({"key": "value"}) format
+# Category: standalone  (executable=True, expected=pass)
+# Verbatim from the book; code lines keep their inline #A/#B callout markers.
 import json
 import re
 
@@ -19,7 +11,7 @@ class MovieRecommenderAgent:
         self.llm = llm
         self.tools = {t["name"]: t for t in tools}
         self.max_steps = max_steps
-        self.trace = []
+        self.trace = []  #A
 
     def run(self, user_query, user_id=None):
         """Execute the agent loop."""
@@ -32,7 +24,7 @@ class MovieRecommenderAgent:
                 system_prompt=system, messages=messages
             )
 
-            if self._is_final_answer(response):
+            if self._is_final_answer(response):  #B
                 answer = response.split("Final Answer:")[-1].strip()
                 self.trace.append({"type": "final_answer",
                                    "content": answer})
@@ -40,7 +32,7 @@ class MovieRecommenderAgent:
 
             thought, tool_name, args = self._parse_action(response)
             self.trace.append({"type": "thought",
-                               "content": thought})
+                               "content": thought})  #C
 
             if tool_name not in self.tools:
                 messages.append({"role": "assistant",
@@ -66,14 +58,14 @@ class MovieRecommenderAgent:
             messages.append(
                 {"role": "assistant", "content": response}
             )
-            messages.append(
+            messages.append(  #D
                 {"role": "user",
                  "content": f"Observation: "
                             f"{json.dumps(result, default=str)}"}
             )
 
         return ("I wasn't able to find a good recommendation. "
-                "Could you rephrase your request?")
+                "Could you rephrase your request?")  #E
 
     def _build_system_prompt(self):
         tool_descriptions = "\n".join(
@@ -105,14 +97,14 @@ Never recommend a movie you haven't retrieved."""
         """Extract thought, tool name, and arguments."""
         thought = ""
         thought_match = re.search(
-            r"Thought:\s*(.+?)(?=Action:|$)",
+            r"Thought:\s*(.+?)(?=Action:|$)",  #F
             response, re.DOTALL
         )
         if thought_match:
             thought = thought_match.group(1).strip()
 
         action_match = re.search(
-            r"Action:\s*(\w+)\((.+)\)",
+            r"Action:\s*(\w+)\((.+)\)",  #G
             response, re.DOTALL
         )
         if not action_match:
@@ -125,3 +117,12 @@ Never recommend a movie you haven't retrieved."""
             args = {}
 
         return thought, tool_name, args
+
+# Callout annotations (from the book):
+#   #A Trace accumulates every step — thoughts, actions, observations, errors
+#   #B If the LLM has enough information, it produces a final answer and we extract it
+#   #C Every thought, action, and observation is logged to the trace
+#   #D Append both the action and its result to the conversation so the LLM can reason about them
+#   #E Safety valve — if the agent cannot converge within max\_steps, admit it
+#   #F Extract the reasoning between "Thought:" and "Action:"
+#   #G Parse the tool call — expects tool\_name({"key": "value"}) format

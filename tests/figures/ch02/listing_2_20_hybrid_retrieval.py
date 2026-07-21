@@ -1,12 +1,8 @@
-# Figure — Listing 2.20: Hybrid retrieval
+# Figure - Listing 2.20: Hybrid retrieval
 # Source: chapters/ch02.md lines 818-843
 # Chapter: 2
 # Category: standalone  (executable=True, expected=pass)
-# Verbatim from book (only trailing #A annotation markers stripped).
-# Annotations:
-#   #A Get candidates from content similarity
-#   #B Get candidates from behavioral similarity
-#   #C Merge, keeping both scores for each item
+# Verbatim from the book; code lines keep their inline #A/#B callout markers.
 def retrieve_hybrid(movie_id, k=100):
     content_candidates = retrieve_similar_by_content(movie_id, k=k//2)
     behavioral_candidates = retrieve_similar_items(movie_id, k=k//2)
@@ -33,3 +29,8 @@ def retrieve_hybrid(movie_id, k=100):
             }
 
     return list(all_candidates.values())
+
+# Callout annotations (from the book):
+#   #A Get candidates from content similarity
+#   #B Get candidates from behavioral similarity
+#   #C Merge, keeping both scores for each item

@@ -3,7 +3,10 @@
     "number": "15.1",
     "title": "A/B experiment",
     "file": "listing_15_1_a_b_experiment.py",
-    "source_lines": [78, 81],
+    "source_lines": [
+      78,
+      81
+    ],
     "compiles": false,
     "provides": [],
     "category": "pseudocode",
@@ -15,7 +18,10 @@
     "number": "15.2",
     "title": "Epsilon-greedy algorithm",
     "file": "listing_15_2_epsilon_greedy_algorithm.py",
-    "source_lines": [146, 152],
+    "source_lines": [
+      146,
+      152
+    ],
     "compiles": false,
     "provides": [],
     "category": "pseudocode",
@@ -27,7 +33,10 @@
     "number": "15.3",
     "title": "Epsilon-greedy bandit class",
     "file": "listing_15_3_epsilon_greedy_bandit_class.py",
-    "source_lines": [null, null],
+    "source_lines": [
+      null,
+      null
+    ],
     "compiles": true,
     "provides": [],
     "category": "output",
@@ -39,7 +48,10 @@
     "number": "15.4",
     "title": "Bandit Simulator parameters",
     "file": "listing_15_4_bandit_simulator_parameters.py",
-    "source_lines": [218, 228],
+    "source_lines": [
+      218,
+      228
+    ],
     "compiles": true,
     "provides": [
       "cumulative_regrets",
@@ -58,9 +70,15 @@
     "number": "15.5",
     "title": "Bandit Simulator",
     "file": "listing_15_5_bandit_simulator.py",
-    "source_lines": [242, 272],
+    "source_lines": [
+      242,
+      272
+    ],
     "compiles": true,
-    "provides": ["cumulative_regrets", "optimal_arm_reward"],
+    "provides": [
+      "cumulative_regrets",
+      "optimal_arm_reward"
+    ],
     "category": "needs-prior",
     "executable": false,
     "expected": "skip",
@@ -70,7 +88,10 @@
     "number": "15.6",
     "title": "Epsilon-greedy algorithm with recommender system",
     "file": "listing_15_6_epsilon_greedy_algorithm_with_recommender_system.py",
-    "source_lines": [330, 336],
+    "source_lines": [
+      330,
+      336
+    ],
     "compiles": false,
     "provides": [],
     "category": "pseudocode",
@@ -82,9 +103,12 @@
     "number": "15.7",
     "title": "Bayesian bandit",
     "file": "listing_15_7_bayesian_bandit.py",
-    "source_lines": [364, 390],
+    "source_lines": [
+      364,
+      390
+    ],
     "compiles": false,
-    "provides": ["<syntax error: unindent does not match any outer indentation level @ line 19>"],
+    "provides": [],
     "category": "needs-package",
     "executable": false,
     "expected": "skip",
@@ -94,9 +118,12 @@
     "number": "15.8",
     "title": "An abstract bandit",
     "file": "listing_15_8_an_abstract_bandit.py",
-    "source_lines": [456, 470],
+    "source_lines": [
+      456,
+      470
+    ],
     "compiles": false,
-    "provides": ["<syntax error: invalid syntax @ line 7>"],
+    "provides": [],
     "category": "pseudocode",
     "executable": false,
     "expected": "skip",
@@ -106,9 +133,12 @@
     "number": "15.9",
     "title": "UCB bandit",
     "file": "listing_15_9_ucb_bandit.py",
-    "source_lines": [509, 547],
+    "source_lines": [
+      509,
+      547
+    ],
     "compiles": false,
-    "provides": ["<syntax error: invalid syntax @ line 37>"],
+    "provides": [],
     "category": "standalone",
     "executable": false,
     "expected": "skip",
@@ -118,9 +148,12 @@
     "number": "15.10",
     "title": "LinUCBlinucb disjoint arm implementation",
     "file": "listing_15_10_linucblinucb_disjoint_arm_implementation.py",
-    "source_lines": [635, 665],
+    "source_lines": [
+      635,
+      665
+    ],
     "compiles": false,
-    "provides": ["<syntax error: unindent does not match any outer indentation level @ line 13>"],
+    "provides": [],
     "category": "standalone",
     "executable": false,
     "expected": "skip",
@@ -130,9 +163,12 @@
     "number": "15.11",
     "title": "linucb disjoint policy implementation",
     "file": "listing_15_11_linucb_disjoint_policy_implementation.py",
-    "source_lines": [693, 727],
+    "source_lines": [
+      693,
+      727
+    ],
     "compiles": false,
-    "provides": ["<syntax error: unindent does not match any outer indentation level @ line 13>"],
+    "provides": [],
     "category": "needs-prior",
     "executable": false,
     "expected": "skip",

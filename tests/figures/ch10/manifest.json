@@ -3,9 +3,14 @@
     "number": "10.1",
     "title": "Template-based explanation heuristic",
     "file": "listing_10_1_template_based_explanation_heuristic.py",
-    "source_lines": [84, 90],
+    "source_lines": [
+      84,
+      90
+    ],
     "compiles": true,
-    "provides": ["generate_explanation_heuristic"],
+    "provides": [
+      "generate_explanation_heuristic"
+    ],
     "category": "standalone",
     "executable": true,
     "expected": "pass",
@@ -15,21 +20,33 @@
     "number": "10.3",
     "title": "Wrapping existing recommendations with LLM explanations",
     "file": "listing_10_3_wrapping_existing_recommendations_with_llm_explanations.py",
-    "source_lines": [140, 157],
+    "source_lines": [
+      140,
+      157
+    ],
     "compiles": true,
-    "provides": ["explain_recommendations"],
-    "category": "standalone",
-    "executable": true,
-    "expected": "pass",
-    "notes": "Pure function definition; takes an llm object at call time. Def executes fine. (First of two listings numbered 10.3 in the chapter.)"
+    "provides": [
+      "explain_recommendations"
+    ],
+    "category": "api-drift",
+    "executable": false,
+    "expected": "skip",
+    "notes": "BOOK<->PACKAGE DRIFT: imports `from recsys.retrieval import ContentRetriever, CollaborativeRetriever` but module `recsys.retrieval` does NOT exist (ModuleNotFoundError) and neither class is implemented anywhere. The book's HybridRetriever(content_retriever, collab_retriever) with .search()/._merge() also diverges from the shipped recsys.agentic.hybrid_retriever.HybridRetriever(faiss_index, embeddings, movies_df, item_knn=None, ...). Duplicate listing number 10.3."
   },
   {
     "number": "10.3",
     "title": "Unified retrieval",
     "file": "listing_10_3_unified_retrieval.py",
-    "source_lines": [169, 199],
+    "source_lines": [
+      169,
+      199
+    ],
     "compiles": true,
-    "provides": ["CollaborativeRetriever", "ContentRetriever", "HybridRetriever"],
+    "provides": [
+      "CollaborativeRetriever",
+      "ContentRetriever",
+      "HybridRetriever"
+    ],
     "category": "api-drift",
     "executable": false,
     "expected": "skip",
@@ -37,11 +54,16 @@
   },
   {
     "number": "10.4",
-    "title": "RAG recommendation chain (query rewriting)",
+    "title": "RAG recommendation chain",
     "file": "listing_10_4_rag_recommendation_chain.py",
-    "source_lines": [223, 233],
+    "source_lines": [
+      223,
+      233
+    ],
     "compiles": true,
-    "provides": ["rewrite_query"],
+    "provides": [
+      "rewrite_query"
+    ],
     "category": "standalone",
     "executable": true,
     "expected": "pass",
@@ -51,9 +73,14 @@
     "number": "10.5",
     "title": "HyDE for recommendation retrieval",
     "file": "listing_10_5_hyde_for_recommendation_retrieval.py",
-    "source_lines": [252, 263],
+    "source_lines": [
+      252,
+      263
+    ],
     "compiles": true,
-    "provides": ["hyde_retrieval"],
+    "provides": [
+      "hyde_retrieval"
+    ],
     "category": "standalone",
     "executable": true,
     "expected": "pass",
@@ -61,11 +88,16 @@
   },
   {
     "number": "10.6",
-    "title": "RAG recommendation chain (prompt builder)",
+    "title": "RAG recommendation chain",
     "file": "listing_10_6_rag_recommendation_chain.py",
-    "source_lines": [300, 319],
+    "source_lines": [
+      300,
+      319
+    ],
     "compiles": true,
-    "provides": ["build_recommendation_prompt"],
+    "provides": [
+      "build_recommendation_prompt"
+    ],
     "category": "standalone",
     "executable": true,
     "expected": "pass",
@@ -75,21 +107,31 @@
     "number": "10.7",
     "title": "End-to-end RAG recommendation",
     "file": "listing_10_7_end_to_end_rag_recommendation.py",
-    "source_lines": [328, 340],
+    "source_lines": [
+      328,
+      340
+    ],
     "compiles": true,
-    "provides": ["recommend_with_rag"],
+    "provides": [
+      "recommend_with_rag"
+    ],
     "category": "standalone",
     "executable": true,
     "expected": "pass",
-    "notes": "Def executes fine. Latent drift: calls `retriever.hybrid_search(...)`, but the shipped HybridRetriever exposes `search(query, user_id=None, k=10, filters=None)` (no `hybrid_search`) — AttributeError at call time against the real class. Also depends on the buggy L10.6 build_recommendation_prompt."
+    "notes": "Def executes fine. Latent drift: calls `retriever.hybrid_search(...)`, but the shipped HybridRetriever exposes `search(query, user_id=None, k=10, filters=None)` (no `hybrid_search`) \u2014 AttributeError at call time against the real class. Also depends on the buggy L10.6 build_recommendation_prompt."
   },
   {
     "number": "10.8",
     "title": "Fetching extended context for explanation grounding",
     "file": "listing_10_8_fetching_extended_context_for_explanation_grounding.py",
-    "source_lines": [362, 370],
+    "source_lines": [
+      362,
+      370
+    ],
     "compiles": true,
-    "provides": ["enrich_candidates"],
+    "provides": [
+      "enrich_candidates"
+    ],
     "category": "standalone",
     "executable": true,
     "expected": "pass",
@@ -99,9 +141,14 @@
     "number": "10.10",
     "title": "Agent tools for movie recommendation",
     "file": "listing_10_10_agent_tools_for_movie_recommendation.py",
-    "source_lines": [414, 442],
+    "source_lines": [
+      414,
+      442
+    ],
     "compiles": true,
-    "provides": ["tools"],
+    "provides": [
+      "tools"
+    ],
     "category": "needs-package",
     "executable": false,
     "expected": "skip",
@@ -111,9 +158,16 @@
     "number": "10.11",
     "title": "Minimal ReAct agent for movie recommendation",
     "file": "listing_10_11_minimal_react_agent_for_movie_recommendation.py",
-    "source_lines": [455, 568],
+    "source_lines": [
+      455,
+      568
+    ],
     "compiles": true,
-    "provides": ["MovieRecommenderAgent", "json", "re"],
+    "provides": [
+      "MovieRecommenderAgent",
+      "json",
+      "re"
+    ],
     "category": "standalone",
     "executable": true,
     "expected": "pass",
@@ -123,9 +177,15 @@
     "number": "10.12",
     "title": "Agent trace for a multi-step recommendation",
     "file": "listing_10_12_agent_trace_for_a_multi_step_recommendation.py",
-    "source_lines": [594, 603],
+    "source_lines": [
+      594,
+      603
+    ],
     "compiles": true,
-    "provides": ["agent", "response"],
+    "provides": [
+      "agent",
+      "response"
+    ],
     "category": "needs-package",
     "executable": false,
     "expected": "skip",
@@ -135,9 +195,12 @@
     "number": "10.14",
     "title": "A trace of an agentic rec execution",
     "file": "listing_10_14_a_trace_of_an_agentic_rec_execution.py",
-    "source_lines": [609, 621],
+    "source_lines": [
+      609,
+      621
+    ],
     "compiles": false,
-    "provides": ["<syntax error: invalid decimal literal @ line 1>"],
+    "provides": [],
     "category": "output",
     "executable": false,
     "expected": "skip",
@@ -147,9 +210,16 @@
     "number": "10.15",
     "title": "Generative model as an agent tool",
     "file": "listing_10_15_generative_model_as_an_agent_tool.py",
-    "source_lines": [635, 664],
+    "source_lines": [
+      635,
+      664
+    ],
     "compiles": true,
-    "provides": ["GenerativeRetrieverTool", "SemanticDecoder", "generate_recommendations"],
+    "provides": [
+      "GenerativeRetrieverTool",
+      "SemanticDecoder",
+      "generate_recommendations"
+    ],
     "category": "api-drift",
     "executable": false,
     "expected": "skip",
@@ -159,7 +229,10 @@
     "number": "10.16",
     "title": "Adding a tool to the agent toolbox",
     "file": "listing_10_16_adding_a_tool_to_the_agent_toolbox.py",
-    "source_lines": [678, 690],
+    "source_lines": [
+      678,
+      690
+    ],
     "compiles": true,
     "provides": [],
     "category": "needs-package",
@@ -171,9 +244,14 @@
     "number": "10.17",
     "title": "Conversation memory with summarization",
     "file": "listing_10_17_conversation_memory_with_summarization.py",
-    "source_lines": [718, 755],
+    "source_lines": [
+      718,
+      755
+    ],
     "compiles": true,
-    "provides": ["ConversationMemory"],
+    "provides": [
+      "ConversationMemory"
+    ],
     "category": "standalone",
     "executable": true,
     "expected": "pass",
@@ -183,9 +261,14 @@
     "number": "10.18",
     "title": "Natural-language user taste profiler",
     "file": "listing_10_18_natural_language_user_taste_profiler.py",
-    "source_lines": [772, 793],
+    "source_lines": [
+      772,
+      793
+    ],
     "compiles": true,
-    "provides": ["UserProfiler"],
+    "provides": [
+      "UserProfiler"
+    ],
     "category": "standalone",
     "executable": true,
     "expected": "pass",

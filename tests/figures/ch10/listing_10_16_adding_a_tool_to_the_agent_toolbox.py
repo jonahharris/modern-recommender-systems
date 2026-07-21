@@ -1,8 +1,8 @@
-# Figure — Listing 10.16: Adding a tool to the agent toolbox
+# Figure - Listing 10.16: Adding a tool to the agent toolbox
 # Source: chapters/ch10.md lines 678-690
 # Chapter: 10
-# Category: TBD
-# Verbatim from book (only trailing #A annotation markers stripped).
+# Category: needs-package  (executable=False, expected=skip)
+# Verbatim from the book; code lines keep their inline #A/#B callout markers.
 tools.append({
   "name": "generate_sequential",
   "description": "Generate recommendations based on "

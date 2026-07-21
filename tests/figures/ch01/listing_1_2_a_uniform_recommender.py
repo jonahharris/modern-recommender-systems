@@ -1,14 +1,14 @@
-# Figure — Listing 1.2: A uniform recommender
+# Figure - Listing 1.2: A uniform recommender
 # Source: chapters/ch01.md lines 146-156
 # Chapter: 1
-# Category: TBD
-# Verbatim from book (only trailing #A annotation markers stripped).
-def uniform_recommender(k=2):
-  catalogue_ids = list(catalogue.keys())
+# Category: needs-prior  (executable=True, expected=pass)
+# Verbatim from the book; code lines keep their inline #A/#B callout markers.
+def uniform_recommender(k=2):  #A
+  catalogue_ids = list(catalogue.keys())  #B
   random_keys = np.random.choice(catalogue_ids,
     size=k,
-    replace=False)
-  return [catalog[key] for key in random_keys]
+    replace=False)  #C
+  return [catalog[key] for key in random_keys]  #D
 
 #A The uniform recommender method takes a parameter k, which indicates how many items it should recommend
 #B The list of IDs representing the catalog of items

@@ -1,21 +1,8 @@
-# Figure — Listing 7.20: PerplexityEvaluator: scoring candidates by model surprise
+# Figure - Listing 7.20: PerplexityEvaluator: scoring candidates by model surprise
 # Source: chapters/ch09.md lines 856-949
 # Chapter: 9
-# Category: TBD
-# Verbatim from book (only trailing #A annotation markers stripped).
-# Annotations:
-#   #A Concatenate history, candidate, and end-of-text marker
-#   #B Find where the candidate tokens start
-#   #C Shift logits and labels for next-token prediction
-#   #D Slice to candidate tokens only
-#   #E Sum, not mean (see explanation below)
-#   #F Negative loss: lower loss \= higher score
-#   #G Everything except the last item is context
-#   #H Sample 99 negative items
-#   #I True target is always at index 0
-#   #J Sort by score, highest first
-#   #K Check if target (index 0\) is in top K
-#   #L NDCG based on position
+# Category: needs-package  (executable=False, expected=skip)
+# Verbatim from the book; code lines keep their inline #A/#B callout markers.
 class PerplexityEvaluator:
   def __init__(self, model, tokenizer, formatter,
                all_items_set, k=10):
@@ -28,7 +15,7 @@ class PerplexityEvaluator:
 
   def calculate_score(self, history_str, candidate_str):
     full_text = (history_str + " " + candidate_str
-                 + " <|endoftext|>")
+                 + " <|endoftext|>")  #A
     inputs = self.tokenizer(
       full_text, return_tensors="pt"
     ).to(self.device)
@@ -37,30 +24,30 @@ class PerplexityEvaluator:
     history_ids = self.tokenizer.encode(
       history_str, add_special_tokens=False
     )
-    start_idx = len(history_ids)
+    start_idx = len(history_ids)  #B
 
     with torch.no_grad():
       outputs = self.model(input_ids, labels=input_ids)
 
-    shift_logits = outputs.logits[..., :-1, :].contiguous()
+    shift_logits = outputs.logits[..., :-1, :].contiguous()  #C
     shift_labels = input_ids[..., 1:].contiguous()
 
-    target_logits = shift_logits[:, start_idx:, :]
+    target_logits = shift_logits[:, start_idx:, :]  #D
     target_labels = shift_labels[:, start_idx:]
 
     loss = F.cross_entropy(
       target_logits.transpose(1, 2),
       target_labels,
-      reduction='sum'
+      reduction='sum'  #E
     )
-    return -loss.item()
+    return -loss.item()  #F
 
   def evaluate_user(self, user_data):
     full_history = user_data['history']
     if len(full_history) < 2:
       return 0, 0
 
-    train_history = full_history[:-1]
+    train_history = full_history[:-1]  #G
     target_item = full_history[-1]
 
     eval_user = user_data.copy()
@@ -71,12 +58,12 @@ class PerplexityEvaluator:
 
     negatives = []
     hist_set = set(full_history)
-    while len(negatives) < 99:
+    while len(negatives) < 99:  #H
       item = np.random.choice(self.all_items)
       if item not in hist_set:
         negatives.append(item)
 
-    candidates = [target_item] + negatives
+    candidates = [target_item] + negatives  #I
     scores = []
     for item_uuid in candidates:
       item_tokens = self.formatter.get_item_tokens(item_uuid)
@@ -88,13 +75,13 @@ class PerplexityEvaluator:
       scores.append(score)
 
     scores = np.array(scores)
-    sorted_indices = np.argsort(scores)[::-1]
+    sorted_indices = np.argsort(scores)[::-1]  #J
 
-    hit_rate = 1 if 0 in sorted_indices[:self.k] else 0
+    hit_rate = 1 if 0 in sorted_indices[:self.k] else 0  #K
     ndcg = 0
     pos = np.where(sorted_indices == 0)[0]
     if len(pos) > 0 and pos[0] < self.k:
-      ndcg = 1.0 / np.log2(pos[0] + 2)
+      ndcg = 1.0 / np.log2(pos[0] + 2)  #L
 
     return hit_rate, ndcg
 
@@ -110,3 +97,17 @@ class PerplexityEvaluator:
       "hit_rate": np.mean(total_hr),
       "NDCG": np.mean(total_ndcg),
     }
+
+# Callout annotations (from the book):
+#   #A Concatenate history, candidate, and end-of-text marker
+#   #B Find where the candidate tokens start
+#   #C Shift logits and labels for next-token prediction
+#   #D Slice to candidate tokens only
+#   #E Sum, not mean (see explanation below)
+#   #F Negative loss: lower loss \= higher score
+#   #G Everything except the last item is context
+#   #H Sample 99 negative items
+#   #I True target is always at index 0
+#   #J Sort by score, highest first
+#   #K Check if target (index 0\) is in top K
+#   #L NDCG based on position

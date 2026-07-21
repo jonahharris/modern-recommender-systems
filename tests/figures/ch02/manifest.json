@@ -1,156 +1,416 @@
 [
   {
-    "number": "2.1", "title": "Creating the user-item matrix",
+    "number": "2.1",
+    "title": "Creating the user-item matrix",
     "file": "listing_2_1_creating_the_user_item_matrix.py",
-    "source_lines": [94, 107],
-    "category": "needs-fixture", "executable": true, "expected": "pass",
-    "notes": "Builds the sparse user-item matrix from `ratings`. Uses csr_matrix (imported by harness, not by the listing)."
+    "source_lines": [
+      94,
+      107
+    ],
+    "category": "needs-fixture",
+    "executable": true,
+    "expected": "pass",
+    "notes": "Builds the sparse user-item matrix from `ratings`. Uses csr_matrix (imported by harness, not by the listing).",
+    "compiles": true,
+    "provides": [
+      "cols",
+      "data",
+      "idx_to_movie",
+      "movie_ids",
+      "movie_to_idx",
+      "rows",
+      "user_ids",
+      "user_item_matrix",
+      "user_to_idx"
+    ]
   },
   {
-    "number": "2.2", "title": "Computing item similarity",
+    "number": "2.2",
+    "title": "Computing item similarity",
     "file": "listing_2_2_computing_item_similarity.py",
-    "source_lines": [125, 127],
-    "category": "needs-prior", "executable": true, "expected": "pass",
-    "notes": "Needs user_item_matrix (L2.1) and cosine_similarity (harness import)."
+    "source_lines": [
+      125,
+      127
+    ],
+    "category": "needs-prior",
+    "executable": true,
+    "expected": "pass",
+    "notes": "Needs user_item_matrix (L2.1) and cosine_similarity (harness import).",
+    "compiles": true,
+    "provides": [
+      "item_similarity"
+    ]
   },
   {
-    "number": "2.3", "title": "Retrieval function",
+    "number": "2.3",
+    "title": "Retrieval function",
     "file": "listing_2_3_retrieval_function.py",
-    "source_lines": [141, 157],
-    "category": "needs-prior", "executable": true, "expected": "pass",
-    "notes": "Defines retrieve_similar_items; resolves item_similarity/movie_to_idx/idx_to_movie at call time (def executes fine)."
+    "source_lines": [
+      141,
+      157
+    ],
+    "category": "needs-prior",
+    "executable": true,
+    "expected": "pass",
+    "notes": "Defines retrieve_similar_items; resolves item_similarity/movie_to_idx/idx_to_movie at call time (def executes fine).",
+    "compiles": true,
+    "provides": [
+      "retrieve_similar_items"
+    ]
   },
   {
-    "number": "2.4", "title": "Testing the Retrieval function",
+    "number": "2.4",
+    "title": "Testing the Retrieval function",
     "file": "listing_2_4_testing_the_retrieval_function.py",
-    "source_lines": [171, 173],
-    "category": "needs-real-data", "executable": false, "expected": "skip",
-    "notes": "Hardcodes movieId 1270 and looks it up in a real `movies` frame; not runnable on synthetic data. Introduces seed_movie_id used by later listings."
+    "source_lines": [
+      171,
+      173
+    ],
+    "category": "needs-real-data",
+    "executable": false,
+    "expected": "skip",
+    "notes": "Hardcodes movieId 1270 and looks it up in a real `movies` frame; not runnable on synthetic data. Introduces seed_movie_id used by later listings.",
+    "compiles": true,
+    "provides": [
+      "candidates",
+      "seed_movie_id",
+      "seed_title"
+    ]
   },
   {
-    "number": "2.5", "title": "Filtering watched movies",
+    "number": "2.5",
+    "title": "Filtering watched movies",
     "file": "listing_2_5_filtering_watched_movies.py",
-    "source_lines": [203, 215],
-    "category": "needs-fixture", "executable": true, "expected": "pass",
-    "notes": "Defines get_user_history / filter_watched over `ratings` (def executes fine)."
+    "source_lines": [
+      203,
+      215
+    ],
+    "category": "needs-fixture",
+    "executable": true,
+    "expected": "pass",
+    "notes": "Defines get_user_history / filter_watched over `ratings` (def executes fine).",
+    "compiles": true,
+    "provides": [
+      "filter_watched",
+      "get_user_history"
+    ]
   },
   {
-    "number": "2.6", "title": "Testing filtering",
+    "number": "2.6",
+    "title": "Testing filtering",
     "file": "listing_2_6_testing_filtering.py",
-    "source_lines": [225, 229],
-    "category": "needs-real-data", "executable": false, "expected": "skip",
-    "notes": "Depends on seed_movie_id (L2.4) and real item_similarity; runtime call, needs full dataset."
+    "source_lines": [
+      225,
+      229
+    ],
+    "category": "needs-real-data",
+    "executable": false,
+    "expected": "skip",
+    "notes": "Depends on seed_movie_id (L2.4) and real item_similarity; runtime call, needs full dataset.",
+    "compiles": true,
+    "provides": [
+      "candidates",
+      "filtered",
+      "test_user"
+    ]
   },
   {
-    "number": "2.7", "title": "Computing popularity scores",
+    "number": "2.7",
+    "title": "Computing popularity scores",
     "file": "listing_2_7_computing_popularity_scores.py",
-    "source_lines": [253, 259],
-    "category": "needs-fixture", "executable": true, "expected": "pass",
-    "notes": "Computes popularity_scores from `ratings`."
+    "source_lines": [
+      253,
+      259
+    ],
+    "category": "needs-fixture",
+    "executable": true,
+    "expected": "pass",
+    "notes": "Computes popularity_scores from `ratings`.",
+    "compiles": true,
+    "provides": [
+      "max_count",
+      "movie_counts",
+      "popularity_scores"
+    ]
   },
   {
-    "number": "2.8", "title": "Adding popularity scores",
+    "number": "2.8",
+    "title": "Adding popularity scores",
     "file": "listing_2_8_adding_popularity_scores.py",
-    "source_lines": [277, 291],
-    "category": "needs-real-data", "executable": false, "expected": "skip",
-    "notes": "Defines score_popularity, then immediately runs the pipeline on seed_movie_id (L2.4) + real movies frame."
+    "source_lines": [
+      277,
+      291
+    ],
+    "category": "needs-real-data",
+    "executable": false,
+    "expected": "skip",
+    "notes": "Defines score_popularity, then immediately runs the pipeline on seed_movie_id (L2.4) + real movies frame.",
+    "compiles": true,
+    "provides": [
+      "candidates",
+      "score_popularity"
+    ]
   },
   {
-    "number": "2.9", "title": "Ranking by weighted scores",
+    "number": "2.9",
+    "title": "Ranking by weighted scores",
     "file": "listing_2_9_ranking_by_weighted_scores.py",
-    "source_lines": [313, 326],
-    "category": "standalone", "executable": true, "expected": "pass",
-    "notes": "Pure function definition (rank_candidates)."
+    "source_lines": [
+      313,
+      326
+    ],
+    "category": "standalone",
+    "executable": true,
+    "expected": "pass",
+    "notes": "Pure function definition (rank_candidates).",
+    "compiles": true,
+    "provides": [
+      "rank_candidates"
+    ]
   },
   {
-    "number": "2.10", "title": "Comparing different ranking strategies",
+    "number": "2.10",
+    "title": "Comparing different ranking strategies",
     "file": "listing_2_10_comparing_different_ranking_strategies.py",
-    "source_lines": [340, 347],
-    "category": "needs-fixture", "executable": true, "expected": "fail",
-    "notes": "BOOK BUG: calls add_popularity_scores(), a function never defined in the chapter (L2.8 defines score_popularity). Also references seed_movie_id (L2.4). Raises NameError."
+    "source_lines": [
+      340,
+      347
+    ],
+    "category": "needs-fixture",
+    "executable": true,
+    "expected": "fail",
+    "notes": "BOOK BUG: calls add_popularity_scores(), a function never defined in the chapter (L2.8 defines score_popularity). Also references seed_movie_id (L2.4). Raises NameError.",
+    "compiles": true,
+    "provides": [
+      "candidates",
+      "weighted_results"
+    ]
   },
   {
-    "number": "2.11", "title": "Complete recommendation function",
+    "number": "2.11",
+    "title": "Complete recommendation function",
     "file": "listing_2_11_complete_recommendation_function.py",
-    "source_lines": [372, 405],
-    "category": "needs-prior", "executable": true, "expected": "pass",
-    "notes": "Def executes, but has latent BOOK BUGS: filters `candidates` (last loop var) instead of the aggregated set; ranks `filtered` while popularity is added to a different list; calls undefined add_popularity_scores when invoked."
+    "source_lines": [
+      372,
+      405
+    ],
+    "category": "needs-prior",
+    "executable": true,
+    "expected": "pass",
+    "notes": "Def executes, but has latent BOOK BUGS: filters `candidates` (last loop var) instead of the aggregated set; ranks `filtered` while popularity is added to a different list; calls undefined add_popularity_scores when invoked.",
+    "compiles": true,
+    "provides": [
+      "recommend_for_user"
+    ]
   },
   {
-    "number": "2.12", "title": "Most popular items",
+    "number": "2.12",
+    "title": "Most popular items",
     "file": "listing_2_12_most_popular_items.py",
-    "source_lines": [454, 466],
-    "category": "needs-fixture", "executable": true, "expected": "pass",
-    "notes": "Recomputes popularity_scores and defines get_most_popular_movies."
+    "source_lines": [
+      454,
+      466
+    ],
+    "category": "needs-fixture",
+    "executable": true,
+    "expected": "pass",
+    "notes": "Recomputes popularity_scores and defines get_most_popular_movies.",
+    "compiles": true,
+    "provides": [
+      "get_most_popular_movies",
+      "max_count",
+      "movie_counts",
+      "popularity_scores"
+    ]
   },
   {
-    "number": "2.13", "title": "Most popular items",
+    "number": "2.13",
+    "title": "Most popular items",
     "file": "listing_2_13_most_popular_items.py",
-    "source_lines": [480, 483],
-    "category": "needs-real-data", "executable": false, "expected": "skip",
-    "notes": "BOOK BUG: calls undefined reorder_candidates_by_seed_similarity; and get_user_history(user_id, k=5) while L2.5's get_user_history takes no k arg. Duplicate title with L2.12."
+    "source_lines": [
+      480,
+      483
+    ],
+    "category": "needs-real-data",
+    "executable": false,
+    "expected": "skip",
+    "notes": "BOOK BUG: calls undefined reorder_candidates_by_seed_similarity; and get_user_history(user_id, k=5) while L2.5's get_user_history takes no k arg. Duplicate title with L2.12.",
+    "compiles": true,
+    "provides": [
+      "candidates",
+      "recs",
+      "user_movie_ids"
+    ]
   },
   {
-    "number": "2.14", "title": "Four-stage recommender",
+    "number": "2.14",
+    "title": "Four-stage recommender",
     "file": "listing_2_14_four_stage_recommender.py",
-    "source_lines": [510, 515],
-    "category": "pseudocode", "executable": false, "expected": "skip",
-    "notes": "Illustrative skeleton; retrieve_candidates_for_user / apply_filters / add_additional_scores / rank_and_select_top_k are undefined by design."
+    "source_lines": [
+      510,
+      515
+    ],
+    "category": "pseudocode",
+    "executable": false,
+    "expected": "skip",
+    "notes": "Illustrative skeleton; retrieve_candidates_for_user / apply_filters / add_additional_scores / rank_and_select_top_k are undefined by design.",
+    "compiles": true,
+    "provides": [
+      "recommend_for_user"
+    ]
   },
   {
-    "number": "2.15", "title": "Four-stage recommender framework",
+    "number": "2.15",
+    "title": "Four-stage recommender framework",
     "file": "listing_2_15_four_stage_recommender_framework.py",
-    "source_lines": [533, 553],
-    "category": "api-drift", "executable": false, "expected": "skip",
-    "notes": "BOOK<->CODE DRIFT: imports recsys.retrievals / recsys.filters / recsys.scorers / recsys.rankers, but the package exposes recsys.fourstage_recsys.retrieval.* etc. Class names also drift (HistoryFilter vs HistoryFiltering, PopularityScorer vs PopularityScoring). Would raise ImportError. Also mixes both name sets within the same listing."
+    "source_lines": [
+      533,
+      553
+    ],
+    "category": "api-drift",
+    "executable": false,
+    "expected": "skip",
+    "notes": "BOOK<->CODE DRIFT: imports recsys.retrievals / recsys.filters / recsys.scorers / recsys.rankers, but the package exposes recsys.fourstage_recsys.retrieval.* etc. Class names also drift (HistoryFilter vs HistoryFiltering, PopularityScorer vs PopularityScoring). Would raise ImportError. Also mixes both name sets within the same listing.",
+    "compiles": true,
+    "provides": [
+      "FourStageRecommender",
+      "HistoryFilter",
+      "ItemKNNRetrieval",
+      "PopularityScorer",
+      "WeightedRanker",
+      "filter",
+      "recommendations",
+      "recommender",
+      "retrieval",
+      "scorer"
+    ]
   },
   {
-    "number": "2.16", "title": "Attempting to recommend a new movie",
+    "number": "2.16",
+    "title": "Attempting to recommend a new movie",
     "file": "listing_2_16_attempting_to_recommend_a_new_movie.py",
-    "source_lines": [589, 594],
-    "category": "needs-real-data", "executable": false, "expected": "skip",
-    "notes": "Hardcodes movieId 209157 (a real long-tail MovieLens item); needs full dataset + retrieve_similar_items."
+    "source_lines": [
+      589,
+      594
+    ],
+    "category": "needs-real-data",
+    "executable": false,
+    "expected": "skip",
+    "notes": "Hardcodes movieId 209157 (a real long-tail MovieLens item); needs full dataset + retrieve_similar_items.",
+    "compiles": true,
+    "provides": [
+      "candidates",
+      "new_movie",
+      "new_movie_id",
+      "num_ratings"
+    ]
   },
   {
-    "number": "2.17", "title": "Creating TF-IDF vectors",
+    "number": "2.17",
+    "title": "Creating TF-IDF vectors",
     "file": "listing_2_17_creating_tf_idf_vectors.py",
-    "source_lines": [647, 663],
-    "category": "needs-fixture", "executable": true, "expected": "pass",
-    "notes": "Builds TF-IDF content_vectors from movies title+genres; imports TfidfVectorizer itself."
+    "source_lines": [
+      647,
+      663
+    ],
+    "category": "needs-fixture",
+    "executable": true,
+    "expected": "pass",
+    "notes": "Builds TF-IDF content_vectors from movies title+genres; imports TfidfVectorizer itself.",
+    "compiles": true,
+    "provides": [
+      "TfidfVectorizer",
+      "content_vectors",
+      "vectorizer"
+    ]
   },
   {
-    "number": "2.18", "title": "Content-based retrieval function",
+    "number": "2.18",
+    "title": "Content-based retrieval function",
     "file": "listing_2_18_content_based_retrieval_function.py",
-    "source_lines": [685, 709],
-    "category": "needs-prior", "executable": true, "expected": "pass",
-    "notes": "Builds movie_id_to_idx and defines retrieve_similar_by_content; needs content_vectors (L2.17) and cosine_similarity (harness)."
+    "source_lines": [
+      685,
+      709
+    ],
+    "category": "needs-prior",
+    "executable": true,
+    "expected": "pass",
+    "notes": "Builds movie_id_to_idx and defines retrieve_similar_by_content; needs content_vectors (L2.17) and cosine_similarity (harness).",
+    "compiles": true,
+    "provides": [
+      "idx_to_movie_id",
+      "movie_id_to_idx",
+      "retrieve_similar_by_content"
+    ]
   },
   {
-    "number": "2.19", "title": "Content-based recommender using the framework",
+    "number": "2.19",
+    "title": "Content-based recommender using the framework",
     "file": "listing_2_19_content_based_recommender_using_the_framework.py",
-    "source_lines": [743, 782],
-    "category": "needs-prior", "executable": true, "expected": "pass",
-    "notes": "Def executes; latent BOOK BUG: calls undefined add_popularity_scores when invoked."
+    "source_lines": [
+      743,
+      782
+    ],
+    "category": "needs-prior",
+    "executable": true,
+    "expected": "pass",
+    "notes": "Def executes; latent BOOK BUG: calls undefined add_popularity_scores when invoked.",
+    "compiles": true,
+    "provides": [
+      "recommend_content_based"
+    ]
   },
   {
-    "number": "2.20", "title": "Hybrid retrieval",
+    "number": "2.20",
+    "title": "Hybrid retrieval",
     "file": "listing_2_20_hybrid_retrieval.py",
-    "source_lines": [818, 843],
-    "category": "standalone", "executable": true, "expected": "pass",
-    "notes": "Pure function definition (retrieve_hybrid)."
+    "source_lines": [
+      818,
+      843
+    ],
+    "category": "standalone",
+    "executable": true,
+    "expected": "pass",
+    "notes": "Pure function definition (retrieve_hybrid).",
+    "compiles": true,
+    "provides": [
+      "retrieve_hybrid"
+    ]
   },
   {
-    "number": "2.21", "title": "Three-signal ranking",
+    "number": "2.21",
+    "title": "Three-signal ranking",
     "file": "listing_2_21_three_signal_ranking.py",
-    "source_lines": [855, 868],
-    "category": "needs-prior", "executable": true, "expected": "pass",
-    "notes": "Def executes, but latent BOOK BUG: `return ranked[:k]` appears before final_score is computed (dead code); the final_score loop and stray seed_movie_id are unreachable, so calling it raises KeyError('final_score')."
+    "source_lines": [
+      855,
+      868
+    ],
+    "category": "needs-prior",
+    "executable": true,
+    "expected": "pass",
+    "notes": "Def executes, but latent BOOK BUG: `return ranked[:k]` appears before final_score is computed (dead code); the final_score loop and stray seed_movie_id are unreachable, so calling it raises KeyError('final_score').",
+    "compiles": true,
+    "provides": [
+      "rank_three_signals"
+    ]
   },
   {
-    "number": "2.22", "title": "Using Three-signal ranker",
+    "number": "2.22",
+    "title": "Using Three-signal ranker",
     "file": "listing_2_22_using_three_signal_ranker.py",
-    "source_lines": [880, 888],
-    "category": "needs-real-data", "executable": false, "expected": "skip",
-    "notes": "BOOK BUGS: `Candidates` (capital C) shadows the variable; filter_watched(candidates) omits the required user_id arg (L2.5 signature is filter_watched(candidates, user_id)). Needs real data to run."
+    "source_lines": [
+      880,
+      888
+    ],
+    "category": "needs-real-data",
+    "executable": false,
+    "expected": "skip",
+    "notes": "BOOK BUGS: `Candidates` (capital C) shadows the variable; filter_watched(candidates) omits the required user_id arg (L2.5 signature is filter_watched(candidates, user_id)). Needs real data to run.",
+    "compiles": true,
+    "provides": [
+      "Candidates",
+      "candidates",
+      "ranked"
+    ]
   }
 ]

@@ -22,21 +22,32 @@ the same extractor.
 
 ## What each figure file contains
 
-The exact code as printed in the chapter (indentation preserved). The only change is
-that trailing `#A`/`#B` annotation *markers* are stripped from code lines and moved
-into the header comment as an annotation legend, together with source provenance:
+The exact code as printed in the chapter (indentation preserved). Each code line
+**keeps its inline `#A`/`#B` callout marker on the same line the book places it on**
+(so the marker-to-line correspondence is intact), and the marker wording is reproduced
+as a footer legend — both the placement and the wording of every callout are preserved
+and checkable against the print. A short header carries provenance + category:
 
 ```python
-# Figure — Listing 2.1: Creating the user-item matrix
+# Figure - Listing 2.1: Creating the user-item matrix
 # Source: chapters/ch02.md lines 94-107
 # Chapter: 2
 # Category: needs-fixture  (executable=True, expected=pass)
-# Verbatim from book (only trailing #A annotation markers stripped).
-# Annotations:
+# Verbatim from the book; code lines keep their inline #A/#B callout markers.
+user_to_idx = {uid: idx for idx, uid in enumerate(user_ids)}  #A
+...
+user_item_matrix = csr_matrix(
+    (data, (rows, cols)),
+    shape=(len(user_ids), len(movie_ids))
+)  #C
+
+# Callout annotations (from the book):
 #   #A Create mappings from IDs to matrix indices
-#   ...
+#   #B Build lists of row indices, column indices, and values
+#   #C Create sparse matrix (only stores non-zero values)
 ```
 
+The markers are valid Python comments, so they don't affect compilation or execution.
 Nothing is "fixed" — the printed bugs are preserved on purpose so the harness reports
 them.
 

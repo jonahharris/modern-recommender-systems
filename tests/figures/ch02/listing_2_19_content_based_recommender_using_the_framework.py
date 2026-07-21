@@ -1,14 +1,8 @@
-# Figure — Listing 2.19: Content-based recommender using the framework
+# Figure - Listing 2.19: Content-based recommender using the framework
 # Source: chapters/ch02.md lines 743-782
 # Chapter: 2
 # Category: needs-prior  (executable=True, expected=pass)
-# Verbatim from book (only trailing #A annotation markers stripped).
-# Annotations:
-#   #A Stage 1: Retrieval using content similarity
-#   #B Aggregate from the user's recent watches
-#   #D Stage 2: Filtering watched movies
-#   #C Stage 3: Scoring with popularity
-#   #E Stage 4: Ranking by weighted combination
+# Verbatim from the book; code lines keep their inline #A/#B callout markers.
 def recommend_content_based(user_id, k=10, content_weight=0.7):
   user_history = get_user_history(user_id)
 
@@ -20,7 +14,7 @@ def recommend_content_based(user_id, k=10, content_weight=0.7):
   recent_movies = list(user_history)[-20:]
 
   for movie_id in recent_movies:
-    candidates = retrieve_similar_by_content(movie_id, k=50)
+    candidates = retrieve_similar_by_content(movie_id, k=50)  #A
 
     for item in candidates:
       mid = item['movie_id']
@@ -49,3 +43,10 @@ def recommend_content_based(user_id, k=10, content_weight=0.7):
  key=lambda x: x['final_score'], reverse=True)
 
   return ranked[:k]
+
+# Callout annotations (from the book):
+#   #A Stage 1: Retrieval using content similarity
+#   #B Aggregate from the user's recent watches
+#   #D Stage 2: Filtering watched movies
+#   #C Stage 3: Scoring with popularity
+#   #E Stage 4: Ranking by weighted combination

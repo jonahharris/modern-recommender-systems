@@ -3,9 +3,14 @@
     "number": "6.1",
     "title": "Sequential base class",
     "file": "listing_6_1_sequential_base_class.py",
-    "source_lines": [132, 180],
+    "source_lines": [
+      132,
+      180
+    ],
     "compiles": true,
-    "provides": ["_SequentialBase"],
+    "provides": [
+      "_SequentialBase"
+    ],
     "category": "needs-package",
     "executable": false,
     "expected": "skip",
@@ -15,9 +20,14 @@
     "number": "6.2",
     "title": "SASRec in PyTorch, sized for MovieLens 25M",
     "file": "listing_6_2_sasrec_in_pytorch_sized_for_movielens_25m.py",
-    "source_lines": [196, 213],
+    "source_lines": [
+      196,
+      213
+    ],
     "compiles": true,
-    "provides": ["SASRec"],
+    "provides": [
+      "SASRec"
+    ],
     "category": "needs-package",
     "executable": false,
     "expected": "skip",
@@ -27,9 +37,15 @@
     "number": "6.3",
     "title": "The gBCE loss as a drop-in replacement for SASRec's BCE",
     "file": "listing_6_3_the_gbce_loss_as_a_drop_in_replacement_for_sasrec_s_bce.py",
-    "source_lines": [246, 254],
+    "source_lines": [
+      246,
+      254
+    ],
     "compiles": true,
-    "provides": ["F", "gbce_loss"],
+    "provides": [
+      "F",
+      "gbce_loss"
+    ],
     "category": "api-drift",
     "executable": true,
     "expected": "pass",
@@ -39,9 +55,14 @@
     "number": "6.4",
     "title": "Evaluation of the three SASRec ablations",
     "file": "listing_6_4_evaluation_of_the_three_sasrec_ablations.py",
-    "source_lines": [288, 304],
+    "source_lines": [
+      288,
+      304
+    ],
     "compiles": true,
-    "provides": ["evaluate_ablation"],
+    "provides": [
+      "evaluate_ablation"
+    ],
     "category": "standalone",
     "executable": true,
     "expected": "pass",
@@ -51,21 +72,34 @@
     "number": "6.5",
     "title": "BERT4Rec training mask",
     "file": "listing_6_5_bert4rec_training_mask.py",
-    "source_lines": [389, 402],
+    "source_lines": [
+      389,
+      402
+    ],
     "compiles": true,
-    "provides": ["mask_sequence"],
-    "category": "standalone",
-    "executable": true,
-    "expected": "pass",
-    "notes": "Bare method def lifted out of the class; exec of the def PASSES (self.mask_prob/self.mask_token resolved only at call). MATCHES package BERT4Rec.mask_sequence verbatim. DUPLICATE listing number: two different listings are both printed as 'Listing 6.5' (this mask + the training loop below) — a book numbering bug."
+    "provides": [
+      "mask_sequence"
+    ],
+    "category": "needs-training",
+    "executable": false,
+    "expected": "skip",
+    "notes": "Top-level training-loop fragment (not a def); exec raises NameError('batch') since batch/device/model/gbce_loss/num_items are all undefined here. Its call gbce_loss(pos_scores, neg_scores, cloze_mask, num_items) matches the PACKAGE 4-arg signature (pos_scores,neg_scores,pos_mask,num_items), confirming Listing 6.3's printed 3-arg def is the wrong one. DUPLICATE listing number 6.5 (see mask listing above)."
   },
   {
     "number": "6.5",
     "title": "BERT4Rec training loop",
     "file": "listing_6_5_bert4rec_training_loop.py",
-    "source_lines": [420, 426],
+    "source_lines": [
+      420,
+      426
+    ],
     "compiles": true,
-    "provides": ["hidden", "loss", "neg_scores", "pos_scores"],
+    "provides": [
+      "hidden",
+      "loss",
+      "neg_scores",
+      "pos_scores"
+    ],
     "category": "needs-training",
     "executable": false,
     "expected": "skip",
@@ -75,9 +109,14 @@
     "number": "6.6",
     "title": "BERT4Rec inference: append \\[MASK\\]",
     "file": "listing_6_6_bert4rec_inference_append_mask.py",
-    "source_lines": [436, 444],
+    "source_lines": [
+      436,
+      444
+    ],
     "compiles": true,
-    "provides": ["recommend"],
+    "provides": [
+      "recommend"
+    ],
     "category": "standalone",
     "executable": true,
     "expected": "pass",
@@ -87,48 +126,66 @@
     "number": "6.7",
     "title": "Adding an event-type embedding to SASRec's input",
     "file": "listing_6_7_adding_an_event_type_embedding_to_sasrec_s_input.py",
-    "source_lines": [493, 521],
+    "source_lines": [
+      493,
+      521
+    ],
     "compiles": false,
-    "provides": ["<syntax error: invalid syntax @ line 12>"],
+    "provides": [],
     "category": "needs-package",
     "executable": false,
     "expected": "skip",
-    "notes": "REAL BOOK SYNTAX BUG: the super().__init__(...) call ends with a stray trailing colon `num_layers, num_heads, dropout):` (ch06.md line 504), so the listing does not parse (SyntaxError at file line 20). Remove the `:`. SASRecWithEvents is an illustrative extension only — it does NOT exist in the package. Even once the colon is fixed the forward() calls self.transformer(x, mask=..., src_key_padding_mask=...) directly, which reintroduces the all-padding-row NaN the base class's manual layer loop was written to avoid."
+    "notes": "REAL BOOK SYNTAX BUG: the super().__init__(...) call ends with a stray trailing colon `num_layers, num_heads, dropout):` (ch06.md line 504), so the listing does not parse (SyntaxError at file line 20). Remove the `:`. SASRecWithEvents is an illustrative extension only \u2014 it does NOT exist in the package. Even once the colon is fixed the forward() calls self.transformer(x, mask=..., src_key_padding_mask=...) directly, which reintroduces the all-padding-row NaN the base class's manual layer loop was written to avoid."
   },
   {
     "number": "6.8",
     "title": "The Pinnerformer loss function",
     "file": "listing_6_8_the_pinnerformer_loss_function.py",
-    "source_lines": [550, 564],
+    "source_lines": [
+      550,
+      564
+    ],
     "compiles": true,
-    "provides": ["pinnerformer_loss"],
+    "provides": [
+      "pinnerformer_loss"
+    ],
     "category": "standalone",
     "executable": true,
     "expected": "pass",
-    "notes": "Bare function def; exec PASSES (body references item_emb/F only at call time). Illustrative — NOT in the package. Latent issue if called: references a free global item_emb() that the listing never defines or receives as an argument, and F is not imported within this listing (relies on Listing 6.3 having imported it earlier in the session)."
+    "notes": "Bare function def; exec PASSES (body references item_emb/F only at call time). Illustrative \u2014 NOT in the package. Latent issue if called: references a free global item_emb() that the listing never defines or receives as an argument, and F is not imported within this listing (relies on Listing 6.3 having imported it earlier in the session)."
   },
   {
     "number": "6.9",
     "title": "HSTU relative attention function",
     "file": "listing_6_9_hstu_relative_attention_function.py",
-    "source_lines": [585, 607],
+    "source_lines": [
+      585,
+      607
+    ],
     "compiles": true,
-    "provides": ["RelativeAttention"],
+    "provides": [
+      "RelativeAttention"
+    ],
     "category": "needs-package",
     "executable": false,
     "expected": "skip",
-    "notes": "class RelativeAttention(nn.Module); exec raises NameError('nn'). Illustrative — NOT in the package. Uses a hard-coded +200 offset that must equal max_relative_dist (default 200) or indexing goes out of the rel_emb table; noted as a fragility, not a package issue."
+    "notes": "class RelativeAttention(nn.Module); exec raises NameError('nn'). Illustrative \u2014 NOT in the package. Uses a hard-coded +200 offset that must equal max_relative_dist (default 200) or indexing goes out of the rel_emb table; noted as a fragility, not a package issue."
   },
   {
     "number": "6.10",
     "title": "OnTrans Tokenizer",
     "file": "listing_6_10_ontrans_tokenizer.py",
-    "source_lines": [626, 648],
+    "source_lines": [
+      626,
+      648
+    ],
     "compiles": true,
-    "provides": ["OneTransTokenizer"],
+    "provides": [
+      "OneTransTokenizer"
+    ],
     "category": "needs-package",
     "executable": false,
     "expected": "skip",
-    "notes": "class OneTransTokenizer(nn.Module); exec raises NameError('nn'). Illustrative — NOT in the package. Book listing title reads 'OnTrans Tokenizer' while the class is 'OneTransTokenizer' (dropped 'e') — minor title typo."
+    "notes": "class OneTransTokenizer(nn.Module); exec raises NameError('nn'). Illustrative \u2014 NOT in the package. Book listing title reads 'OnTrans Tokenizer' while the class is 'OneTransTokenizer' (dropped 'e') \u2014 minor title typo."
   }
 ]

@@ -1,10 +1,10 @@
-# Figure — Listing 10.3: Wrapping existing recommendations with LLM explanations
+# Figure - Listing 10.3: Wrapping existing recommendations with LLM explanations
 # Source: chapters/ch10.md lines 140-157
 # Chapter: 10
-# Category: TBD
-# Verbatim from book (only trailing #A annotation markers stripped).
+# Category: api-drift  (executable=False, expected=skip)
+# Verbatim from the book; code lines keep their inline #A/#B callout markers.
 def explain_recommendations(llm, user_profile,
-                             recommendations):
+                             recommendations):  #A
   items_text = "\n".join(
     f"- {r['title']} ({r.get('year', '')}) "
     f"[{r.get('genres', '')}]"
@@ -18,6 +18,6 @@ def explain_recommendations(llm, user_profile,
       "Be concise and specific.",
     user_message=f"User profile: {user_profile}\n\n"
       f"Recommendations:\n{items_text}"
-  )
+  )  #B
 #A Add explanations to an existing ranked list.
 #B Call the LLM with a prompt containing recs and user profile.

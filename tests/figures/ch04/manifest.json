@@ -3,21 +3,32 @@
     "number": "4.1",
     "title": "Splitting data into train and test data",
     "file": "listing_4_1_splitting_data_into_train_and_test_data.py",
-    "source_lines": [159, 162],
+    "source_lines": [
+      159,
+      162
+    ],
     "compiles": true,
-    "provides": ["ratings_sorted", "split_idx", "test_ratings", "train_val_ratings"],
+    "provides": [
+      "ratings_sorted",
+      "split_idx",
+      "test_ratings",
+      "train_val_ratings"
+    ],
     "category": "needs-fixture",
     "executable": true,
     "expected": "pass",
-    "notes": "Temporal split of `ratings` by timestamp (90/10). Runs on the synthetic fixture (has userId/movieId/rating/timestamp). Note the printed split (Listing 4.2) never gets a validation set despite section 4.3.1 describing weeks 1-7 train / week 8 val — only train_val vs test is coded."
+    "notes": "Temporal split of `ratings` by timestamp (90/10). Runs on the synthetic fixture (has userId/movieId/rating/timestamp). Note the printed split (Listing 4.2) never gets a validation set despite section 4.3.1 describing weeks 1-7 train / week 8 val \u2014 only train_val vs test is coded."
   },
   {
     "number": "4.2",
     "title": "Overview of splitting the data.",
     "file": "listing_4_2_overview_of_splitting_the_data.py",
-    "source_lines": [174, 186],
+    "source_lines": [
+      174,
+      186
+    ],
     "compiles": false,
-    "provides": ["<syntax error: leading zeros in decimal integer literals are not permitted; use an 0o prefix for octal integers @ line 4>"],
+    "provides": [],
     "category": "output",
     "executable": false,
     "expected": "skip",
@@ -27,21 +38,37 @@
     "number": "4.3",
     "title": "Sampling data",
     "file": "listing_4_3_sampling_data.py",
-    "source_lines": [198, 201],
+    "source_lines": [
+      198,
+      201
+    ],
     "compiles": true,
-    "provides": ["ratings", "sampled_users"],
-    "category": "needs-fixture",
-    "executable": true,
-    "expected": "pass",
-    "notes": "Samples 50% of users from `ratings` and rebinds `ratings`. Runs on the fixture. DUPLICATE LISTING NUMBER: the chapter prints two Listing 4.3 headings (this 'Sampling data' at md line 196 and 'Generating recommendations from the ALS model' at md line 221); there is no Listing 4.4, yet prose at md line 219 calls the ALS-recs listing 'Listing 4.4'."
+    "provides": [
+      "ratings",
+      "sampled_users"
+    ],
+    "category": "needs-training",
+    "executable": false,
+    "expected": "skip",
+    "notes": "Should be Listing 4.4 (mislabeled 4.3). Imports `implicit.als` (installed) and defines the recs function fine, but the module-level tail references undefined `test`, `als_model`, `user_item_matrix` -> NameError('test'). Needs a trained ch03 ALS model + real split. Also uses inline column names user_id/item_id that don't match the MovieLens userId/movieId the split listings operate on (the notebook bridges this with user_to_idx/movie_to_idx maps not shown in the printed listing)."
   },
   {
     "number": "4.3",
     "title": "Generating recommendations from the ALS model",
     "file": "listing_4_3_generating_recommendations_from_the_als_model.py",
-    "source_lines": [223, 253],
+    "source_lines": [
+      223,
+      253
+    ],
     "compiles": true,
-    "provides": ["AlternatingLeastSquares", "als_recs", "generate_recommendations_als", "np", "pd", "test_user_ids"],
+    "provides": [
+      "AlternatingLeastSquares",
+      "als_recs",
+      "generate_recommendations_als",
+      "np",
+      "pd",
+      "test_user_ids"
+    ],
     "category": "needs-training",
     "executable": false,
     "expected": "skip",
@@ -51,9 +78,15 @@
     "number": "4.5",
     "title": "Building relevance set from test data",
     "file": "listing_4_5_building_relevance_set_from_test_data.py",
-    "source_lines": [265, 273],
+    "source_lines": [
+      265,
+      273
+    ],
     "compiles": true,
-    "provides": ["build_relevance_set", "relevance_set"],
+    "provides": [
+      "build_relevance_set",
+      "relevance_set"
+    ],
     "category": "needs-training",
     "executable": false,
     "expected": "skip",
@@ -63,9 +96,15 @@
     "number": "4.6",
     "title": "Calculating precision@10",
     "file": "listing_4_6_calculating_precision_10.py",
-    "source_lines": [288, 312],
+    "source_lines": [
+      288,
+      312
+    ],
     "compiles": true,
-    "provides": ["als_metrics", "calculate_precision_at_k"],
+    "provides": [
+      "als_metrics",
+      "calculate_precision_at_k"
+    ],
     "category": "needs-training",
     "executable": false,
     "expected": "skip",
@@ -75,21 +114,31 @@
     "number": "4.7",
     "title": "Popularity baseline",
     "file": "listing_4_7_popularity_baseline.py",
-    "source_lines": [334, 355],
+    "source_lines": [
+      334,
+      355
+    ],
     "compiles": true,
-    "provides": ["generate_recommendations_popularity", "pop_metrics", "pop_recs"],
+    "provides": [
+      "generate_recommendations_popularity",
+      "pop_metrics",
+      "pop_recs"
+    ],
     "category": "needs-training",
     "executable": false,
     "expected": "skip",
-    "notes": "Def is clean; module-level tail references undefined `train` -> NameError. BOOK-INTERNAL NAME BUG: last line calls `calculate_precision_at_k(pop_recs, ground_truth, ...)` but the relevance frame was named `relevance_set` in Listing 4.5 (`ground_truth` is never defined) — would also NameError even if `train` existed."
+    "notes": "Def is clean; module-level tail references undefined `train` -> NameError. BOOK-INTERNAL NAME BUG: last line calls `calculate_precision_at_k(pop_recs, ground_truth, ...)` but the relevance frame was named `relevance_set` in Listing 4.5 (`ground_truth` is never defined) \u2014 would also NameError even if `train` existed."
   },
   {
     "number": "4.8",
     "title": "Calculate metrics for different K values",
     "file": "listing_4_8_calculate_metrics_for_different_k_values.py",
-    "source_lines": [509, 542],
+    "source_lines": [
+      509,
+      542
+    ],
     "compiles": false,
-    "provides": ["<syntax error: expected an indented block after 'if' statement on line 28 @ line 29>"],
+    "provides": [],
     "category": "needs-package",
     "executable": false,
     "expected": "skip",

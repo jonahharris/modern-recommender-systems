@@ -1,18 +1,14 @@
-# Figure — Listing 7.24: ICL reranking over a candidate set
+# Figure - Listing 7.24: ICL reranking over a candidate set
 # Source: chapters/ch09.md lines 1107-1125
 # Chapter: 9
-# Category: TBD
-# Verbatim from book (only trailing #A annotation markers stripped).
-# Annotations:
-#   #A Use the last 5 items for recency
-#   #B Format candidates as a numbered list
-#   #C Call the LLM API (e.g., GPT-4, Claude)
+# Category: standalone  (executable=True, expected=pass)
+# Verbatim from the book; code lines keep their inline #A/#B callout markers.
 def icl_rerank(candidates, user_history,
                user_context, llm):
-  history_str = ", ".join(user_history[-5:])
+  history_str = ", ".join(user_history[-5:])  #A
   candidates_str = "\n".join(
     [f"{i+1}. {c}" for i, c in enumerate(candidates)]
-  )
+  )  #B
 
   prompt = f"""You are a personalized recommender.
 
@@ -25,4 +21,9 @@ most relevant:
 
 Top 3 recommendations:"""
 
-  return llm.generate(prompt)
+  return llm.generate(prompt)  #C
+
+# Callout annotations (from the book):
+#   #A Use the last 5 items for recency
+#   #B Format candidates as a numbered list
+#   #C Call the LLM API (e.g., GPT-4, Claude)

@@ -1,8 +1,8 @@
-# Figure — Listing 8.12: Find all Star Trek movies
+# Figure - Listing 8.12: Find all Star Trek movies
 # Source: chapters/ch08.md lines 817-823
 # Chapter: 8
-# Category: TBD
-# Verbatim from book (only trailing #A annotation markers stripped).
+# Category: needs-real-data  (executable=False, expected=skip)
+# Verbatim from the book; code lines keep their inline #A/#B callout markers.
 columns = ['title', 'genres',
   'description', 'semantic_id']
 star_treks = df[

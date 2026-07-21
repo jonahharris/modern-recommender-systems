@@ -1,8 +1,8 @@
-# Figure — Listing 1.3: Comic tags for content-based recommendations
+# Figure - Listing 1.3: Comic tags for content-based recommendations
 # Source: chapters/ch01.md lines 182-193
 # Chapter: 1
-# Category: TBD
-# Verbatim from book (only trailing #A annotation markers stripped).
+# Category: standalone  (executable=True, expected=pass)
+# Verbatim from the book; code lines keep their inline #A/#B callout markers.
 comic_tags = {
   0: {"adventure", "reporter", "travel", "mystery", "dog"},
   1: {"humor", "warrior", "historical", "gaul", "magic"},

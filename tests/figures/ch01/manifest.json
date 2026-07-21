@@ -3,9 +3,14 @@
     "number": "1.1",
     "title": "A dictionary representing a catalog",
     "file": "listing_1_1_a_dictionary_representing_a_catalog.py",
-    "source_lines": [117, 128],
+    "source_lines": [
+      117,
+      128
+    ],
     "compiles": true,
-    "provides": ["catalogue"],
+    "provides": [
+      "catalogue"
+    ],
     "category": "standalone",
     "executable": true,
     "expected": "pass",
@@ -15,9 +20,14 @@
     "number": "1.2",
     "title": "A uniform recommender",
     "file": "listing_1_2_a_uniform_recommender.py",
-    "source_lines": [146, 156],
+    "source_lines": [
+      146,
+      156
+    ],
     "compiles": true,
-    "provides": ["uniform_recommender"],
+    "provides": [
+      "uniform_recommender"
+    ],
     "category": "needs-prior",
     "executable": true,
     "expected": "pass",
@@ -27,9 +37,14 @@
     "number": "1.3",
     "title": "Comic tags for content-based recommendations",
     "file": "listing_1_3_comic_tags_for_content_based_recommendations.py",
-    "source_lines": [182, 193],
+    "source_lines": [
+      182,
+      193
+    ],
     "compiles": true,
-    "provides": ["comic_tags"],
+    "provides": [
+      "comic_tags"
+    ],
     "category": "standalone",
     "executable": true,
     "expected": "pass",
@@ -39,9 +54,14 @@
     "number": "1.4",
     "title": "Calculating similarity between comics",
     "file": "listing_1_4_calculating_similarity_between_comics.py",
-    "source_lines": [199, 208],
+    "source_lines": [
+      199,
+      208
+    ],
     "compiles": true,
-    "provides": ["content_similarity"],
+    "provides": [
+      "content_similarity"
+    ],
     "category": "needs-prior",
     "executable": true,
     "expected": "pass",
@@ -51,9 +71,14 @@
     "number": "1.5",
     "title": "Content-based recommender",
     "file": "listing_1_5_content_based_recommender.py",
-    "source_lines": [216, 230],
+    "source_lines": [
+      216,
+      230
+    ],
     "compiles": true,
-    "provides": ["content_based_recommender"],
+    "provides": [
+      "content_based_recommender"
+    ],
     "category": "needs-prior",
     "executable": true,
     "expected": "pass",
@@ -63,9 +88,15 @@
     "number": "1.6",
     "title": "User-to-item Collaborative filtering",
     "file": "listing_1_6_user_to_item_collaborative_filtering.py",
-    "source_lines": [280, 302],
+    "source_lines": [
+      280,
+      302
+    ],
     "compiles": true,
-    "provides": ["find_similar_users", "get_recommendations"],
+    "provides": [
+      "find_similar_users",
+      "get_recommendations"
+    ],
     "category": "needs-prior",
     "executable": true,
     "expected": "pass",
@@ -75,9 +106,14 @@
     "number": "1.7",
     "title": "Item-based Collaborative filtering",
     "file": "listing_1_7_item_based_collaborative_filtering.py",
-    "source_lines": [322, 330],
+    "source_lines": [
+      322,
+      330
+    ],
     "compiles": true,
-    "provides": ["find_similar_items"],
+    "provides": [
+      "find_similar_items"
+    ],
     "category": "standalone",
     "executable": true,
     "expected": "pass",

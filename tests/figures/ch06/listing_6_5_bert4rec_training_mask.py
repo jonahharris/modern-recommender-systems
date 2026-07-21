@@ -1,12 +1,8 @@
-# Figure — Listing 6.5: BERT4Rec training mask
+# Figure - Listing 6.5: BERT4Rec training mask
 # Source: chapters/ch06.md lines 389-402
 # Chapter: 6
-# Category: TBD
-# Verbatim from book (only trailing #A annotation markers stripped).
-# Annotations:
-#   #A Each non-padding position is independently masked with probability mask\_prob.
-#   #B Force at least one so the loss never receives an empty mask.
-#   #C Replace the selected positions with the \[MASK\] token in the input.
+# Category: needs-training  (executable=False, expected=skip)
+# Verbatim from the book; code lines keep their inline #A/#B callout markers.
 def mask_sequence(self, sequences):
     non_pad    = (sequences != 0)
     rand       = torch.rand_like(sequences, dtype=torch.float)
@@ -21,3 +17,8 @@ def mask_sequence(self, sequences):
     masked_seqs = sequences.clone()
     masked_seqs[cloze_mask] = self.mask_token  # C
     return masked_seqs, cloze_mask
+
+# Callout annotations (from the book):
+#   #A Each non-padding position is independently masked with probability mask\_prob.
+#   #B Force at least one so the loss never receives an empty mask.
+#   #C Replace the selected positions with the \[MASK\] token in the input.

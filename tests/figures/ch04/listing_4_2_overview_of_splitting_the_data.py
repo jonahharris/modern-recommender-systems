@@ -1,8 +1,8 @@
-# Figure — Listing 4.2: Overview of splitting the data.
+# Figure - Listing 4.2: Overview of splitting the data.
 # Source: chapters/ch04.md lines 174-186
 # Chapter: 4
-# Category: TBD
-# Verbatim from book (only trailing #A annotation markers stripped).
+# Category: output  (executable=False, expected=skip)
+# Verbatim from the book; code lines keep their inline #A/#B callout markers.
 Total ratings: 841,169
 
 Temporal Split:

@@ -3,21 +3,31 @@
     "number": "8.1",
     "title": "Vector Quantizer (initialization)",
     "file": "listing_8_1_vector_quantizer_initialization.py",
-    "source_lines": [253, 273],
+    "source_lines": [
+      253,
+      273
+    ],
     "compiles": true,
-    "provides": ["VectorQuantizerEMA"],
+    "provides": [
+      "VectorQuantizerEMA"
+    ],
     "category": "needs-package",
     "executable": false,
     "expected": "skip",
-    "notes": "class VectorQuantizerEMA(nn.Module) — needs torch/nn (not in harness namespace); exec raises NameError('nn'). Matches recsys/semantic_ids/vector_quantizer.py:VectorQuantizerEMA.__init__ EXCEPT the book omits the register_buffer('_code_usage_count', torch.zeros(...)) buffer that the package uses for dead-code tracking. Signature identical (num_embeddings, embedding_dim, commitment_cost=0.5, decay=0.95, usage_loss_weight=0.1)."
+    "notes": "class VectorQuantizerEMA(nn.Module) \u2014 needs torch/nn (not in harness namespace); exec raises NameError('nn'). Matches recsys/semantic_ids/vector_quantizer.py:VectorQuantizerEMA.__init__ EXCEPT the book omits the register_buffer('_code_usage_count', torch.zeros(...)) buffer that the package uses for dead-code tracking. Signature identical (num_embeddings, embedding_dim, commitment_cost=0.5, decay=0.95, usage_loss_weight=0.1)."
   },
   {
     "number": "8.2",
     "title": "Vector Quantizer (Codebook initialization with K-means )",
     "file": "listing_8_2_vector_quantizer_codebook_initialization_with_k_means.py",
-    "source_lines": [293, 309],
+    "source_lines": [
+      293,
+      309
+    ],
     "compiles": true,
-    "provides": ["init_codebook"],
+    "provides": [
+      "init_codebook"
+    ],
     "category": "needs-package",
     "executable": false,
     "expected": "skip",
@@ -27,9 +37,14 @@
     "number": "8.3",
     "title": "Vector Quantizer (Calculating semanticIDs)",
     "file": "listing_8_3_vector_quantizer_calculating_semanticids.py",
-    "source_lines": [333, 373],
+    "source_lines": [
+      333,
+      373
+    ],
     "compiles": true,
-    "provides": ["forward"],
+    "provides": [
+      "forward"
+    ],
     "category": "needs-package",
     "executable": false,
     "expected": "skip",
@@ -39,33 +54,46 @@
     "number": "8.4",
     "title": "Vector Quantizer (training \\- Update codebook)",
     "file": "listing_8_4_vector_quantizer_training_update_codebook.py",
-    "source_lines": [407, 427],
+    "source_lines": [
+      407,
+      427
+    ],
     "compiles": false,
-    "provides": ["<syntax error: unexpected indent @ line 1>"],
+    "provides": [],
     "category": "needs-package",
     "executable": false,
     "expected": "skip",
-    "notes": "Method excerpt printed at class-body indentation (2-space indented 'def _update_codebooks'), so the standalone .py does not parse ('unexpected indent'). NOT a reader-facing syntax bug — inside the book's class it is correct. Body matches package VectorQuantizerEMA._update_codebooks EXACTLY. Classification: method-excerpt / not-standalone (verbatim indent artifact)."
+    "notes": "Method excerpt printed at class-body indentation (2-space indented 'def _update_codebooks'), so the standalone .py does not parse ('unexpected indent'). NOT a reader-facing syntax bug \u2014 inside the book's class it is correct. Body matches package VectorQuantizerEMA._update_codebooks EXACTLY. Classification: method-excerpt / not-standalone (verbatim indent artifact)."
   },
   {
     "number": "8.5",
     "title": "RQVAE Model Architecture",
     "file": "listing_8_5_rqvae_model_architecture.py",
-    "source_lines": [437, 504],
+    "source_lines": [
+      437,
+      504
+    ],
     "compiles": true,
-    "provides": ["RQVAE"],
+    "provides": [
+      "RQVAE"
+    ],
     "category": "needs-package",
     "executable": false,
     "expected": "skip",
-    "notes": "class RQVAE(nn.Module) — exec raises NameError('nn'). DRIFT: book default codebook_sizes=[16, 32, 128] vs package default [8, 64, 512]. Book forward(self, x) is a documented subset — the chapter states variance-loss and residual-loss are 'omitted for clarity'; package forward(self, x, return_usage_stats=False, variance_weight=1.0) also has extra params the book drops. Encoder/decoder/ModuleList/_init_encoder match."
+    "notes": "class RQVAE(nn.Module) \u2014 exec raises NameError('nn'). DRIFT: book default codebook_sizes=[16, 32, 128] vs package default [8, 64, 512]. Book forward(self, x) is a documented subset \u2014 the chapter states variance-loss and residual-loss are 'omitted for clarity'; package forward(self, x, return_usage_stats=False, variance_weight=1.0) also has extra params the book drops. Encoder/decoder/ModuleList/_init_encoder match."
   },
   {
     "number": "8.6",
     "title": "Prepare text for embedding",
     "file": "listing_8_6_prepare_text_for_embedding.py",
-    "source_lines": [560, 568],
+    "source_lines": [
+      560,
+      568
+    ],
     "compiles": true,
-    "provides": ["prepare_data"],
+    "provides": [
+      "prepare_data"
+    ],
     "category": "standalone",
     "executable": true,
     "expected": "pass",
@@ -75,9 +103,14 @@
     "number": "8.7",
     "title": "SemanticIDPipeline (initialization)",
     "file": "listing_8_7_semanticidpipeline_initialization.py",
-    "source_lines": [596, 614],
+    "source_lines": [
+      596,
+      614
+    ],
     "compiles": true,
-    "provides": ["SemanticIDPipeline"],
+    "provides": [
+      "SemanticIDPipeline"
+    ],
     "category": "needs-package",
     "executable": false,
     "expected": "skip",
@@ -87,9 +120,17 @@
     "number": "8.8",
     "title": "Running the pipeline",
     "file": "listing_8_8_running_the_pipeline.py",
-    "source_lines": [634, 642],
+    "source_lines": [
+      634,
+      642
+    ],
     "compiles": true,
-    "provides": ["data_tensor", "df_enriched", "embeddings", "texts"],
+    "provides": [
+      "data_tensor",
+      "df_enriched",
+      "embeddings",
+      "texts"
+    ],
     "category": "needs-real-data",
     "executable": false,
     "expected": "skip",
@@ -99,9 +140,14 @@
     "number": "8.9",
     "title": "Codebook initialization",
     "file": "listing_8_9_codebook_initialization.py",
-    "source_lines": [658, 671],
+    "source_lines": [
+      658,
+      671
+    ],
     "compiles": true,
-    "provides": ["initialize_data_with_embeddings"],
+    "provides": [
+      "initialize_data_with_embeddings"
+    ],
     "category": "needs-package",
     "executable": false,
     "expected": "skip",
@@ -111,9 +157,14 @@
     "number": "8.10",
     "title": "Training the RQ-VAE",
     "file": "listing_8_10_training_the_rq_vae.py",
-    "source_lines": [695, 723],
+    "source_lines": [
+      695,
+      723
+    ],
     "compiles": true,
-    "provides": ["train"],
+    "provides": [
+      "train"
+    ],
     "category": "needs-package",
     "executable": false,
     "expected": "skip",
@@ -123,9 +174,14 @@
     "number": "8.11",
     "title": "Generating semantic IDs",
     "file": "listing_8_11_generating_semantic_ids.py",
-    "source_lines": [755, 773],
+    "source_lines": [
+      755,
+      773
+    ],
     "compiles": true,
-    "provides": ["inference"],
+    "provides": [
+      "inference"
+    ],
     "category": "needs-package",
     "executable": false,
     "expected": "skip",
@@ -135,9 +191,15 @@
     "number": "8.12",
     "title": "Find all Star Trek movies",
     "file": "listing_8_12_find_all_star_trek_movies.py",
-    "source_lines": [817, 823],
+    "source_lines": [
+      817,
+      823
+    ],
     "compiles": true,
-    "provides": ["columns", "star_treks"],
+    "provides": [
+      "columns",
+      "star_treks"
+    ],
     "category": "needs-real-data",
     "executable": false,
     "expected": "skip",
@@ -147,7 +209,10 @@
     "number": "8.13",
     "title": "Semantic ID frequency",
     "file": "listing_8_13_semantic_id_frequency.py",
-    "source_lines": [837, 837],
+    "source_lines": [
+      837,
+      837
+    ],
     "compiles": true,
     "provides": [],
     "category": "output",
@@ -159,9 +224,14 @@
     "number": "8.14",
     "title": "Inspect the largest cluster",
     "file": "listing_8_14_inspect_the_largest_cluster.py",
-    "source_lines": [853, 856],
+    "source_lines": [
+      853,
+      856
+    ],
     "compiles": true,
-    "provides": ["largest_id"],
+    "provides": [
+      "largest_id"
+    ],
     "category": "needs-real-data",
     "executable": false,
     "expected": "skip",
@@ -171,9 +241,14 @@
     "number": "8.15",
     "title": "Evaluate reconstruction quality",
     "file": "listing_8_15_evaluate_reconstruction_quality.py",
-    "source_lines": [872, 896],
+    "source_lines": [
+      872,
+      896
+    ],
     "compiles": true,
-    "provides": ["evaluate_reconstruction"],
+    "provides": [
+      "evaluate_reconstruction"
+    ],
     "category": "needs-package",
     "executable": false,
     "expected": "skip",
@@ -183,21 +258,31 @@
     "number": "8.16",
     "title": "Evaluate clustering quality",
     "file": "listing_8_16_evaluate_clustering_quality.py",
-    "source_lines": [916, 940],
+    "source_lines": [
+      916,
+      940
+    ],
     "compiles": true,
-    "provides": ["calinski_harabasz_score", "evaluate_clustering", "silhouette_score"],
+    "provides": [
+      "calinski_harabasz_score",
+      "evaluate_clustering",
+      "silhouette_score"
+    ],
     "category": "standalone",
     "executable": true,
     "expected": "pass",
-    "notes": "Imports sklearn.metrics (available in harness) and defs evaluate_clustering — no torch; exec binds cleanly (VERIFIED pass). Matches package evaluate_clustering EXCEPT the package adds an n_unique<2 guard and prints. Signature (df, embeddings) matches. Uses bold **Listing** header in the chapter."
+    "notes": "Imports sklearn.metrics (available in harness) and defs evaluate_clustering \u2014 no torch; exec binds cleanly (VERIFIED pass). Matches package evaluate_clustering EXCEPT the package adds an n_unique<2 guard and prints. Signature (df, embeddings) matches. Uses bold **Listing** header in the chapter."
   },
   {
     "number": "8.17",
     "title": "Semantic coherence tests",
     "file": "listing_8_17_semantic_coherence_tests.py",
-    "source_lines": [965, 976],
+    "source_lines": [
+      965,
+      976
+    ],
     "compiles": false,
-    "provides": ["<syntax error: unexpected indent @ line 1>"],
+    "provides": [],
     "category": "needs-package",
     "executable": false,
     "expected": "skip",

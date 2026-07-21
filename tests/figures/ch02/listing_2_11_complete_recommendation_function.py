@@ -1,18 +1,8 @@
-# Figure — Listing 2.11: Complete recommendation function
+# Figure - Listing 2.11: Complete recommendation function
 # Source: chapters/ch02.md lines 372-405
 # Chapter: 2
 # Category: needs-prior  (executable=True, expected=pass)
-# Verbatim from book (only trailing #A annotation markers stripped).
-# Annotations:
-#   #A Get user's watch history
-#   #B Handle cold start: return popular movies
-#   #C Aggregate candidates from the user's recent watches
-#   #D For each recent movie, get similar items
-#   #E Keep the highest similarity score for each candidate
-#   #F Convert to list of candidates
-#   #G Add popularity scores
-#   #H Filter out watched movies
-#   #I Rank and return top k
+# Verbatim from the book; code lines keep their inline #A/#B callout markers.
 def recommend_for_user(user_id, k=10, similarity_weight=0.7):
     user_history = get_user_history(user_id)
 
@@ -47,3 +37,14 @@ def recommend_for_user(user_id, k=10, similarity_weight=0.7):
     ranked = rank_candidates(filtered, similarity_weight, k)
 
     return ranked
+
+# Callout annotations (from the book):
+#   #A Get user's watch history
+#   #B Handle cold start: return popular movies
+#   #C Aggregate candidates from the user's recent watches
+#   #D For each recent movie, get similar items
+#   #E Keep the highest similarity score for each candidate
+#   #F Convert to list of candidates
+#   #G Add popularity scores
+#   #H Filter out watched movies
+#   #I Rank and return top k
