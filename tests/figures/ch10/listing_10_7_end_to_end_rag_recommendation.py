@@ -2,10 +2,10 @@
 # Source: chapters/ch10.md lines 328-340
 # Chapter: 10
 # Category: standalone  (executable=True, expected=pass)
-# Verbatim from the book; code lines keep their inline #A/#B callout markers.
+# CORRECTED for the book (see the with-figures branch for the original as-printed).
 def recommend_with_rag(query, retriever, llm,
                        user_id=None, **kwargs):
-    candidates = retriever.hybrid_search(  #A
+    candidates = retriever.search(  #A
         query, user_id=user_id, k=15
     )
     system, user_msg = build_recommendation_prompt(

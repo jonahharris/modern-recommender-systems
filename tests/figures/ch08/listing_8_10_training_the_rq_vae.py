@@ -2,8 +2,8 @@
 # Source: chapters/ch08.md lines 695-723
 # Chapter: 8
 # Category: needs-package  (executable=False, expected=skip)
-# Verbatim from the book; code lines keep their inline #A/#B callout markers.
-def train(self, data, epochs=500,
+# CORRECTED for the book (see the with-figures branch for the original as-printed).
+def train(self, data, epochs=100,
           batch_size=64):
   self.rqvae.train()  #A
   num_batches = len(data) // batch_size

@@ -2,7 +2,7 @@
 # Source: chapters/ch01.md lines 280-302
 # Chapter: 1
 # Category: needs-prior  (executable=True, expected=pass)
-# Verbatim from the book; code lines keep their inline #A/#B callout markers.
+# CORRECTED for the book (see the with-figures branch for the original as-printed).
 def find_similar_users(matrix: np.array, user_id: int, top_n: int = 3):
 
     user_sim = np.dot(matrix[user_id], matrix.T)  #A
@@ -25,7 +25,7 @@ def get_recommendations(matrix: np.array, user_id: int,
 
     rec_ids = np.argsort(scores)[::-1][:top_n]
 
-    return [catalog[id] for id in rec_ids]
+    return [catalogue[id] for id in rec_ids]
 
 # Callout annotations (from the book):
 #   #A Dot product measures overlap: users who consumed the same items get higher scores

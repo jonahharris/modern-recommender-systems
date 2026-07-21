@@ -2,14 +2,12 @@
 # Source: chapters/ch13.md lines 330-336
 # Chapter: 13
 # Category: pseudocode  (executable=False, expected=skip)
-# Verbatim from the book; code lines keep their inline #A/#B callout markers.
-if np.random.random() < epsilon:  #A
-
-  return select_a_cold_start_item()  #B
-
-else:
-
-  return recsys_model.recs()  #C
+# CORRECTED for the book (see the with-figures branch for the original as-printed).
+def select_recommendation(epsilon):
+    if np.random.random() < epsilon:  #A
+        return select_a_cold_start_item()  #B
+    else:
+        return recsys_model.recs()  #C
 
 # Callout annotations (from the book):
 #   #A if random number is less than epsilon then explore

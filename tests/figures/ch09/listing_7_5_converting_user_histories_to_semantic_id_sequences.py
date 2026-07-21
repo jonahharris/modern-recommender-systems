@@ -2,7 +2,9 @@
 # Source: chapters/ch09.md lines 173-196
 # Chapter: 9
 # Category: standalone  (executable=True, expected=pass)
-# Verbatim from the book; code lines keep their inline #A/#B callout markers.
+# CORRECTED for the book (see the with-figures branch for the original as-printed).
+from collections import Counter
+
 class BaseFormatter:
   def __init__(self, item_df):
     self.item_map = dict(zip(item_df['id'], item_df['final_id']))  #A

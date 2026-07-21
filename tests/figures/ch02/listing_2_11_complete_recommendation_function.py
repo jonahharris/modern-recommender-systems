@@ -2,39 +2,39 @@
 # Source: chapters/ch02.md lines 372-405
 # Chapter: 2
 # Category: needs-prior  (executable=True, expected=pass)
-# Verbatim from the book; code lines keep their inline #A/#B callout markers.
+# CORRECTED for the book (see the with-figures branch for the original as-printed).
 def recommend_for_user(user_id, k=10, similarity_weight=0.7):
-    user_history = get_user_history(user_id)
+    user_history = get_user_history(user_id)  #A
 
-    if len(user_history) == 0:
+    if len(user_history) == 0:  #B
         popular_movies = movie_counts.head(k).index.tolist()
         return [{'movie_id': int(mid)} for mid in popular_movies]
 
-    all_candidates = {}
+    all_candidates = {}  #C
     recent_movies = list(user_history)[-20:]
 
     for movie_id in recent_movies:
-        candidates = retrieve_similar_items(movie_id, k=50)
+        candidates = retrieve_similar_items(movie_id, k=50)  #D
 
         for item in candidates:
             mid = item['movie_id']
             score = item['similarity']
 
             if mid in all_candidates:
-                all_candidates[mid] = max(all_candidates[mid], score)
+                all_candidates[mid] = max(all_candidates[mid], score)  #E
             else:
                 all_candidates[mid] = score
-    filtered = filter_watched(candidates, user_id)
 
     candidates = [
         {'movie_id': mid, 'similarity': score}
         for mid, score in all_candidates.items()
-    ]
+    ]  #F
 
-    candidates = add_popularity_scores(candidates)
+    candidates = score_popularity(candidates)  #G
 
+    candidates = filter_watched(candidates, user_id)  #H
 
-    ranked = rank_candidates(filtered, similarity_weight, k)
+    ranked = rank_candidates(candidates, similarity_weight, k)  #I
 
     return ranked
 

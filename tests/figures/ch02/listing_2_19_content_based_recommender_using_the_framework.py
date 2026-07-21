@@ -2,7 +2,7 @@
 # Source: chapters/ch02.md lines 743-782
 # Chapter: 2
 # Category: needs-prior  (executable=True, expected=pass)
-# Verbatim from the book; code lines keep their inline #A/#B callout markers.
+# CORRECTED for the book (see the with-figures branch for the original as-printed).
 def recommend_content_based(user_id, k=10, content_weight=0.7):
   user_history = get_user_history(user_id)
 
@@ -27,26 +27,24 @@ def recommend_content_based(user_id, k=10, content_weight=0.7):
   candidates = [
     {'movie_id': mid, 'content_similarity': score}
     for mid, score in all_candidates.items()
-  ]
-  candidates = filter_watched(candidates, user_id)
+  ]  #B
+  candidates = filter_watched(candidates, user_id)  #C
 
-  candidates = add_popularity_scores(candidates)
+  candidates = score_popularity(candidates)  #D
 
-
-  for item in candidates:
+  for item in candidates:  #E
     item['final_score'] = (
       content_weight * item['content_similarity'] +
       (1 - content_weight) * item['popularity']
       )
 
-  ranked = sorted(candidates,
- key=lambda x: x['final_score'], reverse=True)
+  ranked = sorted(candidates, key=lambda x: x['final_score'], reverse=True)
 
   return ranked[:k]
 
 # Callout annotations (from the book):
 #   #A Stage 1: Retrieval using content similarity
 #   #B Aggregate from the user's recent watches
-#   #D Stage 2: Filtering watched movies
-#   #C Stage 3: Scoring with popularity
+#   #C Stage 2: Filtering watched movies
+#   #D Stage 3: Scoring with popularity
 #   #E Stage 4: Ranking by weighted combination

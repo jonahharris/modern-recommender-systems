@@ -1,8 +1,8 @@
-# Figure - Listing 6.10: OnTrans Tokenizer
+# Figure - Listing 6.10: OneTrans Tokenizer
 # Source: chapters/ch06.md lines 626-648
 # Chapter: 6
 # Category: needs-package  (executable=False, expected=skip)
-# Verbatim from the book; code lines keep their inline #A/#B callout markers.
+# CORRECTED for the book (see the with-figures branch for the original as-printed).
 class OneTransTokenizer(nn.Module):
     '''
     Converts heterogeneous inputs — sequential item history and

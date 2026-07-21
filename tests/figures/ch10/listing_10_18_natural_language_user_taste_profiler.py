@@ -2,14 +2,14 @@
 # Source: chapters/ch10.md lines 772-793
 # Chapter: 10
 # Category: standalone  (executable=True, expected=pass)
-# Verbatim from the book; code lines keep their inline #A/#B callout markers.
+# CORRECTED for the book (see the with-figures branch for the original as-printed).
 class UserProfiler:
-  def __init__(self, llm, profile_store):
+  def __init__(self, llm, profile_store=None):
     self.llm = llm
-    self.store = profile_store  #A
+    self.store = profile_store if profile_store is not None else {}  #A
 
   def get_profile(self, user_id):
-    return self.store.get(user_id, "No profile yet.")  #B
+    return self.store.get(str(user_id), "No profile yet.")  #B
 
   def update_profile(self, user_id,
                      conversation_summary):
@@ -23,7 +23,7 @@ class UserProfiler:
       user_message=f"Current profile:\n{current}\n\n"
         f"New conversation:\n{conversation_summary}"
     )
-    self.store[user_id] = updated  #E
+    self.store[str(user_id)] = updated  #E
     return updated
 
 # Callout annotations (from the book):

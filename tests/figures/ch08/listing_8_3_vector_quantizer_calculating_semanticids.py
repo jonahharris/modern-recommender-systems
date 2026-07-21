@@ -2,7 +2,7 @@
 # Source: chapters/ch08.md lines 333-373
 # Chapter: 8
 # Category: needs-package  (executable=False, expected=skip)
-# Verbatim from the book; code lines keep their inline #A/#B callout markers.
+# CORRECTED for the book (see the with-figures branch for the original as-printed).
 def forward(self, inputs):
   input_shape = inputs.shape
   flat_input = inputs.view(-1, self.embedding_dim)
@@ -39,8 +39,9 @@ def forward(self, inputs):
     max_entropy = torch.log(torch.tensor(
       self.num_embeddings, dtype=torch.float32,
       device=inputs.device))
-    usage_loss = 1.0 - (entropy / max_entropy)
-    loss = loss + self.usage_loss_weight * usage_loss  #J
+    entropy_ratio = entropy / max_entropy
+    usage_loss_val = 1.0 - entropy_ratio
+    loss = loss + self.usage_loss_weight * usage_loss_val  #J
 
   quantized = inputs + (quantized - inputs).detach()  #K
   return quantized, loss, encoding_indices.squeeze(1)

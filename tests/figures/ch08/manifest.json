@@ -48,7 +48,7 @@
     "category": "needs-package",
     "executable": false,
     "expected": "skip",
-    "notes": "def forward(self, inputs): torch method excerpt (binds but needs torch). Faithful SUBSET of package VectorQuantizerEMA.forward: the book omits the _code_usage_count usage tracking and the random DEBUG print, and renames the local usage_loss_val -> usage_loss. Logic (distances, argmin, STE, entropy usage loss = 1 - entropy/max_entropy) is equivalent. Note: tests/test_semantic_ids.py::test_usage_loss_formula_is_fixed greps the package source for the literal 'usage_loss_val = 1.0 - entropy_ratio', so the book's renamed variable would fail that exact-string test (package passes)."
+    "notes": "CORRECTED. def forward(self, inputs): torch method excerpt (binds but needs torch). Faithful SUBSET of package VectorQuantizerEMA.forward (still omits the _code_usage_count usage tracking and the random DEBUG print, which the chapter trims for clarity). The local variable was aligned to the package: entropy_ratio = entropy / max_entropy; usage_loss_val = 1.0 - entropy_ratio, matching the literal grepped by tests/test_semantic_ids.py::test_usage_loss_formula_is_fixed."
   },
   {
     "number": "8.4",
@@ -58,12 +58,12 @@
       407,
       421
     ],
-    "compiles": false,
+    "compiles": true,
     "provides": [],
     "category": "needs-package",
     "executable": false,
     "expected": "skip",
-    "notes": "Method excerpt printed at class-body indentation (2-space indented 'def _update_codebooks'), so the standalone .py does not parse ('unexpected indent'). NOT a reader-facing syntax bug \u2014 inside the book's class it is correct. Body matches package VectorQuantizerEMA._update_codebooks EXACTLY. Classification: method-excerpt / not-standalone (verbatim indent artifact)."
+    "notes": "CORRECTED. Was printed at class-body indentation (2-space indented 'def _update_codebooks') so the standalone .py failed to parse ('unexpected indent'); dedented to module level (def at column 0, body at 2-space) so it now parses, as the shipped method's body reads. Body matches package VectorQuantizerEMA._update_codebooks EXACTLY. Still needs torch to run."
   },
   {
     "number": "8.5",
@@ -80,7 +80,7 @@
     "category": "needs-package",
     "executable": false,
     "expected": "skip",
-    "notes": "class RQVAE(nn.Module) \u2014 exec raises NameError('nn'). DRIFT: book default codebook_sizes=[16, 32, 128] vs package default [8, 64, 512]. Book forward(self, x) is a documented subset \u2014 the chapter states variance-loss and residual-loss are 'omitted for clarity'; package forward(self, x, return_usage_stats=False, variance_weight=1.0) also has extra params the book drops. Encoder/decoder/ModuleList/_init_encoder match."
+    "notes": "CORRECTED. class RQVAE(nn.Module) \u2014 exec raises NameError('nn'). Default codebook_sizes reconciled to the shipped package: [8, 64, 512] (was [16, 32, 128]); usage_loss_weight=2.0 already matched. Book forward(self, x) remains a documented subset \u2014 the chapter states variance-loss and residual-loss are 'omitted for clarity'; package forward(self, x, return_usage_stats=False, variance_weight=1.0) has extra params the book drops. Encoder/decoder/ModuleList/_init_encoder match."
   },
   {
     "number": "8.6",
@@ -114,7 +114,7 @@
     "category": "needs-package",
     "executable": false,
     "expected": "skip",
-    "notes": "class SemanticIDPipeline: the class body only defs __init__, so exec technically binds, but it is package code (SentenceTransformer/RQVAE/optim used inside __init__) -> needs-package. DRIFT in ALL THREE defaults: book internal_dim=512 vs package 64; book usage_loss_weight=2.0 vs package 10.0; book codebook_sizes=[16, 32, 128] vs package [8, 32, 128]. Package also prints 'Loading BERT...'. Body logic matches."
+    "notes": "CORRECTED. class SemanticIDPipeline: the class body only defs __init__, so exec technically binds, but it is package code (SentenceTransformer/RQVAE/optim used inside __init__) -> needs-package. All three defaults reconciled to the shipped package: internal_dim=64 (was 512), usage_loss_weight=10.0 (was 2.0), codebook_sizes=[8, 32, 128] (was [16, 32, 128]). Body logic matches (book still trims the package's 'Loading BERT...' print)."
   },
   {
     "number": "8.8",
@@ -168,7 +168,7 @@
     "category": "needs-package",
     "executable": false,
     "expected": "skip",
-    "notes": "def train(self, data, epochs=500, batch_size=64): torch method excerpt. DRIFT: book default epochs=500 vs package epochs=100; book omits the package's diversity_weight=0.0 parameter and its diversity loss, mlflow logging, and perplexity/collapse checks. With diversity_weight=0 the package reduces to the book's loss (recon + vq + 0.5*cos), so the book is a documented subset."
+    "notes": "CORRECTED. def train(self, data, epochs=100, batch_size=64): torch method excerpt. Default epochs reconciled to the shipped package: epochs=100 (was 500). Book still omits the package's diversity_weight=0.0 parameter and its diversity loss, mlflow logging, and perplexity/collapse checks; with diversity_weight=0 the package reduces to the book's loss (recon + vq + 0.5*cos), so the book is a documented subset."
   },
   {
     "number": "8.11",
@@ -185,7 +185,7 @@
     "category": "needs-package",
     "executable": false,
     "expected": "skip",
-    "notes": "def inference(self, df, data): torch/pandas method excerpt. DRIFT: book sorts by ['semantic_id','title'] and groups by 'semantic_id' (the raw tuple column); package builds a helper '_semantic_id_str' string column, sorts/groups on that, then drops it. Both produce leaf_id + final_id; behavior is equivalent for tuple keys. Book also omits package diagnostic prints. Signature (self, df, data) matches."
+    "notes": "CORRECTED. def inference(self, df, data): torch/pandas method excerpt. Reconciled to the shipped package: now builds a helper '_semantic_id_str' string column, sorts by ['_semantic_id_str','title'], groups by '_semantic_id_str' for leaf_id, then drops the helper (was sorting/grouping on the raw 'semantic_id' tuple column). Produces leaf_id + final_id. Book still omits package diagnostic prints. Signature (self, df, data) matches."
   },
   {
     "number": "8.12",
@@ -281,11 +281,11 @@
       965,
       973
     ],
-    "compiles": false,
+    "compiles": true,
     "provides": [],
     "category": "needs-package",
     "executable": false,
     "expected": "skip",
-    "notes": "Fragment: only the test_pairs list from package test_semantic_coherence, printed with a leading space so the standalone .py does not parse ('unexpected indent'). Classification: fragment / not-standalone (verbatim indent artifact). The test_pairs match the package's; the package's full test_semantic_coherence has an early-return bug (see FINDINGS) not visible in this listing. Uses bold **Listing** header."
+    "notes": "CORRECTED. Was a fragment (only the test_pairs list from test_semantic_coherence) printed with a leading space so the standalone .py failed to parse ('unexpected indent'); dedented to module level so it now parses. The test_pairs values match the package's. Uses bold **Listing** header."
   }
 ]

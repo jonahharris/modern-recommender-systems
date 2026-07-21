@@ -2,12 +2,12 @@
 # Source: chapters/ch08.md lines 596-614
 # Chapter: 8
 # Category: needs-package  (executable=False, expected=skip)
-# Verbatim from the book; code lines keep their inline #A/#B callout markers.
+# CORRECTED for the book (see the with-figures branch for the original as-printed).
 class SemanticIDPipeline:
   def __init__(self,
-               codebook_sizes=[16, 32, 128],
-               internal_dim=512,  #A
-               usage_loss_weight=2.0):  #B
+               codebook_sizes=[8, 32, 128],
+               internal_dim=64,  #A
+               usage_loss_weight=10.0):  #B
     self.device = torch.device(
       "cuda" if torch.cuda.is_available()
       else "cpu")

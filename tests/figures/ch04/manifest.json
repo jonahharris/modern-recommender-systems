@@ -50,12 +50,12 @@
     "category": "needs-training",
     "executable": false,
     "expected": "skip",
-    "notes": "Should be Listing 4.4 (mislabeled 4.3). Imports `implicit.als` (installed) and defines the recs function fine, but the module-level tail references undefined `test`, `als_model`, `user_item_matrix` -> NameError('test'). Needs a trained ch03 ALS model + real split. Also uses inline column names user_id/item_id that don't match the MovieLens userId/movieId the split listings operate on (the notebook bridges this with user_to_idx/movie_to_idx maps not shown in the printed listing)."
+    "notes": "Correctly Listing 4.3 (the duplicate-4.3 conflict was resolved by renumbering 'Generating recommendations from the ALS model' to 4.4). Two-line pandas down-sampling of `ratings`; kept executable=false because it belongs to the ALS eval pipeline (the notebook samples before building the user-item matrix), not to the fixture path exercised by the harness."
   },
   {
-    "number": "4.3",
+    "number": "4.4",
     "title": "Generating recommendations from the ALS model",
-    "file": "listing_4_3_generating_recommendations_from_the_als_model.py",
+    "file": "listing_4_4_generating_recommendations_from_the_als_model.py",
     "source_lines": [
       223,
       253
@@ -72,7 +72,7 @@
     "category": "needs-training",
     "executable": false,
     "expected": "skip",
-    "notes": "Should be Listing 4.4 (mislabeled 4.3). Imports `implicit.als` (installed) and defines the recs function fine, but the module-level tail references undefined `test`, `als_model`, `user_item_matrix` -> NameError('test'). Needs a trained ch03 ALS model + real split. Also uses inline column names user_id/item_id that don't match the MovieLens userId/movieId the split listings operate on (the notebook bridges this with user_to_idx/movie_to_idx maps not shown in the printed listing)."
+    "notes": "CORRECTED: renumbered from the duplicate 4.3 to Listing 4.4 (prose already refers to it as 4.4). Imports `implicit.als` (installed) and defines the recs function fine, but the module-level tail references undefined `test`, `als_model`, `user_item_matrix` -> NameError('test'). Needs a trained ch03 ALS model + real split, so executable=false (compile-checked only). Column-name drift (user_id/item_id vs MovieLens userId/movieId) is a chapter-wide issue the notebook bridges with user_to_idx/movie_to_idx maps not shown in the printed listing."
   },
   {
     "number": "4.5",
@@ -127,7 +127,7 @@
     "category": "needs-training",
     "executable": false,
     "expected": "skip",
-    "notes": "Def is clean; module-level tail references undefined `train` -> NameError. BOOK-INTERNAL NAME BUG: last line calls `calculate_precision_at_k(pop_recs, ground_truth, ...)` but the relevance frame was named `relevance_set` in Listing 4.5 (`ground_truth` is never defined) \u2014 would also NameError even if `train` existed."
+    "notes": "CORRECTED: the undefined `ground_truth` on the last line is now `relevance_set` (the frame built in Listing 4.5), fixing the book-internal name bug. Still executable=false because the module-level tail references undefined `train` and `test_user_ids` from the ALS eval pipeline (needs the ch03 ALS model + real split); compile-checked only."
   },
   {
     "number": "4.8",
@@ -137,11 +137,11 @@
       509,
       542
     ],
-    "compiles": false,
+    "compiles": true,
     "provides": [],
     "category": "needs-package",
     "executable": false,
     "expected": "skip",
-    "notes": "real-book-syntax-bug: `if rel == 1:` (md line 536) has no indented body, so `relevant_found += 1` sits at the same indent -> IndentationError; the listing does not parse. Beyond the syntax bug the AP loop is dedented out of the `for` (ap only counts the last position) and the else/append lines are mis-indented; annotation letters are duplicated/misaligned (#B,#C,#D repeated). Metric logic also diverges from the shipped package (see FINDINGS): AP divides by np.sum(top_k_rel) (=hits) vs package min(len(relevant),k); and NDCG is computed as ndcg_score([ideal_rel],[top_k_rel]) which mis-orders y_true/y_score and inflates NDCG. Needs sklearn.ndcg_score + the eval-pipeline vars; compile-checked only."
+    "notes": "CORRECTED: fixed the IndentationError (`relevant_found += 1` now indented under `if rel == 1:`), re-nested the AP accumulation inside the `for i, rel` loop, changed the AP denominator to min(len(test_indices), k) to match recsys.evaluation.metrics.average_precision_at_k, and fixed NDCG to ndcg_score([top_k_rel], [descending rank_scores]) so y_true/y_score are ordered correctly (now 0.651, matching the package, vs the printed 0.769). Callout legend deduped and reordered A-I to match code order. Now parses; still executable=false because it needs sklearn.ndcg_score plus the eval-pipeline vars (k_values, top_k_indices, relevance_scores, test_indices, all_metrics); compile-checked only."
   }
 ]

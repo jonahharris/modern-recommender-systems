@@ -2,7 +2,11 @@
 # Source: chapters/ch05.md lines 852-878
 # Chapter: 5
 # Category: api-drift  (executable=False, expected=skip)
-# Verbatim from the book; code lines keep their inline #A/#B callout markers.
+# CORRECTED for the book (see the with-figures branch for the original as-printed).
+from recsys.fourstage_recsys.filtering.history_filtering import HistoryFiltering
+from recsys.fourstage_recsys.ordering.weighted_ranker import WeightedRanker
+from recsys.fourstage_recsys.recsys_context import RecommendationContext
+
 retrieval = ANNRetrieval(
   index=hnsw_index,
   item_embeddings=item_embeddings,
@@ -18,14 +22,14 @@ scorer = CrossEncoderScoring(
 
 recommender = FourStageRecommender(
   retrieval=retrieval,
-  filter=DeduplicationFilter(),
+  filter=HistoryFiltering(ratings),
   scorer=scorer,
-  ranker=ScoreRanker(),
+  ordering=WeightedRanker(weights={"relevance": 1.0}),
 )  #C
 
 recs = recommender.recommend(
   RecommendationContext(
-    seed_movie_id="pulp_fiction",
+    seed_items=["pulp_fiction"],
     user_id="user_42",
     k=10,
   )

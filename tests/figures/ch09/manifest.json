@@ -7,14 +7,14 @@
       36,
       39
     ],
-    "compiles": false,
+    "compiles": true,
     "provides": [
-      "item_scores"
+      "recommend_discriminative"
     ],
     "category": "pseudocode",
     "executable": false,
     "expected": "skip",
-    "notes": "Illustrative snippet with a bare top-level `return top_k_items(...)` -> SyntaxError (return outside function). catalog/model/user/top_k_items undefined by design. Compile-checked only (xfail)."
+    "notes": "CORRECTED: wrapped the illustrative snippet in `def recommend_discriminative(...)` so the `return top_k_items(...)` parses (the printed bare top-level return was a SyntaxError). catalog/model/top_k_items remain undefined by design -> compile-checked only (not executed)."
   },
   {
     "number": "7.2",
@@ -24,15 +24,14 @@
       51,
       53
     ],
-    "compiles": false,
+    "compiles": true,
     "provides": [
-      "prompt",
-      "recommendations"
+      "recommend_generative"
     ],
     "category": "pseudocode",
     "executable": false,
     "expected": "skip",
-    "notes": "Illustrative snippet with a bare top-level `return recommendations` -> SyntaxError. user_history/llm undefined by design. Compile-checked only (xfail)."
+    "notes": "CORRECTED: wrapped the illustrative snippet in `def recommend_generative(...)` so the `return recommendations` parses (the printed bare top-level return was a SyntaxError). user_history/llm remain undefined by design -> compile-checked only (not executed)."
   },
   {
     "number": "7.3",
@@ -83,7 +82,7 @@
     "category": "standalone",
     "executable": true,
     "expected": "pass",
-    "notes": "Defines BaseFormatter. Class body executes cleanly. LATENT BOOK BUG: __init__ calls Counter() but the listing never imports `from collections import Counter`; instantiating BaseFormatter(item_df) raises NameError. Definition (what the harness runs) passes; the ch09 notebook imports Counter separately."
+    "notes": "CORRECTED: added `from collections import Counter` so the listing is self-consistent (__init__ calls Counter(); the printed listing omitted the import, so instantiating BaseFormatter(item_df) raised NameError). Defines BaseFormatter; class body executes cleanly."
   },
   {
     "number": "7.6",
@@ -208,7 +207,7 @@
     "category": "needs-prior",
     "executable": true,
     "expected": "pass",
-    "notes": "class ContextualFormatter(BaseFormatter): needs BaseFormatter from 7.5 (present in the cumulative namespace). Definition executes. LATENT: format() uses `random` (never imported by the listing) and pd, both only at call time."
+    "notes": "CORRECTED: added `import random` so the listing is self-consistent (format() calls random.random(); the printed listing omitted the import). class ContextualFormatter(BaseFormatter) needs BaseFormatter from 7.5 (present in the cumulative namespace); definition executes."
   },
   {
     "number": "7.13",

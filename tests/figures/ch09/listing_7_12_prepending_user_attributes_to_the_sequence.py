@@ -2,7 +2,9 @@
 # Source: chapters/ch09.md lines 384-413
 # Chapter: 9
 # Category: needs-prior  (executable=True, expected=pass)
-# Verbatim from the book; code lines keep their inline #A/#B callout markers.
+# CORRECTED for the book (see the with-figures branch for the original as-printed).
+import random
+
 class ContextualFormatter(BaseFormatter):  #A
   def __init__(self, item_df, dropout_rate=0.1):
     super().__init__(item_df)

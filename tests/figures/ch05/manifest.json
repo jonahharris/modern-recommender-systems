@@ -31,7 +31,7 @@
     "category": "standalone",
     "executable": true,
     "expected": "pass",
-    "notes": "Function definition execs clean (annotations are builtins). Latent runtime deps: references module-level `random` (never imported in the listing) and `movie_to_idx` only when called. Latent BOOK BUG: appends `(movie1, movie_to_idx[movie3])` \u2014 the negative pair mixes a movie ID with an index, inconsistent with the positive pairs which are (movieId, movieId)."
+    "notes": "CORRECTED: negative pair now appends `(movie1, movie3)` (both movie IDs), matching the positive pairs' (movieId, movieId) form; the original printed `(movie1, movie_to_idx[movie3])` mixed a movie ID with an index. Function definition execs clean (annotations are builtins); the only latent runtime dep is module-level `random`, resolved when called."
   },
   {
     "number": "5.3",
@@ -189,10 +189,10 @@
     "provides": [
       "FourStageRecommender"
     ],
-    "category": "api-drift",
+    "category": "needs-package",
     "executable": false,
     "expected": "skip",
-    "notes": "NameError at def (annotations `Filtering`/`Scoring`/`RecommendationContext` undefined). BOOK<->PACKAGE DRIFT vs shipped recsys.fourstage_recsys.pipeline.FourStageRecommender: (1) constructor param `ranker` + call `self.ranker.rank(candidates)` vs package `ordering` + `ordering.order(candidates, context, debug)`; (2) `context.seed_movie_id` vs package `context.seed_items`; (3) `scorer.score(candidates)` (1 arg) vs package `scorer.score(candidates, context)` \u2014 and vs this chapter's own L5.12 `score(candidates, user_id)` (2 args); (4) base class `Scoring` vs package `Scorer`. Note: the book's `filter.filter(candidates, context.user_id)` here actually matches HistoryFiltering.filter's real `user_id` signature \u2014 more correct than the shipped pipeline which passes `context`."
+    "notes": "CORRECTED to mirror the shipped recsys.fourstage_recsys.pipeline.FourStageRecommender: imports the real ABCs (Retrieval/Filtering/Scorer/Ordering) and RecommendationContext; constructor param is `ordering` (not `ranker`); recommend() calls retrieve_similar_items(context.seed_items, k=100), filter.filter(candidates, context), scorer.score(candidates, context), and ordering.order(candidates, context, debug); returns ordered[:context.k]. Imports resolve against the installed recsys package but the listing is a framework definition, so kept compile-checked only."
   },
   {
     "number": "5.11",
@@ -209,7 +209,7 @@
     "category": "needs-package",
     "executable": false,
     "expected": "skip",
-    "notes": "NameError at def (annotations `faiss.Index`/`np.ndarray` undefined in the harness). Chapter-local class; no ANNRetrieval exists in the recsys package. Defines `retrieve_similar_items(seed_movie_id, k)`, matching the book's own L5.10 pipeline (which calls a single seed id) rather than the package Retrieval ABC `retrieve(context)`."
+    "notes": "CORRECTED: chapter-local ANN retrieval stage now consistent with the shipped four-stage contract. `retrieve_similar_items(seed_items: list[str], k=100)` accepts a list of seeds (matching pipeline.recommend's `context.seed_items`) and returns `list[ScoredItem]` (imported from recsys.fourstage_recsys.item_context) with a 'similarity' score, instead of the original `retrieve_similar_items(seed_movie_id)` returning `list[str]`. Needs faiss + prebuilt index/embeddings, so compile-checked only."
   },
   {
     "number": "5.12",
@@ -223,10 +223,10 @@
     "provides": [
       "CrossEncoderScoring"
     ],
-    "category": "api-drift",
+    "category": "needs-package",
     "executable": false,
     "expected": "skip",
-    "notes": "NameError at def: subclasses `Scoring`, which does not exist. BOOK<->PACKAGE DRIFT: the shipped scoring ABC is `recsys.fourstage_recsys.stages.scoring.Scorer` (not `Scoring`), and its method is `score(candidates, context)`; this listing declares `score(candidates, user_id)`. No CrossEncoderScoring class exists in the package."
+    "notes": "CORRECTED: subclasses the real ABC `recsys.fourstage_recsys.stages.scoring.Scorer` (not `Scoring`) and implements `score(candidates: list[ScoredItem], context: RecommendationContext) -> list[ScoredItem]`, reading the user id from `context.user_id`, looking up features by `item.item_id`, and writing the cross-encoder result into `item.scores['relevance']`. Chapter-local illustration; needs torch + a trained cross-encoder, so compile-checked only."
   },
   {
     "number": "5.13",
@@ -240,10 +240,10 @@
     "provides": [
       "TransformerScoring"
     ],
-    "category": "api-drift",
+    "category": "needs-package",
     "executable": false,
     "expected": "skip",
-    "notes": "NameError at def: subclasses `Scoring` (package ABC is `Scorer`). Method `score(candidates, user_id)` drifts from package `score(candidates, context)`. No TransformerScoring class exists in the package."
+    "notes": "CORRECTED: subclasses the real ABC `recsys.fourstage_recsys.stages.scoring.Scorer` and implements `score(candidates: list[ScoredItem], context: RecommendationContext) -> list[ScoredItem]`, reading the user text from `context.user_id`, collecting descriptions by `item.item_id`, and writing batched scores into `item.scores['relevance']`. Chapter-local illustration; needs torch + transformers + a model, so compile-checked only."
   },
   {
     "number": "5.14",
@@ -260,10 +260,10 @@
       "retrieval",
       "scorer"
     ],
-    "category": "api-drift",
+    "category": "needs-package",
     "executable": false,
     "expected": "skip",
-    "notes": "NameError (ANNRetrieval, hnsw_index, DeduplicationFilter, ScoreRanker, RecommendationContext all undefined). BOOK<->PACKAGE DRIFT: `DeduplicationFilter` and `ScoreRanker` do not exist in the package; `RecommendationContext(seed_movie_id=..., user_id=..., k=...)` uses `seed_movie_id`, but the real field is `seed_items: List[str]` (no `seed_movie_id`), and `user_id` is typed `Optional[str]` so `user_id='user_42'` is fine while an int would fail validation. FourStageRecommender is constructed with `ranker=` (package param is `ordering=`)."
+    "notes": "CORRECTED: assembles the pipeline against real, shipped stages. The nonexistent `DeduplicationFilter()`/`ScoreRanker()` are replaced by `HistoryFiltering(ratings)` and `WeightedRanker(weights={'relevance': 1.0})` (imported from recsys.fourstage_recsys.filtering/ordering); FourStageRecommender is built with `ordering=` (not `ranker=`); and RecommendationContext now uses `seed_items=['pulp_fiction']` (a list) instead of the nonexistent `seed_movie_id`, with `user_id='user_42'` (str). Retrieval/scorer are the chapter-local ANNRetrieval/CrossEncoderScoring from L5.11/L5.12; needs a built index + trained model, so compile-checked only."
   },
   {
     "number": "5.15",

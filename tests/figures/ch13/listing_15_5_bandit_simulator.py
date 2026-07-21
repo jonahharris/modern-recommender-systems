@@ -1,8 +1,8 @@
 # Figure - Listing 15.5: Bandit Simulator
 # Source: chapters/ch13.md lines 242-272
 # Chapter: 13
-# Category: needs-prior  (executable=False, expected=skip)
-# Verbatim from the book; code lines keep their inline #A/#B callout markers.
+# Category: needs-prior  (executable=True, expected=pass)
+# CORRECTED for the book (see the with-figures branch for the original as-printed).
 optimal_arm_reward = max(true_reward_probabilities)  #A
 
 cumulative_regrets = {}  #B
@@ -36,14 +36,13 @@ for epsilon in epsilon_values:  #C
     cumulative_regrets[epsilon] = cumulative_regret_list  #J
 
 # Callout annotations (from the book):
-#   #A get the optimal\_reward
+#   #A get the optimal reward
 #   #B Initialize a vector to contain the results
 #   #C run through the values
 #   #D Initialization of variables.
 #   #E Create an instance of the bandit
-#   #F if random number is less than epsilon then explore
-#   #F Let the bandit select an arm
-#   #G Simulate receiving a reward by checking if a random number is less than the expected ctr
+#   #F Run through the trials
+#   #G Let the bandit select an arm, then simulate a reward by checking if a random number is less than the expected ctr
 #   #H Update the immediate regret with the reward obtained
 #   #I Calculate immediate regret
 #   #J save the cumulative regret in the dictionary to compare.

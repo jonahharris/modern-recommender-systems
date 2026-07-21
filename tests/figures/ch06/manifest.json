@@ -46,10 +46,10 @@
       "F",
       "gbce_loss"
     ],
-    "category": "api-drift",
+    "category": "standalone",
     "executable": true,
     "expected": "pass",
-    "notes": "Self-contained: imports torch.nn.functional itself and defines gbce_loss, so exec PASSES. SIGNATURE DRIFT vs package: book prints gbce_loss(pos_scores, neg_scores, num_items, t=0.75) with NO pos_mask and averages (pos_loss+neg_loss).mean()/(n_neg+1) over ALL positions. Package is gbce_loss(pos_scores, neg_scores, pos_mask, num_items, t=0.75) and averages only over pos_mask=True positions. The book is internally inconsistent: its own Listing 6.5 calls gbce_loss(pos_scores, neg_scores, cloze_mask, num_items) (4 positional args = package signature). Feeding the 6.5 call into the 6.3 def raises RuntimeError (bool tensor subtraction), verified."
+    "notes": "CORRECTED. Now matches package gbce_loss(pos_scores, neg_scores, pos_mask, num_items, t=0.75): adds the pos_mask parameter, multiplies per-position loss by pos_mask.float(), and averages over masked target positions only (per_position.sum()/pos_mask.float().sum().clamp(min=1.0)). Resolves the printed 3-arg signature drift and the self-contradiction with Listing 6.5's 4-arg call. Self-contained (imports torch.nn.functional); exec of the def PASSES."
   },
   {
     "number": "6.4",
@@ -80,10 +80,10 @@
     "provides": [
       "mask_sequence"
     ],
-    "category": "needs-training",
+    "category": "needs-package",
     "executable": false,
     "expected": "skip",
-    "notes": "Top-level training-loop fragment (not a def); exec raises NameError('batch') since batch/device/model/gbce_loss/num_items are all undefined here. Its call gbce_loss(pos_scores, neg_scores, cloze_mask, num_items) matches the PACKAGE 4-arg signature (pos_scores,neg_scores,pos_mask,num_items), confirming Listing 6.3's printed 3-arg def is the wrong one. DUPLICATE listing number 6.5 (see mask listing above)."
+    "notes": "CORRECTED (callout placement). Method def mask_sequence matching package BERT4Rec.mask_sequence. The 'force at least one masked position' callout #B now marks BOTH the empty-row detection line and the actual assignment line (cloze_mask[...] = True), matching the package's dual placement; previously only the detection line carried the marker. Defines a bound method referencing self/torch/self.mask_prob; not exercised standalone -> executable=false. Note: shares listing number 6.5 with the training-loop listing (book should renumber one of the pair)."
   },
   {
     "number": "6.5",
@@ -120,7 +120,7 @@
     "category": "standalone",
     "executable": true,
     "expected": "pass",
-    "notes": "Bare method def; exec PASSES. MATCHES package BERT4Rec.recommend except the book omits the `with torch.no_grad():` guard the package wraps the scoring block in (functional but allocates a grad graph). Append-[MASK] logic, max_len trim, and scores[:,0]=-inf all match. Verified package BERT4Rec.recommend runs on toy data."
+    "notes": "CORRECTED. Now wraps the hidden/user_state/scores block in `with torch.no_grad():` (callout #C), matching package BERT4Rec.recommend. Append-[MASK] logic, max_len trim (#A), rightmost-position user state (#B), and scores[:,0]=-inf all match the package. Bare method def; exec of the def PASSES."
   },
   {
     "number": "6.7",
@@ -130,12 +130,12 @@
       493,
       521
     ],
-    "compiles": false,
+    "compiles": true,
     "provides": [],
     "category": "needs-package",
     "executable": false,
     "expected": "skip",
-    "notes": "REAL BOOK SYNTAX BUG: the super().__init__(...) call ends with a stray trailing colon `num_layers, num_heads, dropout):` (ch06.md line 504), so the listing does not parse (SyntaxError at file line 20). Remove the `:`. SASRecWithEvents is an illustrative extension only \u2014 it does NOT exist in the package. Even once the colon is fixed the forward() calls self.transformer(x, mask=..., src_key_padding_mask=...) directly, which reintroduces the all-padding-row NaN the base class's manual layer loop was written to avoid."
+    "notes": "CORRECTED. Removed the stray trailing colon on the super().__init__(...) call (was a SyntaxError; now parses -> compiles=true). forward() no longer calls self.transformer(...) in one shot; it now runs the shared per-layer loop with masked_fill after each layer (callout #C), matching _SequentialBase._encode, so it does not reintroduce the all-padding-row NaN under causal masking. SASRecWithEvents is an illustrative extension that subclasses SASRec and references nn; not in the shared namespace -> executable=false (needs-package)."
   },
   {
     "number": "6.8",
@@ -173,7 +173,7 @@
   },
   {
     "number": "6.10",
-    "title": "OnTrans Tokenizer",
+    "title": "OneTrans Tokenizer",
     "file": "listing_6_10_ontrans_tokenizer.py",
     "source_lines": [
       626,
@@ -186,6 +186,6 @@
     "category": "needs-package",
     "executable": false,
     "expected": "skip",
-    "notes": "class OneTransTokenizer(nn.Module); exec raises NameError('nn'). Illustrative \u2014 NOT in the package. Book listing title reads 'OnTrans Tokenizer' while the class is 'OneTransTokenizer' (dropped 'e') \u2014 minor title typo."
+    "notes": "CORRECTED. Fixed the listing title typo 'OnTrans Tokenizer' -> 'OneTrans Tokenizer' to match the class name OneTransTokenizer and the 'OneTrans' architecture. class OneTransTokenizer(nn.Module); exec raises NameError('nn') in the shared namespace -> executable=false (needs-package). Illustrative \u2014 NOT in the package."
   }
 ]

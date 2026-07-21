@@ -2,7 +2,7 @@
 # Source: chapters/ch04.md lines 334-355
 # Chapter: 4
 # Category: needs-training  (executable=False, expected=skip)
-# Verbatim from the book; code lines keep their inline #A/#B callout markers.
+# CORRECTED for the book (see the with-figures branch for the original as-printed).
 def generate_recommendations_popularity(train_df, user_ids, k=10):
     """
     Generate popularity-based recommendations.
@@ -24,7 +24,7 @@ def generate_recommendations_popularity(train_df, user_ids, k=10):
     return pd.DataFrame(recommendations)
 
 pop_recs = generate_recommendations_popularity(train, test_user_ids, k=10)
-pop_metrics = calculate_precision_at_k(pop_recs, ground_truth, k=10)
+pop_metrics = calculate_precision_at_k(pop_recs, relevance_set, k=10)
 
 # Callout annotations (from the book):
 #   #A Count interactions per item

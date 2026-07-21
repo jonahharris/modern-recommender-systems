@@ -2,14 +2,12 @@
 # Source: chapters/ch13.md lines 146-152
 # Chapter: 13
 # Category: pseudocode  (executable=False, expected=skip)
-# Verbatim from the book; code lines keep their inline #A/#B callout markers.
-if np.random.random() < epsilon:  #A
-
-  return np.random.randint(num_arms)  #B
-
-else:
-
-  return np.argmax(estimated_arm_values)  #C
+# CORRECTED for the book (see the with-figures branch for the original as-printed).
+def select_arm(self, epsilon):
+    if np.random.random() < epsilon:  #A
+        return np.random.randint(num_arms)  #B
+    else:
+        return np.argmax(estimated_arm_values)  #C
 
 # Callout annotations (from the book):
 #   #A if random number is less than epsilon then explore

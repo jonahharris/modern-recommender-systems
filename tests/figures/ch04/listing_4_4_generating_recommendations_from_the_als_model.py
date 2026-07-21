@@ -1,8 +1,8 @@
-# Figure - Listing 4.3: Generating recommendations from the ALS model
+# Figure - Listing 4.4: Generating recommendations from the ALS model
 # Source: chapters/ch04.md lines 223-253
 # Chapter: 4
 # Category: needs-training  (executable=False, expected=skip)
-# Verbatim from the book; code lines keep their inline #A/#B callout markers.
+# CORRECTED for the book (see the with-figures branch for the original as-printed).
 import pandas as pd
 import numpy as np
 from implicit.als import AlternatingLeastSquares

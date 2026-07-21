@@ -2,7 +2,7 @@
 # Source: chapters/ch06.md lines 389-402
 # Chapter: 6
 # Category: needs-training  (executable=False, expected=skip)
-# Verbatim from the book; code lines keep their inline #A/#B callout markers.
+# CORRECTED for the book (see the with-figures branch for the original as-printed).
 def mask_sequence(self, sequences):
     non_pad    = (sequences != 0)
     rand       = torch.rand_like(sequences, dtype=torch.float)
@@ -12,7 +12,7 @@ def mask_sequence(self, sequences):
     empty_rows = cloze_mask.sum(dim=1) == 0  # B
     if empty_rows.any():
         last_real = (non_pad.cumsum(dim=1) * non_pad).argmax(dim=1)
-        cloze_mask[empty_rows, last_real[empty_rows]] = True
+        cloze_mask[empty_rows, last_real[empty_rows]] = True  # B
 
     masked_seqs = sequences.clone()
     masked_seqs[cloze_mask] = self.mask_token  # C

@@ -2,10 +2,10 @@
 # Source: chapters/ch02.md lines 880-888
 # Chapter: 2
 # Category: needs-real-data  (executable=False, expected=skip)
-# Verbatim from the book; code lines keep their inline #A/#B callout markers.
+# CORRECTED for the book (see the with-figures branch for the original as-printed).
 candidates = retrieve_hybrid(seed_movie_id, k=100)  #A
-Candidates = filter_watched(candidates)  #B
-candidates = add_popularity_scores(candidates)  #C
+candidates = filter_watched(candidates, test_user)  #B
+candidates = score_popularity(candidates)  #C
 
 ranked = rank_three_signals(
     candidates,

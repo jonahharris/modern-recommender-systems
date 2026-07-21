@@ -2,7 +2,7 @@
 # Source: chapters/ch05.md lines 75-89
 # Chapter: 5
 # Category: standalone  (executable=True, expected=pass)
-# Verbatim from the book; code lines keep their inline #A/#B callout markers.
+# CORRECTED for the book (see the with-figures branch for the original as-printed).
 def create_negative_pairs(
   positive_pairs: list[tuple],
   all_movie_ids: list,
@@ -15,7 +15,7 @@ def create_negative_pairs(
       movie3 = random.choice(all_movie_ids)  #D
       while movie3 == movie1 or movie3 == movie2:  #E
         movie3 = random.choice(all_movie_ids)  #E
-      neg_pairs.append((movie1, movie_to_idx[movie3]))  #F
+      neg_pairs.append((movie1, movie3))  #F
       labels.append(0.0)  #G
   return neg_pairs, labels
 

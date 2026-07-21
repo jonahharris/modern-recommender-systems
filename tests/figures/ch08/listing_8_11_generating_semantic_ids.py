@@ -2,7 +2,7 @@
 # Source: chapters/ch08.md lines 755-773
 # Chapter: 8
 # Category: needs-package  (executable=False, expected=skip)
-# Verbatim from the book; code lines keep their inline #A/#B callout markers.
+# CORRECTED for the book (see the with-figures branch for the original as-printed).
 def inference(self, df, data):
   self.rqvae.eval()  #A
   if not isinstance(data, torch.Tensor):  #B
@@ -14,10 +14,12 @@ def inference(self, df, data):
   df['semantic_id'] = [
     tuple(c.cpu().numpy().tolist())
     for c in codes]  #E
+  df['_semantic_id_str'] = df['semantic_id'].astype(str)
   df = df.sort_values(
-    by=['semantic_id', 'title'])
+    by=['_semantic_id_str', 'title'])
   df['leaf_id'] = df.groupby(
-    'semantic_id').cumcount()  #F
+    '_semantic_id_str').cumcount()  #F
+  df = df.drop(columns=['_semantic_id_str'])
   df['final_id'] = df.apply(
     lambda x: x['semantic_id']
     + (x['leaf_id'],), axis=1)  #G

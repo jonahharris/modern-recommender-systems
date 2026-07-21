@@ -2,7 +2,7 @@
 # Source: chapters/ch13.md lines 218-228
 # Chapter: 13
 # Category: standalone  (executable=True, expected=pass)
-# Verbatim from the book; code lines keep their inline #A/#B callout markers.
+# CORRECTED for the book (see the with-figures branch for the original as-printed).
 num_trials = 1000  #A
 
 num_arms = 5  #B
@@ -20,3 +20,5 @@ cumulative_regrets = {}  #F
 #   #B Initialize it with 5 arms
 #   #C we will try our different values of epsilon
 #   #D This is the actual probabilities of each of the arms. For example, the first arm will give a reward only 20% of the time it's called.
+#   #E The optimal reward is the best of the true arm probabilities
+#   #F Initialize a dictionary to collect cumulative regret per epsilon

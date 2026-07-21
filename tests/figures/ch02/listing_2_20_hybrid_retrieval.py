@@ -2,10 +2,10 @@
 # Source: chapters/ch02.md lines 818-843
 # Chapter: 2
 # Category: standalone  (executable=True, expected=pass)
-# Verbatim from the book; code lines keep their inline #A/#B callout markers.
+# CORRECTED for the book (see the with-figures branch for the original as-printed).
 def retrieve_hybrid(movie_id, k=100):
-    content_candidates = retrieve_similar_by_content(movie_id, k=k//2)
-    behavioral_candidates = retrieve_similar_items(movie_id, k=k//2)
+    content_candidates = retrieve_similar_by_content(movie_id, k=k//2)  #A
+    behavioral_candidates = retrieve_similar_items(movie_id, k=k//2)  #B
 
     all_candidates = {}
 
@@ -17,7 +17,7 @@ def retrieve_hybrid(movie_id, k=100):
             'behavioral_similarity': 0.0
         }
 
-    for item in behavioral_candidates:
+    for item in behavioral_candidates:  #C
         mid = item['movie_id']
         if mid in all_candidates:
             all_candidates[mid]['behavioral_similarity'] = item['similarity']

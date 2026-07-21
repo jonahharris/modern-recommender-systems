@@ -1,35 +1,28 @@
 # Figure - Listing 15.7: Bayesian bandit
 # Source: chapters/ch13.md lines 364-390
 # Chapter: 13
-# Category: needs-package  (executable=False, expected=skip)
-# Verbatim from the book; code lines keep their inline #A/#B callout markers.
+# Category: standalone  (executable=True, expected=pass)
+# CORRECTED for the book (see the with-figures branch for the original as-printed).
+from scipy.stats import beta
+
+
 class BayesianBandit:  #A
 
-  def __init__(self, num_arms):  #B
+    def __init__(self, num_arms):  #B
+        self.num_arms = num_arms
+        self.alphas = [1] * num_arms  #C
+        self.betas = [1] * num_arms  #C
 
-    self.num_arms = num_arms
+    def select_arm(self):  #D
+        sampled_values = [beta.rvs(self.alphas[i],
+                                   self.betas[i]) for i in range(self.num_arms)]  #E
+        return np.argmax(sampled_values)  #F
 
-    self.alphas = [1] * num_arms  #C
-
-    self.betas = [1] * num_arms  #C
-
-  def select_arm(self):  #D
-
-    sampled_values = [beta.rvs(self.alphas[i],
-
-                             self.betas[i]) for i in range(self.num_arms)]  #E
-
-    return np.argmax(sampled_values)  #F
-
-   def update_estimates(self, chosen_arm, reward):  #G
-
-       if reward == 1:
-
-           self.alphas[chosen_arm] += 1
-
-       elif reward == 0:
-
-           self.betas[chosen_arm] += 1
+    def update_estimates(self, chosen_arm, reward):  #G
+        if reward == 1:
+            self.alphas[chosen_arm] += 1
+        elif reward == 0:
+            self.betas[chosen_arm] += 1
 
 # Callout annotations (from the book):
 #   #A Implements a Bayesian bandit using Thompson Sampling.

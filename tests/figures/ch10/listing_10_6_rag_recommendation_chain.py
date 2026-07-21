@@ -2,11 +2,16 @@
 # Source: chapters/ch10.md lines 300-319
 # Chapter: 10
 # Category: standalone  (executable=True, expected=pass)
-# Verbatim from the book; code lines keep their inline #A/#B callout markers.
+# CORRECTED for the book (see the with-figures branch for the original as-printed).
 def build_recommendation_prompt(query, candidates,
                                 user_profile=None,
                                 conversation_history=None):
-
+  system_prompt = (
+    "You are a movie recommendation assistant. Using ONLY the "
+    "candidate movies provided below, select and rank the best "
+    "matches for the user's request. Explain each choice briefly "
+    "and never recommend a movie that is not in the candidate list."
+  )
   candidates_text = "\n".join(  #A
     f"- {c['title']} ({c.get('year', 'N/A')}) "
     f"[{c.get('genres', '')}]: {c.get('overview', '')}"

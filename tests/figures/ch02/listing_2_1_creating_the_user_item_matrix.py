@@ -2,7 +2,7 @@
 # Source: chapters/ch02.md lines 94-107
 # Chapter: 2
 # Category: needs-fixture  (executable=True, expected=pass)
-# Verbatim from the book; code lines keep their inline #A/#B callout markers.
+# CORRECTED for the book (see the with-figures branch for the original as-printed).
 user_ids = ratings['userId'].unique()
 movie_ids = ratings['movieId'].unique()
 user_to_idx = {uid: idx for idx, uid in enumerate(user_ids)}  #A
@@ -22,4 +22,3 @@ user_item_matrix = csr_matrix(
 #   #A Create mappings from IDs to matrix indices
 #   #B Build lists of row indices, column indices, and values
 #   #C Create sparse matrix (only stores non-zero values)
-#   #D Check matrix properties

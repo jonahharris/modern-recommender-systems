@@ -2,17 +2,17 @@
 # Source: chapters/ch02.md lines 277-291
 # Chapter: 2
 # Category: needs-real-data  (executable=False, expected=skip)
-# Verbatim from the book; code lines keep their inline #A/#B callout markers.
+# CORRECTED for the book (see the with-figures branch for the original as-printed).
 def score_popularity(candidates):
     for item in candidates:
-        item['popularity'] = popularity_scores.get(item['movie_id'], 0.0)
+        item['popularity'] = popularity_scores.get(item['movie_id'], 0.0)  #A
     return candidates
 
 candidates = retrieve_similar_items(seed_movie_id, k=10)
 candidates = filter_watched(candidates, test_user)
 candidates = score_popularity(candidates)
 
-print(f"Candidates with multiple scores:\n")
+print(f"Candidates with multiple scores:\n")  #B
 for item in candidates[:3]:
     title = movies[movies['movieId'] == item['movie_id']]['title'].values[0]
     print(f"{title}")

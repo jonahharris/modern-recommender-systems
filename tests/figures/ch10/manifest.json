@@ -28,10 +28,10 @@
     "provides": [
       "explain_recommendations"
     ],
-    "category": "api-drift",
-    "executable": false,
-    "expected": "skip",
-    "notes": "BOOK<->PACKAGE DRIFT: imports `from recsys.retrieval import ContentRetriever, CollaborativeRetriever` but module `recsys.retrieval` does NOT exist (ModuleNotFoundError) and neither class is implemented anywhere. The book's HybridRetriever(content_retriever, collab_retriever) with .search()/._merge() also diverges from the shipped recsys.agentic.hybrid_retriever.HybridRetriever(faiss_index, embeddings, movies_df, item_knn=None, ...). Duplicate listing number 10.3."
+    "category": "standalone",
+    "executable": true,
+    "expected": "pass",
+    "notes": "Pure function definition; takes an llm object at call time and calls llm.generate(system_prompt=..., user_message=...), which matches the shipped recsys.agentic.llm_client.LLMClient.generate(system_prompt, user_message=None, messages=None) signature. No import drift (this listing imports nothing). Def executes cleanly. Duplicate listing number 10.3 (the other 10.3 is 'Unified retrieval')."
   },
   {
     "number": "10.3",
@@ -43,14 +43,12 @@
     ],
     "compiles": true,
     "provides": [
-      "CollaborativeRetriever",
-      "ContentRetriever",
       "HybridRetriever"
     ],
-    "category": "api-drift",
+    "category": "needs-package",
     "executable": false,
     "expected": "skip",
-    "notes": "BOOK<->PACKAGE DRIFT: imports `from recsys.retrieval import ContentRetriever, CollaborativeRetriever` but module `recsys.retrieval` does NOT exist (ModuleNotFoundError) and neither class is implemented anywhere. The book's HybridRetriever(content_retriever, collab_retriever) with .search()/._merge() also diverges from the shipped recsys.agentic.hybrid_retriever.HybridRetriever(faiss_index, embeddings, movies_df, item_knn=None, ...). Duplicate listing number 10.3."
+    "notes": "CORRECTED: rewritten to match the shipped recsys.agentic.hybrid_retriever.HybridRetriever(faiss_index, embeddings, movies_df, item_knn=None, encoder_name='all-MiniLM-L6-v2') with search(query, user_id=None, k=10, filters=None) and _reciprocal_rank_fusion(rrf_k=60). Removed the phantom `from recsys.retrieval import ContentRetriever, CollaborativeRetriever` (that module/classes never existed). Compile-checked only: module-level `from sentence_transformers import SentenceTransformer` plus a FAISS index/embeddings are needed to run. Duplicate listing number 10.3 (the other 10.3 is 'Wrapping existing recommendations')."
   },
   {
     "number": "10.4",
@@ -101,7 +99,7 @@
     "category": "standalone",
     "executable": true,
     "expected": "pass",
-    "notes": "Def executes fine, but has a latent BOOK BUG: it `return system_prompt, user_message` where `system_prompt` is never a parameter nor a local. The chapter shows the system prompt only as prose above the listing ('### System Prompt for RAG recommendation chain'), never assigned. Calling the function raises NameError: name 'system_prompt' is not defined (verified)."
+    "notes": "CORRECTED: `system_prompt` is now assigned inside the function (the RAG system-prompt prose the chapter previously showed only above the listing), so `return system_prompt, user_message` no longer raises NameError. Def executes fine; takes candidates/user_profile/conversation_history at call time."
   },
   {
     "number": "10.7",
@@ -118,7 +116,7 @@
     "category": "standalone",
     "executable": true,
     "expected": "pass",
-    "notes": "Def executes fine. Latent drift: calls `retriever.hybrid_search(...)`, but the shipped HybridRetriever exposes `search(query, user_id=None, k=10, filters=None)` (no `hybrid_search`) \u2014 AttributeError at call time against the real class. Also depends on the buggy L10.6 build_recommendation_prompt."
+    "notes": "CORRECTED: now calls `retriever.search(query, user_id=..., k=15)` to match the shipped HybridRetriever.search(query, user_id=None, k=10, filters=None) (was `hybrid_search`, which does not exist). Def executes fine; pairs with the corrected L10.6 build_recommendation_prompt."
   },
   {
     "number": "10.8",
@@ -216,14 +214,12 @@
     ],
     "compiles": true,
     "provides": [
-      "GenerativeRetrieverTool",
-      "SemanticDecoder",
-      "generate_recommendations"
+      "GenerativeRetrieverTool"
     ],
-    "category": "api-drift",
-    "executable": false,
-    "expected": "skip",
-    "notes": "BOOK<->PACKAGE DRIFT: imports `from recsys.generative import generate_recommendations, SemanticDecoder` but module `recsys.generative` does NOT exist (ModuleNotFoundError). The Chapter 7/9 generative model is never packaged under recsys. No shipped equivalent; the closest agent-facing retriever is recsys.agentic.hybrid_retriever.HybridRetriever (content/collaborative, not generative). Compile-checked only."
+    "category": "standalone",
+    "executable": true,
+    "expected": "pass",
+    "notes": "CORRECTED: removed the phantom `from recsys.generative import generate_recommendations, SemanticDecoder` (that module never existed under recsys; the Chapter 7/9 generative model lives in the chapter notebooks). The generative model, tokenizer, decoder, formatter, and generation function are now injected via __init__ (documented-placeholder pattern), so the class is self-contained and its def executes cleanly. Real recommendations still require the Chapter 7/9 components at call time."
   },
   {
     "number": "10.16",
@@ -272,6 +268,6 @@
     "category": "standalone",
     "executable": true,
     "expected": "pass",
-    "notes": "Self-contained class definition. Def executes fine. Minor drift vs shipped recsys.agentic.memory.UserProfiler: book __init__(self, llm, profile_store) is required + keys the dict by raw user_id; package __init__(self, llm, profile_store=None) defaults to {} and coerces keys with str(user_id) (get_profile/update_profile), plus adds save()/load(). Verified with a fake LLM."
+    "notes": "CORRECTED: aligned with shipped recsys.agentic.memory.UserProfiler — __init__(self, llm, profile_store=None) now defaults the store to {}, and get_profile/update_profile coerce keys with str(user_id). Self-contained class definition; def executes fine. (The package additionally provides save()/load().)"
   }
 ]

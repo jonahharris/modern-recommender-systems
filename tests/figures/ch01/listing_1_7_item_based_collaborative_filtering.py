@@ -2,10 +2,10 @@
 # Source: chapters/ch01.md lines 322-330
 # Chapter: 1
 # Category: standalone  (executable=True, expected=pass)
-# Verbatim from the book; code lines keep their inline #A/#B callout markers.
+# CORRECTED for the book (see the with-figures branch for the original as-printed).
 def find_similar_items(matrix: np.array, item_id: int, top_n: int = 3):
 
-    item_sim = np.dot(matrix.T[item_id], matrix.T)  #A
+    item_sim = np.dot(matrix.T[item_id], matrix)  #A
 
     item_sim[item_id] = 0  #B
 

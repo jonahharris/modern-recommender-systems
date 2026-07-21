@@ -7,12 +7,12 @@
       78,
       81
     ],
-    "compiles": false,
+    "compiles": true,
     "provides": [],
     "category": "pseudocode",
     "executable": false,
     "expected": "skip",
-    "notes": "Illustrative 4-line fragment, not a standalone program. NON-PARSING: 'return' outside function (line 11) -> SyntaxError. Also references `random` (never imported; harness ns does not provide it) and undefined control()/variant(). Meant to sit inside a routing function."
+    "notes": "CORRECTED: wrapped the loose if/else routing fragment in `def route_request()` and added `import random` so it parses. Still illustrative pseudocode: control()/variant() are undefined by design, so it is compile-checked only, not executed."
   },
   {
     "number": "15.2",
@@ -22,27 +22,29 @@
       146,
       152
     ],
-    "compiles": false,
+    "compiles": true,
     "provides": [],
     "category": "pseudocode",
     "executable": false,
     "expected": "skip",
-    "notes": "Illustrative fragment (the body of select_arm shown alone). NON-PARSING: 'return' outside function (line 12) -> SyntaxError. Also references undefined epsilon / num_arms / estimated_arm_values. np is available in the harness ns but that is moot since it does not parse."
+    "notes": "CORRECTED: the bare select-body fragment (which raised 'return outside function') is now shown inside `def select_arm(self, epsilon)` with consistent indentation, so it parses. Illustrative: num_arms / estimated_arm_values are undefined by design (the full class is L15.3), so compile-checked only."
   },
   {
     "number": "15.3",
     "title": "Epsilon-greedy bandit class",
     "file": "listing_15_3_epsilon_greedy_bandit_class.py",
     "source_lines": [
-      null,
-      null
+      164,
+      194
     ],
     "compiles": true,
-    "provides": [],
-    "category": "output",
-    "executable": false,
-    "expected": "skip",
-    "notes": "FIGURE IS EMPTY. The EpsilonGreedyBandit class (ch13.md lines 164-194) was printed as un-fenced, escaped plain text (`class EpsilonGreedyBandit:`, `\\_\\_init\\_\\_`, `\\=`, `\\[0.0\\]`) instead of a backticked code block, so the extractor captured no code. The empty file trivially compiles and is a no-op. This is the root cause of L15.5 failing (EpsilonGreedyBandit undefined). Classification: output-not-code (extraction artifact of un-fenced source), NOT a syntax bug in the book."
+    "provides": [
+      "EpsilonGreedyBandit"
+    ],
+    "category": "standalone",
+    "executable": true,
+    "expected": "pass",
+    "notes": "RECONSTRUCTED: the original figure was EMPTY because the class was typeset as un-fenced escaped text and captured nothing. Rebuilt the full EpsilonGreedyBandit class (init / select_arm / update_estimates) as a proper fenced listing. Uses only np (available in the harness ns), so it defines cleanly and provides EpsilonGreedyBandit for L15.5."
   },
   {
     "number": "15.4",
@@ -64,7 +66,7 @@
     "category": "standalone",
     "executable": true,
     "expected": "pass",
-    "notes": "Pure literal assignments plus max(); no imports or fixtures needed. Runs to completion. Provides the simulation parameters consumed by L15.5."
+    "notes": "CORRECTED callouts: added the missing legend entries for #E and #F (marker-no-explanation). Pure literal assignments plus max(); runs to completion and provides the simulation parameters consumed by L15.5."
   },
   {
     "number": "15.5",
@@ -80,9 +82,9 @@
       "optimal_arm_reward"
     ],
     "category": "needs-prior",
-    "executable": false,
-    "expected": "skip",
-    "notes": "Parses fine and uses np (available) + params from L15.4, but instantiates EpsilonGreedyBandit, whose class listing (L15.3) was printed un-fenced and lost in extraction. Running it raises NameError: name 'EpsilonGreedyBandit' is not defined. Marked non-executable because the required prior class is unavailable in the harness (an extraction artifact, not a book bug). Would run if L15.3's class were present."
+    "executable": true,
+    "expected": "pass",
+    "notes": "CORRECTED callouts: removed the duplicate #F legend entry (a leftover from the epsilon-greedy listing) and consolidated the wording (duplicate-callout). The listing itself was already correct; it now runs end-to-end because L15.3 (EpsilonGreedyBandit) is reconstructed and L15.4 provides the params, all present in the cumulative namespace before this listing runs."
   },
   {
     "number": "15.6",
@@ -92,12 +94,12 @@
       330,
       336
     ],
-    "compiles": false,
+    "compiles": true,
     "provides": [],
     "category": "pseudocode",
     "executable": false,
     "expected": "skip",
-    "notes": "Illustrative cold-start fragment. NON-PARSING: 'return' outside function (line 12) -> SyntaxError. Also references undefined epsilon, select_a_cold_start_item(), recsys_model. Meant to sit inside a select function."
+    "notes": "CORRECTED: wrapped the loose cold-start if/else fragment in `def select_recommendation(epsilon)` so it parses (was 'return outside function'). Illustrative: select_a_cold_start_item() / recsys_model are placeholders undefined by design, so compile-checked only."
   },
   {
     "number": "15.7",
@@ -107,12 +109,14 @@
       364,
       390
     ],
-    "compiles": false,
-    "provides": [],
-    "category": "needs-package",
-    "executable": false,
-    "expected": "skip",
-    "notes": "NON-PARSING real-book-syntax-bug: the `def update_estimates` method is over-indented by one space (3 spaces) versus the 2-space `__init__` / `select_arm` methods -> IndentationError 'unindent does not match any outer indentation level' (line 32 of the figure). SECONDARY: `beta.rvs` needs `from scipy.stats import beta`, never imported and not provided by the harness ns (needs-package). Fix = dedent update_estimates to 2 spaces AND add the scipy import; verified the corrected class defines and runs."
+    "compiles": true,
+    "provides": [
+      "BayesianBandit"
+    ],
+    "category": "standalone",
+    "executable": true,
+    "expected": "pass",
+    "notes": "CORRECTED: dedented `update_estimates` (was over-indented by one space -> IndentationError) and normalised the class to 4-space method bodies; added `from scipy.stats import beta` which `beta.rvs` needs. scipy is installed in the venv, so the class defines cleanly and provides BayesianBandit."
   },
   {
     "number": "15.8",
@@ -122,12 +126,12 @@
       456,
       470
     ],
-    "compiles": false,
+    "compiles": true,
     "provides": [],
     "category": "pseudocode",
     "executable": false,
     "expected": "skip",
-    "notes": "Illustrative abstract base (arm.calc_value / context are undefined by design). NON-PARSING real-book-syntax-bug: `For arm in ...` uses a capital-F `For` (invalid syntax, line 21) and the loop/method bodies are tab-indented while the surrounding code uses spaces. Also a spelling bug: `context.availble_arms` (should be `available_arms`). Fix = `For`->`for`, tabs->spaces, fix spelling; verified the corrected class defines."
+    "notes": "CORRECTED: `For`->`for`, converted tab-indented bodies to spaces, and fixed the spelling `availble_arms`->`available_arms`, so it parses. Also fixed callouts: removed the duplicate #D legend entry and gave the `np.argmax` line its own #E entry (duplicate-callout). Illustrative abstract base: arm.calc_value / context are undefined by design, so compile-checked only."
   },
   {
     "number": "15.9",
@@ -137,12 +141,14 @@
       509,
       547
     ],
-    "compiles": false,
-    "provides": [],
+    "compiles": true,
+    "provides": [
+      "UCBAlgorithm"
+    ],
     "category": "standalone",
-    "executable": false,
-    "expected": "skip",
-    "notes": "NON-PARSING real-book-syntax-bug (multiple). First reported error: line 52 ends the statement with a dangling binary operator `... ) /` followed by a blank line and a continuation `Self.n_values[...]` -- a line cannot end with `/` outside brackets, so implicit continuation does not apply -> SyntaxError 'invalid syntax'. Additional bugs that still bite after fixing the `/`: (a) `Self.n_values` capital-S typo (should be `self`); (b) `return arm` is dedented to 2 spaces, placing it at class-body level after select_arm instead of inside it -> 'return outside function' AND select_arm would return None. Fix = join the two lines into one `... ) / self.n_values[chosen_arm]`, lowercase `self`, and indent `return arm` to 4 spaces inside select_arm. Verified the corrected UCBAlgorithm runs a 20-step simulation. Only np is needed (available), so it is standalone once the syntax is fixed."
+    "executable": true,
+    "expected": "pass",
+    "notes": "CORRECTED: joined the dangling `/` operator into one line (`... ) / self.n_values[chosen_arm]`), fixed the `Self`->`self` typo, and indented `return arm` to 4 spaces inside select_arm (was at class-body level -> 'return outside function' and select_arm returned None). Also fixed callouts: added the missing #F legend and corrected #A wording (it was mislabeled as a Thompson-sampling bandit). Uses only np, defines and runs; provides UCBAlgorithm."
   },
   {
     "number": "15.10",
@@ -152,12 +158,14 @@
       635,
       665
     ],
-    "compiles": false,
-    "provides": [],
+    "compiles": true,
+    "provides": [
+      "linucb_disjoint_arm"
+    ],
     "category": "standalone",
-    "executable": false,
-    "expected": "skip",
-    "notes": "NON-PARSING real-book-syntax-bug: inconsistent indentation. `def __init__` is at 3 spaces while `def calc_UCB` / `def reward_update` are at 2 spaces -> IndentationError (line 30 of figure). Inside calc_UCB the lines are further mangled (`x = ...` at 7 spaces, `p = ...` at 14 spaces, `return p` at 7 spaces). Fix = normalise every method to 2-space class body and 4-space method body. Verified the corrected linucb_disjoint_arm.calc_UCB returns the expected (1,1) UCB value. Only np needed (available), so standalone once fixed."
+    "executable": true,
+    "expected": "pass",
+    "notes": "CORRECTED: normalised the mangled indentation (every method to a 2-space class body / 4-space method body; `__init__` was at 3 spaces vs calc_UCB/reward_update at 2, and inside calc_UCB `x`/`p`/`return` were at 7/14/7 spaces). Also added the missing #K legend entry (marker-no-explanation). Uses only np; defines and runs; provides linucb_disjoint_arm for L15.11."
   },
   {
     "number": "15.11",
@@ -167,11 +175,13 @@
       693,
       727
     ],
-    "compiles": false,
-    "provides": [],
+    "compiles": true,
+    "provides": [
+      "linucb_policy"
+    ],
     "category": "needs-prior",
-    "executable": false,
-    "expected": "skip",
-    "notes": "NON-PARSING real-book-syntax-bug: `def __init__` is at 4 spaces but `def select_arm` is at 2 spaces -> IndentationError (line 30 of figure). Depends on linucb_disjoint_arm (L15.10). ALGORITHMIC bugs verified after fixing indentation: (1) the tie-breaker `if arm_ucb == highest_ucb` is nested INSIDE the `if arm_ucb > highest_ucb` block right after `highest_ucb = arm_ucb`, so it is always true and merely duplicates the current arm; genuine ties on other arms are never collected (3 tied arms -> candidate_arms=[0,0] instead of [0,1,2]) -- it should be an `elif` at the same level as the `>` test. (2) every arm is built with the hardcoded `arm_index = 1` (loop var `i` is ignored; should be `arm_index=i`). Fix = normalise indentation, change the nested `if` to a sibling `elif`, and use `arm_index=i`."
+    "executable": true,
+    "expected": "pass",
+    "notes": "CORRECTED: normalised indentation (`__init__` at 4 spaces vs `select_arm` at 2 -> IndentationError). Also fixed two algorithmic bugs: the tie-breaker `if arm_ucb == highest_ucb` (nested inside the `>` block, so it only duplicated the current arm) is now a sibling `elif`, and each arm is built with `arm_index=i` instead of the hardcoded `arm_index=1`. Depends on linucb_disjoint_arm (L15.10); the listing defines the class (no instantiation at module level) so it runs after L15.10 is present."
   }
 ]

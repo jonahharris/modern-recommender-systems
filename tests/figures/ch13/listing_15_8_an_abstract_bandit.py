@@ -2,29 +2,23 @@
 # Source: chapters/ch13.md lines 456-470
 # Chapter: 13
 # Category: pseudocode  (executable=False, expected=skip)
-# Verbatim from the book; code lines keep their inline #A/#B callout markers.
+# CORRECTED for the book (see the with-figures branch for the original as-printed).
 class Bandit:  #A
 
-  def select_arm(self, context):  #B
+    def select_arm(self, context):  #B
+        arm_values = []
+        for arm in context.available_arms:  #C
+            arm_values.append(arm.calc_value(context))  #D
+        return np.argmax(arm_values)  #E
 
-    arm_values = []
-
-    For arm in context.availble_arms:  #C
-
-	arm_values.append(arm.calc_value(context))  #D
-
-    return np.argmax(arm_values)  #E
-
-   def update_estimates(self, context, chosen_arm, reward):  #F
-
-	chosen_arm.update(context, reward)  #G
+    def update_estimates(self, context, chosen_arm, reward):  #F
+        chosen_arm.update(context, reward)  #G
 
 # Callout annotations (from the book):
 #   #A General pattern for bandits
-#   #B All bandits haves a select\_arm method, which takes a context
+#   #B All bandits have a select_arm method, which takes a context
 #   #C Iterate over the arms, note that the context dictates which arms are available
 #   #D Calculate the arm value, might be based on a context
-#   #D Select the arm with highest value
-#   #E All bandits also have an update method, where they learn from the feedback.
-#   #F Update will usually just be delegated to the chosen\_arm
-#   #G calling update on the chosen arm
+#   #E Select the arm with highest value
+#   #F All bandits also have an update method, where they learn from the feedback
+#   #G Update is usually just delegated to the chosen_arm by calling update on it

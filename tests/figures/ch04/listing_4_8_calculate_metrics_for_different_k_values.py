@@ -2,14 +2,14 @@
 # Source: chapters/ch04.md lines 509-542
 # Chapter: 4
 # Category: needs-package  (executable=False, expected=skip)
-# Verbatim from the book; code lines keep their inline #A/#B callout markers.
+# CORRECTED for the book (see the with-figures branch for the original as-printed).
 for k in k_values:  #A
   if k <= len(top_k_indices):  #B
     top_k_rel = relevance_scores[:k]  #C
 
     if np.sum(top_k_rel) > 0:  #D
-      ideal_rel = np.sort(top_k_rel)[::-1]  #E
-      ndcg_k = ndcg_score([ideal_rel], [top_k_rel])
+      rank_scores = np.arange(len(top_k_rel), 0, -1)  #E
+      ndcg_k = ndcg_score([top_k_rel], [rank_scores])
       all_metrics[k]['ndcg'].append(ndcg_k)
 
     precision_k = np.sum(top_k_rel) / k  #F
@@ -31,22 +31,20 @@ for k in k_values:  #A
       relevant_found = 0
       for i, rel in enumerate(top_k_rel):
         if rel == 1:
-        relevant_found += 1
-    ap += relevant_found / (i + 1)
-    ap /= np.sum(top_k_rel)
-     all_metrics[k]['map'].append(ap)
-   else:
-     all_metrics[k]['map'].append(0.0)
+          relevant_found += 1
+          ap += relevant_found / (i + 1)
+      ap /= min(len(test_indices), k)
+      all_metrics[k]['map'].append(ap)
+    else:
+      all_metrics[k]['map'].append(0.0)
 
 # Callout annotations (from the book):
-#   #A for each k, calculate the metrics
-#   #B but only if you have enough elements
-#   #C Only look at the k elements
-#   #B Create ideal ranking (all relevant items first)
-#   #C Precision@K
-#   #D NDCG@K Only calculate if there are relevant items
-#   #E Create ideal ranking (all relevant items first)
+#   #A For each k, calculate the metrics
+#   #B Only if there are enough recommended items
+#   #C Look at only the top k items
+#   #D NDCG@K (only calculate if there are relevant items)
+#   #E Descending position scores define the ranking order
 #   #F Precision@K
 #   #G Recall@K
-#   #H Mean Reciprocal Rank(MRR)
-#   #I Mean Average Precision(MAP)
+#   #H Mean Reciprocal Rank (MRR)
+#   #I Mean Average Precision (MAP)
