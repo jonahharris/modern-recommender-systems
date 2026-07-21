@@ -26,7 +26,3 @@ class RelativeAttention(nn.Module):
         rel_dist  = positions.unsqueeze(2) - positions.unsqueeze(1)          # B
         rel_score = torch.bmm(queries, self.rel_emb(rel_dist + 200).transpose(1, 2)) / self.scale
         return F.softmax(content_score + rel_score, dim=-1)
-
-# Callout annotations (from the book):
-#   #A  One embedding per relative distance bucket, positive and negative.
-#   #B  rel\_dist\[i, j\] \= position\_i \- position\_j; the model learns what  near-vs-far means from data rather than from a hand-coded positional scheme.

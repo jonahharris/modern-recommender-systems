@@ -1,5 +1,5 @@
 # Figure - Listing 8.4: Vector Quantizer (training \- Update codebook)
-# Source: chapters/ch08.md lines 407-427
+# Source: chapters/ch08.md lines 407-421
 # Chapter: 8
 # Category: needs-package  (executable=False, expected=skip)
 # Verbatim from the book; code lines keep their inline #A/#B callout markers.
@@ -19,8 +19,9 @@
     embed_normalized = self.embed_avg / cluster_size.unsqueeze(1)
     self.embedding.data.copy_(embed_normalized)  #E
 
-#A Updates the codebook using Exponential Moving Average (EMA).
-#B Update the "Usage Count".
-#C Update the "Average Position".
-#D Normalize the vectors.
-#E Assign new weights for the Codebook.
+# Callout annotations (from the book):
+#   #A Updates the codebook using Exponential Moving Average (EMA).
+#   #B Update the "Usage Count".
+#   #C Update the "Average Position".
+#   #D Normalize the vectors.
+#   #E Assign new weights for the Codebook.

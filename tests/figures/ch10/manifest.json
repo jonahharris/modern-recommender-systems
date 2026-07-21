@@ -22,7 +22,7 @@
     "file": "listing_10_3_wrapping_existing_recommendations_with_llm_explanations.py",
     "source_lines": [
       140,
-      157
+      155
     ],
     "compiles": true,
     "provides": [

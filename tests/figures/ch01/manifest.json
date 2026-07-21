@@ -22,7 +22,7 @@
     "file": "listing_1_2_a_uniform_recommender.py",
     "source_lines": [
       146,
-      156
+      151
     ],
     "compiles": true,
     "provides": [
@@ -56,7 +56,7 @@
     "file": "listing_1_4_calculating_similarity_between_comics.py",
     "source_lines": [
       199,
-      208
+      204
     ],
     "compiles": true,
     "provides": [

@@ -22,7 +22,7 @@ class Bandit:  #A
 # Callout annotations (from the book):
 #   #A General pattern for bandits
 #   #B All bandits haves a select\_arm method, which takes a context
-#   #C  Iterate over the arms, note that the context dictates which arms are available
+#   #C Iterate over the arms, note that the context dictates which arms are available
 #   #D Calculate the arm value, might be based on a context
 #   #D Select the arm with highest value
 #   #E All bandits also have an update method, where they learn from the feedback.

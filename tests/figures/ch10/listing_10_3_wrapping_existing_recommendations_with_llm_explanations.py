@@ -1,5 +1,5 @@
 # Figure - Listing 10.3: Wrapping existing recommendations with LLM explanations
-# Source: chapters/ch10.md lines 140-157
+# Source: chapters/ch10.md lines 140-155
 # Chapter: 10
 # Category: api-drift  (executable=False, expected=skip)
 # Verbatim from the book; code lines keep their inline #A/#B callout markers.
@@ -19,5 +19,7 @@ def explain_recommendations(llm, user_profile,
     user_message=f"User profile: {user_profile}\n\n"
       f"Recommendations:\n{items_text}"
   )  #B
-#A Add explanations to an existing ranked list.
-#B Call the LLM with a prompt containing recs and user profile.
+
+# Callout annotations (from the book):
+#   #A Add explanations to an existing ranked list.
+#   #B Call the LLM with a prompt containing recs and user profile.

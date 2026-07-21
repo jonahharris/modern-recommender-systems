@@ -56,7 +56,7 @@
     "file": "listing_8_4_vector_quantizer_training_update_codebook.py",
     "source_lines": [
       407,
-      427
+      421
     ],
     "compiles": false,
     "provides": [],
@@ -243,7 +243,7 @@
     "file": "listing_8_15_evaluate_reconstruction_quality.py",
     "source_lines": [
       872,
-      896
+      891
     ],
     "compiles": true,
     "provides": [
@@ -260,7 +260,7 @@
     "file": "listing_8_16_evaluate_clustering_quality.py",
     "source_lines": [
       916,
-      940
+      934
     ],
     "compiles": true,
     "provides": [
@@ -279,7 +279,7 @@
     "file": "listing_8_17_semantic_coherence_tests.py",
     "source_lines": [
       965,
-      976
+      973
     ],
     "compiles": false,
     "provides": [],

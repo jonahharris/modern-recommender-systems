@@ -1,5 +1,5 @@
 # Figure - Listing 8.17: Semantic coherence tests
-# Source: chapters/ch08.md lines 965-976
+# Source: chapters/ch08.md lines 965-973
 # Chapter: 8
 # Category: needs-package  (executable=False, expected=skip)
 # Verbatim from the book; code lines keep their inline #A/#B callout markers.
@@ -13,5 +13,6 @@
   ("Inception", "The Lion King", "low"),  #B
 ]
 
-#A Should be similar (shared genre)
-#B Should be dissimilar (different genres)
+# Callout annotations (from the book):
+#   #A Should be similar (shared genre)
+#   #B Should be dissimilar (different genres)

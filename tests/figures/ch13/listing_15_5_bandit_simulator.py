@@ -39,11 +39,11 @@ for epsilon in epsilon_values:  #C
 #   #A get the optimal\_reward
 #   #B Initialize a vector to contain the results
 #   #C run through the values
-#   #D  Initialization of variables.
+#   #D Initialization of variables.
 #   #E Create an instance of the bandit
-#   #F  if random number is less than epsilon then explore
+#   #F if random number is less than epsilon then explore
 #   #F Let the bandit select an arm
-#   #G  Simulate receiving a reward by checking if a random number is less than the expected ctr
+#   #G Simulate receiving a reward by checking if a random number is less than the expected ctr
 #   #H Update the immediate regret with the reward obtained
-#   #I  Calculate immediate regret
+#   #I Calculate immediate regret
 #   #J save the cumulative regret in the dictionary to compare.

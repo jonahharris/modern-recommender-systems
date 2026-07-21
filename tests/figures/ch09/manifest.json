@@ -5,7 +5,7 @@
     "file": "listing_7_1_discriminative_scoring_iterate_and_rank.py",
     "source_lines": [
       36,
-      43
+      39
     ],
     "compiles": false,
     "provides": [
@@ -22,7 +22,7 @@
     "file": "listing_7_2_generative_recommendation_prompt_and_generate.py",
     "source_lines": [
       51,
-      56
+      53
     ],
     "compiles": false,
     "provides": [
@@ -40,7 +40,7 @@
     "file": "listing_7_3_hybrid_recommendation_retrieve_then_rerank.py",
     "source_lines": [
       108,
-      113
+      111
     ],
     "compiles": true,
     "provides": [
@@ -57,7 +57,7 @@
     "file": "listing_7_4_converting_an_item_s_semantic_id_to_prefixed_tokens.py",
     "source_lines": [
       153,
-      165
+      162
     ],
     "compiles": true,
     "provides": [
@@ -74,7 +74,7 @@
     "file": "listing_7_5_converting_user_histories_to_semantic_id_sequences.py",
     "source_lines": [
       173,
-      201
+      196
     ],
     "compiles": true,
     "provides": [

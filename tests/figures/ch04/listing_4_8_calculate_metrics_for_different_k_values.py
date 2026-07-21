@@ -37,3 +37,16 @@ for k in k_values:  #A
      all_metrics[k]['map'].append(ap)
    else:
      all_metrics[k]['map'].append(0.0)
+
+# Callout annotations (from the book):
+#   #A for each k, calculate the metrics
+#   #B but only if you have enough elements
+#   #C Only look at the k elements
+#   #B Create ideal ranking (all relevant items first)
+#   #C Precision@K
+#   #D NDCG@K Only calculate if there are relevant items
+#   #E Create ideal ranking (all relevant items first)
+#   #F Precision@K
+#   #G Recall@K
+#   #H Mean Reciprocal Rank(MRR)
+#   #I Mean Average Precision(MAP)

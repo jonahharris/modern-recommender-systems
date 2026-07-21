@@ -1,5 +1,5 @@
 # Figure - Listing 7.5: Converting user histories to semantic ID sequences
-# Source: chapters/ch09.md lines 173-201
+# Source: chapters/ch09.md lines 173-196
 # Chapter: 9
 # Category: standalone  (executable=True, expected=pass)
 # Verbatim from the book; code lines keep their inline #A/#B callout markers.
@@ -27,8 +27,10 @@ class BaseFormatter:
       else:
         self.tokens_missing.update([t])  #E
     return " ".join(tokens)
-#A UUID → semantic ID tuple lookup
-#B Convert one item UUID to four tokens
-#C Format an entire user history
-#D Iterate over interaction history
-#E Track unmapped items for debugging
+
+# Callout annotations (from the book):
+#   #A UUID → semantic ID tuple lookup
+#   #B Convert one item UUID to four tokens
+#   #C Format an entire user history
+#   #D Iterate over interaction history
+#   #E Track unmapped items for debugging

@@ -1,5 +1,5 @@
 # Figure - Listing 7.4: Converting an item's semantic ID to prefixed tokens
-# Source: chapters/ch09.md lines 153-165
+# Source: chapters/ch09.md lines 153-162
 # Chapter: 9
 # Category: standalone  (executable=True, expected=pass)
 # Verbatim from the book; code lines keep their inline #A/#B callout markers.
@@ -13,6 +13,8 @@ def get_item_tokens(self, item_uuid):
     f"L3_{s[2]}",
     f"LF_{s[3]}"  #C
   ]
-#A Return empty if item has no semantic ID
-#B Level prefix (L1, L2, L3)
-#C Leaf node prefix
+
+# Callout annotations (from the book):
+#   #A Return empty if item has no semantic ID
+#   #B Level prefix (L1, L2, L3)
+#   #C Leaf node prefix

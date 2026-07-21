@@ -1,5 +1,5 @@
 # Figure - Listing 8.15: Evaluate reconstruction quality
-# Source: chapters/ch08.md lines 872-896
+# Source: chapters/ch08.md lines 872-891
 # Chapter: 8
 # Category: needs-package  (executable=False, expected=skip)
 # Verbatim from the book; code lines keep their inline #A/#B callout markers.
@@ -24,7 +24,8 @@ def evaluate_reconstruction(pipeline,
     'correlation': correlation.item()
   }
 
-#A Forward pass to get reconstructed embeddings
-#B MSE against original BERT embeddings
-#C Cosine similarity (directional agreement)
-#D Correlation across all dimensions
+# Callout annotations (from the book):
+#   #A Forward pass to get reconstructed embeddings
+#   #B MSE against original BERT embeddings
+#   #C Cosine similarity (directional agreement)
+#   #D Correlation across all dimensions

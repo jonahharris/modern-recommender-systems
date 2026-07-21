@@ -1,5 +1,5 @@
 # Figure - Listing 8.16: Evaluate clustering quality
-# Source: chapters/ch08.md lines 916-940
+# Source: chapters/ch08.md lines 916-934
 # Chapter: 8
 # Category: standalone  (executable=True, expected=pass)
 # Verbatim from the book; code lines keep their inline #A/#B callout markers.
@@ -23,8 +23,9 @@ def evaluate_clustering(df, embeddings):
     'calinski_harabasz': calinski
   }
 
-#A Extract top-level codes
-#B Silhouette: -1 (bad) to 1 (perfect)
-#C Between-cluster vs. within-cluster variance
-#D Combine first and second level
-#E Silhouette at finer granularity
+# Callout annotations (from the book):
+#   #A Extract top-level codes
+#   #B Silhouette: -1 (bad) to 1 (perfect)
+#   #C Between-cluster vs. within-cluster variance
+#   #D Combine first and second level
+#   #E Silhouette at finer granularity
